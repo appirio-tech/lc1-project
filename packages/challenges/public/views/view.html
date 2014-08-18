@@ -1,0 +1,28 @@
+<section data-ng-controller="ChallengesController" data-ng-init="findOne()">
+
+  <h2>{{challenge.title}}</h2>
+  <div>
+    <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
+      <i class="glyphicon glyphicon-edit"></i>
+    </a>
+    <a class="btn" data-ng-click="remove(challenge);">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
+  </div>
+
+  <span>Start Date: {{challenge.startDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{challenge.endDate | date:'shortDate'}}</span> <br>
+  <span>Tags: {{challenge.tagList}}</span>
+  <br><br>
+
+  <dl>
+    <dt>Overview</dt>
+    <dd><span ng-bind-html="renderHtml(challenge.overview)"></span></dd>
+    <dt>Description</dt>
+    <dd>{{challenge.description}}</dd>
+    <dt>Functional Requirements</dt>
+    <dd><div class="well">{{challenge.functionalRequirements}}</div></dd>
+    <dt>Technical Requirements</dt>
+    <dd><div class="well">{{challenge.technicalRequirements}}</div></dd>
+  </dl>
+
+</section>

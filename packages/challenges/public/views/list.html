@@ -1,0 +1,28 @@
+<section data-ng-controller="ChallengesController" data-ng-init="find()">
+  <ul class="challenges list-unstyled">
+    <li data-ng-repeat="challenge in challenges">
+
+      <h2>
+        <a data-ng-href="#!/challenges/{{challenge.id}}">{{challenge.title}}</a>
+          <span>
+            <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="remove(challenge);">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </span>
+      </h2>
+
+      <div>
+        <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
+      </div>
+
+      <div data-ng-bind-html="renderHtml(challenge.overview)"></div>
+
+    </li>
+  </ul>
+
+  <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
+   Why don't you <a href="/#!/challenges/create">Create One</a>?</h1>
+</section>

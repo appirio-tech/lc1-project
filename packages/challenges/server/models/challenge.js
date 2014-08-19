@@ -22,7 +22,7 @@ sequelize.define('Challenge', {
 		}
 	},
 	technicalRequirements: {
-		type: Sequelize.JSONB, 	// JSONB
+		type: Sequelize.JSON, 	// JSONB
 		set: function(value) {
 			return this.setDataValue('technicalRequirements', JSON.stringify(value));
 		},
@@ -33,7 +33,8 @@ sequelize.define('Challenge', {
 	},
 	tags: Sequelize.ARRAY(Sequelize.TEXT)	// Array of Text
 
-});
+},
+{tableName: 'challenges'});
 
 // sync with database
 sequelize
@@ -45,10 +46,3 @@ sequelize
 			console.log('Database is synced!');
 		}
 	});
-
-
-
-
-
-
-

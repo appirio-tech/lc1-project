@@ -46,7 +46,7 @@ The configuration for local deploy is in the `config/env/development.js`. Please
 The default MongoDB URL:
 
 	db: 'mongodb://localhost/mean-dev',
-	
+
 Please create `mean_test` database through PgAdmin tool.
 
 The PostgreSQL database URL:
@@ -67,14 +67,14 @@ Please make sure PostgreSQL is running. It can be started by by `pg_ctl` or Mac 
 Start MongoDB:
 
 	$ mongod
-	
+
 This is a command from the MongoDB installed in Mac by [HomeBrew](http://brew.sh). In windows, follow [Install MongoDB on Windows](http://docs.mongodb.org/manual/tutorial/install-mongodb-on-windows/).
 
-Unzip the project zip file:
+Unzip the project zip file:  *[kbowerma] this step is not necessary since this code base is the core repo*
 
     $ unzip mean-postgresql.zip
     $ cd mean-postgresql
-	
+
 Install modules:
 
     $ npm install
@@ -94,7 +94,7 @@ After sign in, click `Challenges` or `Create New Challenge` link on the top navi
 
 
 ## REST API Test
-	
+
 The API can be tested easily with Chrome plugin [Postman](https://chrome.google.com/webstore/detail/postman-rest-client/fdmmgilgnpjigdojojpjoooidkmcomcm?hl=en). The `portman.json` for testing the app REST API is included in the submission. Please import `postman.json` to the Chrome plugin Postman.
 
 When testing API, please change values or ids based for your objects.
@@ -109,9 +109,13 @@ When API has an error, it returns the following JSON object.
 ## Heroku Deploy
 
 Before you start make sure you have the [Heroku toolbelt](<https://toolbelt.heroku.com/")
-installed. Create a MongoDB instance from [mongolab](https://mongolab.com) or use one of heroku MongoDB addons, then configure MongoDB database URL/user/password to the `config/env/production.js`.
+installed. Create a MongoDB instance from [mongolab](https://mongolab.com)  or use one of heroku MongoDB addons (with `heroku addons:add mongolab`), then configure MongoDB database URL/user/password to the `config/env/production.js`.
+If you use the heroku addon for mongolab you will be able to navigate to mongolab from the heroku app view and will see that mongo created a user for you, but you wont be able to see the password.   In order to see the app password you can type `heroku config`
+from the console which will display the full monglab uri.
 
 Note that the PostgreSQL is configured from DATABASE_URL, no need to configure it.
+If you need to connect to the Heroku PostgreSQL database you can do it from your console.  ` heroku pg:psql` assuming you have psql installed.
+
 
 	$ rm -rf .git
 	$ git init

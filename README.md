@@ -1,5 +1,5 @@
 
-# This is the core repo for project SERENITY: a [topcoder] re-write on the MEAN stack.  
+# This is the core repo for project SERENITY: a topcoder re-write on the MEAN stack.  
 
 Currently this project is built on the [MEAN.io framework](http://mean.io/)
 but we have added support for PostgreSQL.  The readme for MEAN.io can be found in the doc directory as well as the results of our first challenge

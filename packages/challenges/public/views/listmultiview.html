@@ -44,7 +44,7 @@
     <div class="list-group cols-xs-3 col-md-3" >
       <a class="list-group-item" ng-repeat="challenge in challenges" ng-class="{active: challenge.selected}" ng-click="selectItem(challenge)">
         <h4>{{challenge.title}}<h4/>
-      <span ng-bind-html="renderHtml(challenge.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}}</span>
+      <span ng-bind-html="renderHtml(challenge.summary)"></span>  <span ng-show="debug">DEBUG: {{selected.id}}</span>
         <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
       </a>
     </div>
@@ -63,7 +63,6 @@
       </div>
 
       <span>Start Date: {{selected.startDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.endDate | date:'shortDate'}}</span> <br>
-      <span>Tags: {{selected.tagList}}</span>
       <br><br>
 
       <dl>
@@ -72,9 +71,6 @@
         <dt>Description</dt>
         <dd>{{selected.description}}</dd>
         <dt>Functional Requirements</dt>
-        <dd><div class="well">{{selected.functionalRequirements}}</div></dd>
-        <dt>Technical Requirements</dt>
-        <dd><div class="well">{{selected.technicalRequirements}}</div></dd>
       </dl>
 
       <span ng-show="debug"><b>DEBUG: selected=<br/></b> {{selected}}</span>

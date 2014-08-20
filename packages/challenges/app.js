@@ -27,7 +27,7 @@ Challenges.register(function (app, auth, database) {
     menu: 'main'
   });
   Challenges.menus.add({
-    title: '(Challenges multiview)',
+    title: 'Challenges multiview',
     link: 'all challenges multi',
     roles: ['authenticated'],
     menu: 'main'

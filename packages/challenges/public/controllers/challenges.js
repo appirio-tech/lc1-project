@@ -82,12 +82,8 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
 
    $scope.selectItem = function(item) {
      $scope.selected = item;
-     $scope.challenge.selected=true;
+     $scope.challenge.selected = true;
    };
-
-
-
-
 
   }
 ]);

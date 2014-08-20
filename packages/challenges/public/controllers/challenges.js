@@ -145,5 +145,15 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
     $scope.renderHtml = function(html) {
       return $sce.trustAsHtml(html);
     };
+
+   $scope.selectItem = function(item) {
+     $scope.selected = item;
+     $scope.challenge.selected=true;
+   };
+
+
+
+
+
   }
 ]);

@@ -27,12 +27,18 @@ Challenges.register(function(app, auth, database) {
         menu: 'main'
     });
     Challenges.menus.add({
+        title: '(Challenges multiview)',
+        link: 'all challenges multi',
+        roles: ['authenticated'],
+        menu: 'main'
+    });
+    Challenges.menus.add({
         title: 'Create New Challenge',
         link: 'create challenge',
         roles: ['authenticated'],
         menu: 'main'
     });
-    
+
     /**
     //Uncomment to use. Requires meanio@0.3.7 or above
     // Save settings with callback

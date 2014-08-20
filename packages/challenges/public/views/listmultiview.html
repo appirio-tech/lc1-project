@@ -1,0 +1,87 @@
+<style>
+  .challenge-card {
+    padding: 8px 8px 0;
+    background: #eee;
+    border-radius: 5px;
+  }
+      body, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Noto Sans', 'PT Sans', 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+</style>
+
+
+
+<section data-ng-controller="ChallengesController" data-ng-init="find()">
+ <!-- this is the standard articles page I commented out to use my multip pane -->
+  <!-- <ul class="challenges list-unstyled">
+    <li data-ng-repeat="challenge in challenges">
+
+      <h2>
+        <a data-ng-href="#!/challenges/{{challenge.id}}">{{challenge.title}}</a>
+          <span>
+            <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
+              <i class="glyphicon glyphicon-edit"></i>
+            </a>
+            <a class="btn" data-ng-click="remove(challenge);">
+              <i class="glyphicon glyphicon-trash"></i>
+            </a>
+          </span>
+      </h2>
+
+      <div>
+        <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
+      </div>
+
+      <div data-ng-bind-html="renderHtml(challenge.overview)"></div>
+
+    </li>
+  </ul> -->
+
+  <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
+   Why don't you <a href="/#!/challenges/create">Create One</a>?</h1>
+
+  <div class="row padded">
+    <div class="list-group cols-xs-3 col-md-3" >
+      <a class="list-group-item" ng-repeat="challenge in challenges" ng-class="{active: challenge.selected}" ng-click="selectItem(challenge)">
+        <h4>{{challenge.title}}<h4/>
+      <span ng-bind-html="renderHtml(challenge.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}}</span>
+        <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
+      </a>
+    </div>
+
+    <div ng-show="selected" class="col-xs-9 col-md-9 challenge-card">
+
+      <h2>{{selected.title}}</h2>
+      <div>
+        <a class="btn" href="/#!/challenges/{{selected.id}}/edit">
+          <i class="glyphicon glyphicon-edit"></i>
+        </a>
+        <a class="btn" data-ng-click="remove(selected);">
+          <i class="glyphicon glyphicon-trash"></i>
+        </a>
+        <a class="btn" data-ng-click="debug = !debug"><i class="glyphicon glyphicon-wrench"></i></a>
+      </div>
+
+      <span>Start Date: {{selected.startDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.endDate | date:'shortDate'}}</span> <br>
+      <span>Tags: {{selected.tagList}}</span>
+      <br><br>
+
+      <dl>
+        <dt>Overview</dt>
+        <dd><span ng-bind-html="renderHtml(selected.overview)"></span></dd>
+        <dt>Description</dt>
+        <dd>{{selected.description}}</dd>
+        <dt>Functional Requirements</dt>
+        <dd><div class="well">{{selected.functionalRequirements}}</div></dd>
+        <dt>Technical Requirements</dt>
+        <dd><div class="well">{{selected.technicalRequirements}}</div></dd>
+      </dl>
+
+      <span ng-show="debug"><b>DEBUG: selected=<br/></b> {{selected}}</span>
+    </div>
+  </div>
+
+
+<!-- <button class="glyphicon glyphicon-wrench" ng-click="debug = !debug" style="position: absolute; bottom: 10px;"></button> -->
+
+</section>

@@ -25,10 +25,10 @@ sequelize.define('Challenge', {
 		type: Sequelize.JSON, 	// JSONB
 		set: function(value) {
 			return this.setDataValue('technicalRequirements', JSON.stringify(value));
-		},
+		//},
 		// JSONB type return string, so it requires JSON.parse.
-		get: function() {
-			return JSON.parse(this.getDataValue('technicalRequirements'));
+		//get: function() {
+		//	return JSON.parse(this.getDataValue('technicalRequirements'));
 		}
 	},
 	tags: Sequelize.ARRAY(Sequelize.TEXT)	// Array of Text

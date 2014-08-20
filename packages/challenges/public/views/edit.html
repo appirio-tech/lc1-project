@@ -13,7 +13,7 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.startDate.$invalid }">
       <label mean-token="'edit-startDate'" for="startDate" class="col-md-2 control-label">Start Date</label>
       <div class="col-md-10">
-        <input name="startDate" type="text" class="form-control" data-ng-model="challenge.startDate" id="startDate" placeholder="Start Date" required>
+        <input name="startDate" type="text" class="form-control" data-ng-model="challenge.startDate" id="startDate" placeholder="Start Date">
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.endDate.$invalid }">
@@ -23,19 +23,12 @@
       </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.tagList.$invalid }">
-      <label mean-token="'edit-tagList'" for="tagList" class="col-md-2 control-label">Tags</label>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.summary.$invalid }">
+      <label mean-token="'edit-summary'" for="summary" class="col-md-2 control-label">Overview(Rich Text)</label>
       <div class="col-md-10">
-        <input name="tagList" type="text" class="form-control" data-ng-model="challenge.tagList" id="tagList" placeholder="Tags">
-      </div>
-    </div>
-
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.overview.$invalid }">
-      <label mean-token="'edit-overview'" for="overview" class="col-md-2 control-label">Overview(Rich Text)</label>
-      <div class="col-md-10">
-        <textarea name="overview" data-ng-model="challenge.overview" id="overview" cols="30" rows="2" placeholder="Overview" class="form-control" required></textarea>
-        <div ng-show="submitted && challengeForm.overview.$invalid" class="help-block">
-          <p ng-show="challengeForm.overview.$error.required">Overview is required</p>
+        <textarea name="overview" data-ng-model="challenge.summary" id="summary" cols="30" rows="2" placeholder="Summary" class="form-control" required></textarea>
+        <div ng-show="submitted && challengeForm.summary.$invalid" class="help-block">
+          <p ng-show="challengeForm.summary.$error.required">Summary is required</p>
         </div>
       </div>
     </div>
@@ -44,26 +37,6 @@
       <label mean-token="'edit-description'" for="description" class="col-md-2 control-label">Description</label>
       <div class="col-md-10">
         <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Overview" class="form-control"></textarea>
-      </div>
-    </div>
-
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.functionals.$invalid }">
-      <label mean-token="'edit-functionals'" for="functionals" class="col-md-2 control-label">Functional Requirements(JSON)</label>
-      <div class="col-md-10">
-        <textarea name="functionals" data-ng-model="challenge.functionals" id="functionals" cols="30" rows="3" placeholder="Functional Requirements" class="form-control"></textarea>
-        <div ng-show="submitted && challengeForm.functionals.$invalid" class="help-block">
-          <p>Error on JSON parsing functional requirements</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.technicals.$invalid }">
-      <label mean-token="'edit-technicals'" for="technicals" class="col-md-2 control-label">Technical Requirements(JSON)</label>
-      <div class="col-md-10">
-        <textarea name="technicals" data-ng-model="challenge.technicals" id="technicals" cols="30" rows="3" placeholder="Technical Requirements" class="form-control"></textarea>
-        <div ng-show="submitted && challengeForm.technicals.$invalid" class="help-block">
-          <p>Error on JSON parsing technical requirements</p>
-        </div>
       </div>
     </div>
 

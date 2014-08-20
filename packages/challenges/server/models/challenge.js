@@ -1,48 +1,22 @@
-/**
- * Copyright (c) 2014 TopCoder, Inc. All rights reserved.
- */
 'use strict';
 
-
-var postgresql = require('postgresql-sequelize');
-var Sequelize = postgresql.Sequelize;
-var sequelize = postgresql.sequelize;
-
-
-sequelize.define('Challenge', {
-	startDate: Sequelize.DATE,
-	endDate: Sequelize.DATE,
-	title: {type: Sequelize.TEXT, allowNull: false, unique: true},
-	overview: Sequelize.TEXT,	// rich text
-	description: Sequelize.STRING(140),
-	functionalRequirements: {
-		type: Sequelize.JSON, 	// JSON
-		set: function(value) {
-			return this.setDataValue('functionalRequirements', JSON.stringify(value));
-		}
-	},
-	technicalRequirements: {
-		type: Sequelize.JSON, 	// JSONB
-		set: function(value) {
-			return this.setDataValue('technicalRequirements', JSON.stringify(value));
-		//},
-		// JSONB type return string, so it requires JSON.parse.
-		//get: function() {
-		//	return JSON.parse(this.getDataValue('technicalRequirements'));
-		}
-	},
-	tags: Sequelize.ARRAY(Sequelize.TEXT)	// Array of Text
-
-},
-{tableName: 'challenges'});
-
-// sync with database
-sequelize
-	.sync({force: false})
-	.complete(function(err) {
-		if (!!err) {
-			console.log('An error occurred while syncing database:', err);
-		} else {
-			console.log('Database is synced!');
-		}
-	});
+/**
+ * Challenge Model
+ *
+ * title
+ * twitter
+ * public_desc
+ * private_desc
+ * start_date
+ * end_date
+ */
+module.exports = function(sequelize, DataTypes) {
+  return sequelize.define('challenge', {
+    title: DataTypes.TEXT,
+    summary: DataTypes.TEXT,
+    description: DataTypes.STRING(140),
+    protectedDesc: DataTypes.TEXT,
+    startDate: DataTypes.DATE,
+    endDate: DataTypes.DATE
+  });
+};

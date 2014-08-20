@@ -101,6 +101,9 @@ module.exports = function(grunt) {
     env: {
       test: {
         NODE_ENV: 'test'
+      },
+      local: {
+        NODE_ENV: 'local'
       }
     },
     karma: {
@@ -119,6 +122,8 @@ module.exports = function(grunt) {
   } else {
     grunt.registerTask('default', ['clean', 'jshint', 'csslint', 'concurrent']);
   }
+
+  grunt.registerTask('local', ['env:local', 'clean', 'jshint', 'csslint', 'concurrent']);
 
   //Test task.
   grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);

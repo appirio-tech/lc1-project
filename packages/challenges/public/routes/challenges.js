@@ -32,9 +32,10 @@ angular.module('mean.challenges').config(['$stateProvider',
       .state('all challenges', {
         url: '/challenges',
         templateUrl: 'challenges/views/list.html',
-        resolve: {
-          loggedin: checkLoggedin
-        }
+      })
+      .state('all challenges multi', {
+        url: '/challenges-multi',
+        templateUrl: 'challenges/views/listmultiview.html',
       })
       .state('all challenges multi', {
           url: '/challenges_multi',
@@ -44,8 +45,8 @@ angular.module('mean.challenges').config(['$stateProvider',
           }
       })
       .state('create challenge', {
-        url: '/challenges/create',
-        templateUrl: 'challenges/views/create.html',
+        url: '/challenges/new',
+        templateUrl: 'challenges/views/edit.html',
         resolve: {
           loggedin: checkLoggedin
         }

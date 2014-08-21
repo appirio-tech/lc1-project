@@ -14,11 +14,7 @@
           </span>
       </h2>
 
-      <div>
-        <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
-      </div>
-
-      <div data-ng-bind-html="renderHtml(challenge.overview)"></div>
+      <div data-ng-bind-html="renderHtml(challenge.summary)"></div>
 
     </li>
   </ul>

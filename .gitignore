@@ -53,6 +53,7 @@ test/coverage/
 modules/public/
 modules/views/
 /public/build/
+
 # --------------------
 # Local Config Files
 # --------------------

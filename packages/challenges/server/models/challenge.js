@@ -9,30 +9,15 @@ var Sequelize = postgresql.Sequelize;
 var sequelize = postgresql.sequelize;
 
 
-sequelize.define('Challenge', {
-	startDate: Sequelize.DATE,
-	endDate: Sequelize.DATE,
-	title: {type: Sequelize.TEXT, allowNull: false, unique: true},
-	overview: Sequelize.TEXT,	// rich text
-	description: Sequelize.STRING(140),
-	functionalRequirements: {
-		type: Sequelize.JSON, 	// JSON
-		set: function(value) {
-			return this.setDataValue('functionalRequirements', JSON.stringify(value));
-		}
-	},
-	technicalRequirements: {
-		type: Sequelize.JSON, 	// JSONB
-		set: function(value) {
-			return this.setDataValue('technicalRequirements', JSON.stringify(value));
-		//},
-		// JSONB type return string, so it requires JSON.parse.  This is commented out since 9.3 does not support JSONB
-		//get: function() {
-		//	return JSON.parse(this.getDataValue('technicalRequirements'));
-		}
-	},
-	tags: Sequelize.ARRAY(Sequelize.TEXT)	// Array of Text
-
+sequelize.define('challenge', {
+  regStartDate: Sequelize.DATE,
+  subEndDate: Sequelize.DATE,
+  title: Sequelize.STRING(128),
+  type: Sequelize.STRING(32),
+  overview: Sequelize.STRING(140),
+  description: Sequelize.TEXT,
+  registeredDescription: Sequelize.TEXT,
+  tags: Sequelize.ARRAY(Sequelize.TEXT)
 },
 {tableName: 'challenges'});
 

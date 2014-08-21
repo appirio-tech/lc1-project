@@ -1,25 +1,31 @@
-<section data-ng-controller="ChallengesController" data-ng-init="findOne()">
+<section data-ng-controller="ChallengesController" data-ng-init="checkNew()">
   <form name="challengeForm" class="form-horizontal col-md-6" role="form" data-ng-submit="update(challengeForm.$valid)" novalidate>
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.title.$invalid }">
       <label mean-token="'edit-title'" for="title" class="col-md-2 control-label">Title</label>
       <div class="col-md-10">
-        <input name="title" type="text" class="form-control" data-ng-model="challenge.title" id="title" placeholder="Title" required>
+        <input name="title" type="text" class="form-control" data-ng-model="challenge.title" id="title" placeholder="Title">
         <div ng-show="submitted && challengeForm.title.$invalid" class="help-block">
           <p ng-show="challengeForm.title.$error.required">Title is required</p>
         </div>
       </div>
     </div>
-
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.startDate.$invalid }">
-      <label mean-token="'edit-startDate'" for="startDate" class="col-md-2 control-label">Start Date</label>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.type.$invalid }">
+      <label mean-token="'edit-type'" for="type" class="col-md-2 control-label">Challenge Type</label>
       <div class="col-md-10">
-        <input name="startDate" type="text" class="form-control" data-ng-model="challenge.startDate" id="startDate" placeholder="Start Date" required>
+        <input name="type" type="text" class="form-control" data-ng-model="challenge.type" id="type" placeholder="Architecture">
       </div>
     </div>
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.endDate.$invalid }">
-      <label mean-token="'edit-endDate'" for="endDate" class="col-md-2 control-label">End Date</label>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.regStartDate.$invalid }">
+      <label mean-token="'edit-regStartDate'" for="regStartDate" class="col-md-2 control-label">Registration Open Date</label>
       <div class="col-md-10">
-        <input name="endDate" type="text" class="form-control" data-ng-model="challenge.endDate" id="endDate" placeholder="End Date">
+        <input name="regStartDate" type="text" class="form-control" data-ng-model="challenge.regStartDate" id="regStartDate" placeholder="Registration Open Date">
+      </div>
+    </div>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.subEndDate.$invalid }">
+      <label mean-token="'edit-subEndDate'" for="subEndDate" class="col-md-2 control-label">Submission End Date</label>
+      <div class="col-md-10">
+        <input name="subEndDate" type="text" class="form-control" data-ng-model="challenge.subEndDate" id="subEndDate" placeholder="Submission End Date">
       </div>
     </div>
 
@@ -31,12 +37,9 @@
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.overview.$invalid }">
-      <label mean-token="'edit-overview'" for="overview" class="col-md-2 control-label">Overview(Rich Text)</label>
+      <label mean-token="'edit-overview'" for="overview" class="col-md-2 control-label">Overview</label>
       <div class="col-md-10">
-        <textarea name="overview" data-ng-model="challenge.overview" id="overview" cols="30" rows="2" placeholder="Overview" class="form-control" required></textarea>
-        <div ng-show="submitted && challengeForm.overview.$invalid" class="help-block">
-          <p ng-show="challengeForm.overview.$error.required">Overview is required</p>
-        </div>
+        <textarea name="overview" data-ng-model="challenge.overview" id="overview" cols="30" rows="2" placeholder="Overview (140 character limit)" class="form-control"></textarea>
       </div>
     </div>
 
@@ -47,29 +50,17 @@
       </div>
     </div>
 
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.functionals.$invalid }">
-      <label mean-token="'edit-functionals'" for="functionals" class="col-md-2 control-label">Functional Requirements(JSON)</label>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.registeredDescription.$invalid }">
+      <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-md-2 control-label">Description for Challenge Registrants</label>
       <div class="col-md-10">
-        <textarea name="functionals" data-ng-model="challenge.functionals" id="functionals" cols="30" rows="3" placeholder="Functional Requirements" class="form-control"></textarea>
-        <div ng-show="submitted && challengeForm.functionals.$invalid" class="help-block">
-          <p>Error on JSON parsing functional requirements</p>
-        </div>
-      </div>
-    </div>
-
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.technicals.$invalid }">
-      <label mean-token="'edit-technicals'" for="technicals" class="col-md-2 control-label">Technical Requirements(JSON)</label>
-      <div class="col-md-10">
-        <textarea name="technicals" data-ng-model="challenge.technicals" id="technicals" cols="30" rows="3" placeholder="Technical Requirements" class="form-control"></textarea>
-        <div ng-show="submitted && challengeForm.technicals.$invalid" class="help-block">
-          <p>Error on JSON parsing technical requirements</p>
-        </div>
+        <textarea name="registeredDescription" data-ng-model="challenge.registeredDescription" id="registeredDescription" cols="30" rows="3" class="form-control"></textarea>
       </div>
     </div>
 
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
-        <button mean-token="'edit-submit'" type="submit" class="btn btn-default">Submit</button>
+        <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
+        <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelChallenge()">Cancel</button>
       </div>
     </div>
   </form>

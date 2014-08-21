@@ -10,15 +10,17 @@
     </a>
   </div>
 
-  <span>Start Date: {{challenge.startDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{challenge.endDate | date:'shortDate'}}</span> <br>
+  <span>Start Date: {{challenge.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{challenge.subEndDate | date:'shortDate'}}</span> <br>
   <span>Tags: {{challenge.tagList}}</span>
   <br><br>
 
   <dl>
     <dt>Overview</dt>
-    <dd><span ng-bind-html="renderHtml(challenge.summary)"></span></dd>
+    <dd><span ng-bind-html="renderHtml(challenge.overview)"></span></dd>
     <dt>Description</dt>
     <dd>{{challenge.description}}</dd>
+    <dt>Description for Registered Members</dt>
+    <dd>{{challenge.registeredDescription}}</dd>
   </dl>
 
 </section>

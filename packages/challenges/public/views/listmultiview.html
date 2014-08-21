@@ -38,13 +38,14 @@
   </ul> -->
 
   <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
-   Why don't you <a href="/#!/challenges/create">Create One</a>?</h1>
+   Why don't you <a href="/#!/challenges/new">Create One</a>?</h1>
 
   <div class="row padded">
     <div class="list-group cols-xs-3 col-md-3" >
       <a class="list-group-item" ng-repeat="challenge in challenges" ng-class="{active: challenge.selected}" ng-click="selectItem(challenge)">
-        <h4>{{challenge.title}}<h4/>
-      <span ng-bind-html="renderHtml(challenge.summary)"></span>  <span ng-show="debug">DEBUG: {{selected.id}}</span>
+        <h4>{{challenge.title}}</h4>
+        <span ng-bind-html="renderHtml(challenge.summary)"></span>
+        <span ng-show="debug">DEBUG: {{selected.id}}</span>
         <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
       </a>
     </div>
@@ -62,7 +63,7 @@
         <a class="btn" data-ng-click="debug = !debug"><i class="glyphicon glyphicon-wrench"></i></a>
       </div>
 
-      <span>Start Date: {{selected.startDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.endDate | date:'shortDate'}}</span> <br>
+      <span>Start Date: {{selected.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.subEndDate | date:'shortDate'}}</span> <br>
       <br><br>
 
       <dl>
@@ -70,7 +71,8 @@
         <dd><span ng-bind-html="renderHtml(selected.overview)"></span></dd>
         <dt>Description</dt>
         <dd>{{selected.description}}</dd>
-        <dt>Functional Requirements</dt>
+        <dt>Description for Registrants</dt>
+        <dd>{{selected.registeredDescription}}</dd>
       </dl>
 
       <span ng-show="debug"><b>DEBUG: selected=<br/></b> {{selected}}</span>

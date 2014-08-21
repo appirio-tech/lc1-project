@@ -35,6 +35,15 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
           type: this.type
         });
 
+        if (this.tagList) {
+          challenge.tags = [];
+          var tags = this.tagList.split(',');
+          for (var i = 0; i < tags.length; i += 1) {
+            challenge.tags.push(tags[i].trim());
+          }
+        }
+        
+
         challenge.$save(function(response) {
           $location.path('challenges/' + response.id);
         });
@@ -72,6 +81,14 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       if (isValid) {
         var challenge = $scope.challenge;
 
+        if (challenge.tagList) {
+          challenge.tags = [];
+          var tags = challenge.tagList.split(',');
+          for (var i = 0; i < tags.length; i += 1) {
+            challenge.tags.push(tags[i].trim());
+          }
+        }
+
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);
         });
@@ -100,10 +117,19 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       return $sce.trustAsHtml(html);
     };
 
-   $scope.selectItem = function(item) {
-     $scope.selected = item;
-     $scope.challenge.selected = true;
-   };
+    $scope.selectItem = function(selectedItem) {
+      angular.forEach($scope.challenges, function(item) {
+        item.selected = false;
+        if (selectedItem === item) {
+          $scope.selected = item;
+          selectedItem.selected = true;
+        }
+      });
+    };
+
+
+
+
 
   }
 ]);

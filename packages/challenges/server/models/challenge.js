@@ -1,3 +1,6 @@
+/**
+ * Copyright (c) 2014 TopCoder, Inc. All rights reserved.
+ */
 'use strict';
 
 
@@ -15,15 +18,16 @@ sequelize.define('challenge', {
   description: Sequelize.TEXT,
   registeredDescription: Sequelize.TEXT,
   tags: Sequelize.ARRAY(Sequelize.TEXT)
-});
+},
+{tableName: 'challenges'});
 
 // sync with database
 sequelize
-  .sync({force: true})
-  .complete(function(err) {
-    if (!!err) {
-      console.log('An error occurred while syncing database:', err);
-    } else {
-      console.log('Database is synced!');
-    }
-  });
+	.sync({force: false})
+	.complete(function(err) {
+		if (!!err) {
+			console.log('An error occurred while syncing database:', err);
+		} else {
+			console.log('Database is synced!');
+		}
+	});

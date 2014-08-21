@@ -1,7 +1,7 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://heroku_app28672932:lbjk306k1jr7r13g25sbj3a1rr@ds063809.mongolab.com:63809/heroku_app28672932',
+  db: process.env.MONGOLAB_URI,
   app: {
     name: '[topcoder serenity]'
   },
@@ -39,11 +39,6 @@ module.exports = {
     }
   },
   pg: {
-    database: 'dc6c3p1lnfqrvo',
-    username: 'idgimrogqewzfg',
-    password: '-C6oh1ld9u_pm4201sctLVqPwX',
-    host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
-    dialect: 'postgres',
-    port: 5432
+    // Not needed in production.  Code reads from DATABASE_URL env variable
   }
 };

@@ -3,7 +3,7 @@
 module.exports = {
   db: 'mongodb://heroku_app28672932:lbjk306k1jr7r13g25sbj3a1rr@ds063809.mongolab.com:63809/heroku_app28672932',
   app: {
-    name: 'MEAN - A Modern Stack - Production'
+    name: '[topcoder serenity]'
   },
   facebook: {
     clientID: 'APP_ID',
@@ -37,7 +37,7 @@ module.exports = {
       user: 'EMAIL_ID',
       pass: 'PASSWORD'
     }
-  }
+  },
   pg: {
     database: 'dc6c3p1lnfqrvo',
     username: 'idgimrogqewzfg',

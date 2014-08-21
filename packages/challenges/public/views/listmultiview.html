@@ -4,7 +4,13 @@
     background: #eee;
     border-radius: 5px;
   }
-      body, h1, h2, h3, h4, h5, h6 {
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
     font-family: 'Noto Sans', 'PT Sans', 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
   }
 </style>
@@ -12,7 +18,7 @@
 
 
 <section data-ng-controller="ChallengesController" data-ng-init="find()">
- <!-- this is the standard articles page I commented out to use my multip pane -->
+  <!-- this is the standard articles page I commented out to use my multip pane -->
   <!-- <ul class="challenges list-unstyled">
     <li data-ng-repeat="challenge in challenges">
 
@@ -38,14 +44,14 @@
   </ul> -->
 
   <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
-   Why don't you <a href="/#!/challenges/create">Create One</a>?</h1>
+   Why don't you <a href="/#!/challenges/new">Create One</a>?</h1>
 
   <div class="row padded">
-    <div class="list-group cols-xs-3 col-md-3" >
-      <a class="list-group-item" ng-repeat="challenge in challenges" ng-class="{active: challenge.selected}" ng-click="selectItem(challenge)">
-        <h4>{{challenge.title}}<h4/>
-      <span ng-bind-html="renderHtml(challenge.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}}</span>
-        <span class="label label-warning" data-ng-repeat="tag in challenge.tags">{{tag}}</span>
+    <div class="list-group cols-xs-3 col-md-3">
+      <a class="list-group-item" ng-repeat="item in challenges" ng-class="{active: item.selected}" ng-click="selectItem(item)">
+        <h4>{{item.title}}<h4/>
+      <span ng-bind-html="renderHtml(item.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}} </span>
+        <span class="label label-warning" data-ng-repeat="tag in item.tags">{{tag}}</span>
       </a>
     </div>
 
@@ -59,11 +65,10 @@
         <a class="btn" data-ng-click="remove(selected);">
           <i class="glyphicon glyphicon-trash"></i>
         </a>
-        <a class="btn" data-ng-click="debug = !debug"><i class="glyphicon glyphicon-wrench"></i></a>
+        <a class="btn" data-ng-click="debug = !debug"><i class="fa fa-bug"></i></a>
       </div>
 
-      <span>Start Date: {{selected.startDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.endDate | date:'shortDate'}}</span> <br>
-      <span>Tags: {{selected.tagList}}</span>
+      <span>Start Date: {{selected.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.subEndDate | date:'shortDate'}}</span> <br>
       <br><br>
 
       <dl>
@@ -71,10 +76,8 @@
         <dd><span ng-bind-html="renderHtml(selected.overview)"></span></dd>
         <dt>Description</dt>
         <dd>{{selected.description}}</dd>
-        <dt>Functional Requirements</dt>
-        <dd><div class="well">{{selected.functionalRequirements}}</div></dd>
-        <dt>Technical Requirements</dt>
-        <dd><div class="well">{{selected.technicalRequirements}}</div></dd>
+        <dt>Description for Registrants</dt>
+        <dd>{{selected.registeredDescription}}</dd>
       </dl>
 
       <span ng-show="debug"><b>DEBUG: selected=<br/></b> {{selected}}</span>

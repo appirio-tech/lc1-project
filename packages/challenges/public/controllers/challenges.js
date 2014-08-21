@@ -7,56 +7,54 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
   function($scope, $stateParams, $location, $sce, Global, Challenges) {
     $scope.global = Global;
 
+    $scope.checkNew = function() {
+      if ($stateParams.challengeId) {
+        $scope.findOne();
+      } else {
+        var challenge = new Challenges({});
+
+        challenge.$save(function(response) {
+          $location.path('challenges/' + response.id + '/edit');
+        });
+      }
+    };
+
+    $scope.cancelChallenge = function() {
+      $location.path('challenges');
+    };
+
     $scope.create = function(isValid) {
       if (isValid) {
         var challenge = new Challenges({
           title: this.title,
-          startDate: this.startDate,
-          endDate: this.endDate,
-          overview: this.overview,
-          description: this.description
+          regStartDate: this.regStartDate,
+          subEndDate: this.subEndDate,
+          summary: this.summary,
+          description: this.description,
+          registeredDescription: this.registeredDescription,
+          type: this.type
         });
 
         if (this.tagList) {
           challenge.tags = [];
           var tags = this.tagList.split(',');
-          for (var i=0; i<tags.length; i+=1) {
+          for (var i = 0; i < tags.length; i += 1) {
             challenge.tags.push(tags[i].trim());
           }
         }
-
-        // convert string to JSON
-        try {
-          if (this.technicals) {
-            challenge.technicalRequirements = JSON.parse(this.technicals);
-          }
-        } catch (e) {
-          $scope.submitted = true;
-          $scope.challengeForm.technicals.$invalid = true;
-          return;
-        }
-        try {
-          if (this.functionals) {
-            challenge.functionalRequirements = JSON.parse(this.functionals);
-          }
-        } catch (e) {
-          $scope.submitted = true;
-          $scope.challengeForm.functionals.$invalid = true;
-          return;
-        }
+        
 
         challenge.$save(function(response) {
           $location.path('challenges/' + response.id);
         });
 
         this.title = '';
-        this.startDate = '';
-        this.ednDate = '';
-        this.tagList = '';
-        this.overview = '';
+        this.regStartDate = '';
+        this.subEndDate = '';
+        this.summary = '';
         this.description = '';
-        this.technicals = '';
-        this.functionals = '';
+        this.registeredDescription = '';
+        this.type = 'Architecture';
       } else {
         $scope.submitted = true;
       }
@@ -86,29 +84,11 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         if (challenge.tagList) {
           challenge.tags = [];
           var tags = challenge.tagList.split(',');
-          for (var i=0; i<tags.length; i+=1) {
+          for (var i = 0; i < tags.length; i += 1) {
             challenge.tags.push(tags[i].trim());
           }
         }
-        // convert back string to JSON
-        try {
-          if (challenge.technicals) {
-            challenge.technicalRequirements = JSON.parse(challenge.technicals);
-          }
-        } catch (e) {
-          $scope.submitted = true;
-          $scope.challengeForm.technicals.$invalid = true;
-          return;
-        }
-        try {
-          if (challenge.functionals) {
-            challenge.functionalRequirements = JSON.parse(challenge.functionals);
-          }
-        } catch (e) {
-          $scope.submitted = true;
-          $scope.challengeForm.functionals.$invalid = true;
-          return;
-        }
+
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);
         });
@@ -128,16 +108,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         challengeId: $stateParams.challengeId
       }, function(challenge) {
         window.ch = challenge;
-        // convert JSON to string
-        if (challenge.tags) {
-          challenge.tagList = challenge.tags.join(',');
-        }
-        if (challenge.technicalRequirements) {
-          challenge.techicals = JSON.stringify(challenge.technicalRequirements);
-        }
-        if (challenge.functionalRequirements) {
-          challenge.functionals = JSON.stringify(challenge.functionalRequirements);
-        }
+
         $scope.challenge = challenge;
       });
     };
@@ -146,10 +117,15 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       return $sce.trustAsHtml(html);
     };
 
-   $scope.selectItem = function(item) {
-     $scope.selected = item;
-     $scope.challenge.selected=true;
-   };
+    $scope.selectItem = function(selectedItem) {
+      angular.forEach($scope.challenges, function(item) {
+        item.selected = false;
+        if (selectedItem === item) {
+          $scope.selected = item;
+          selectedItem.selected = true;
+        }
+      });
+    };
 
 
 

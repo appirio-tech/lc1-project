@@ -1,9 +1,9 @@
 'use strict';
 
 module.exports = {
-  db: 'mongodb://localhost/mean-dev',
+  db: 'mongodb://heroku_app28672932:lbjk306k1jr7r13g25sbj3a1rr@ds063809.mongolab.com:63809/heroku_app28672932',
   app: {
-    name: 'MEAN - FullStack JS - Development'
+    name: '[topcoder serenity]'
   },
   facebook: {
     clientID: 'APP_ID',
@@ -39,10 +39,11 @@ module.exports = {
     }
   },
   pg: {
-    database: 'mean_test',
-    username: 'pado',
-    password: '',
-    host: 'localhost',
+    database: 'dc6c3p1lnfqrvo',
+    username: 'idgimrogqewzfg',
+    password: '-C6oh1ld9u_pm4201sctLVqPwX',
+    host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
+    dialect: 'postgres',
     port: 5432
   }
 };

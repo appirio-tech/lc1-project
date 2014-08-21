@@ -12,20 +12,20 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.type.$invalid }">
       <label mean-token="'edit-type'" for="type" class="col-md-2 control-label">Challenge Type</label>
       <div class="col-md-10">
-        <input name="type" type="text" class="form-control" data-ng-model="challenge.type" id="type" placeholder="Architecture">
+        <input name="type" type="text" class="form-control" data-ng-model="challenge.type" id="type" disabled value="Architecture">
       </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.regStartDate.$invalid }">
-      <label mean-token="'edit-regStartDate'" for="regStartDate" class="col-md-2 control-label">Registration Open Date</label>
+      <label mean-token="'edit-regStartDate'" for="regStartDate" class="col-md-2 control-label">Start Date</label>
       <div class="col-md-10">
-        <input name="regStartDate" type="text" class="form-control" data-ng-model="challenge.regStartDate" id="regStartDate" placeholder="Registration Open Date">
+        <input name="regStartDate" type="text" class="form-control" data-ng-model="challenge.regStartDate" id="regStartDate" placeholder="Start Date">
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.subEndDate.$invalid }">
-      <label mean-token="'edit-subEndDate'" for="subEndDate" class="col-md-2 control-label">Submission End Date</label>
+      <label mean-token="'edit-subEndDate'" for="subEndDate" class="col-md-2 control-label">End Date</label>
       <div class="col-md-10">
-        <input name="subEndDate" type="text" class="form-control" data-ng-model="challenge.subEndDate" id="subEndDate" placeholder="Submission End Date">
+        <input name="subEndDate" type="text" class="form-control" data-ng-model="challenge.subEndDate" id="subEndDate" placeholder="End Date">
       </div>
     </div>
 
@@ -51,7 +51,7 @@
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.registeredDescription.$invalid }">
-      <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-md-2 control-label">Description for Challenge Registrants</label>
+      <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-md-2 control-label">Description (registered)</label>
       <div class="col-md-10">
         <textarea name="registeredDescription" data-ng-model="challenge.registeredDescription" id="registeredDescription" cols="30" rows="3" class="form-control"></textarea>
       </div>

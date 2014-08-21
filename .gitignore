@@ -53,3 +53,8 @@ test/coverage/
 modules/public/
 modules/views/
 /public/build/
+
+# --------------------
+# Local Config
+# --------------------
+config/env/local.js

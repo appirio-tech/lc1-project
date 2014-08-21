@@ -23,11 +23,11 @@ sequelize.define('challenge', {
 
 // sync with database
 sequelize
-	.sync({force: false})
-	.complete(function(err) {
-		if (!!err) {
-			console.log('An error occurred while syncing database:', err);
-		} else {
-			console.log('Database is synced!');
-		}
-	});
+  .sync({force: false})
+  .complete(function(err) {
+    if (!!err) {
+      console.log('An error occurred while syncing database:', err);
+    } else {
+      console.log('Database is synced!');
+    }
+  });

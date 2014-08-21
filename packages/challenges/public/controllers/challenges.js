@@ -129,10 +129,5 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         }
       });
     };
-
-
-
-
-
   }
 ]);

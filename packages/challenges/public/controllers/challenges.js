@@ -20,7 +20,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         if (this.tagList) {
           challenge.tags = [];
           var tags = this.tagList.split(',');
-          for (var i=0; i<tags.length; i+=1) {
+          for (var i = 0; i < tags.length; i += 1) {
             challenge.tags.push(tags[i].trim());
           }
         }
@@ -86,7 +86,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         if (challenge.tagList) {
           challenge.tags = [];
           var tags = challenge.tagList.split(',');
-          for (var i=0; i<tags.length; i+=1) {
+          for (var i = 0; i < tags.length; i += 1) {
             challenge.tags.push(tags[i].trim());
           }
         }
@@ -146,10 +146,17 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       return $sce.trustAsHtml(html);
     };
 
-   $scope.selectItem = function(item) {
-     $scope.selected = item;
-     $scope.challenge.selected=true;
-   };
+    $scope.selectItem = function(selectedItem) {
+      console.log('selected one' + selectedItem);
+      angular.forEach($scope.challenges, function(item) {
+        console.log(' do the forEach');
+        item.selected = false;
+        if (selectedItem === item) {
+          $scope.selected = item;
+          selectedItem.selected = true;
+        }
+      });
+    };
 
 
 

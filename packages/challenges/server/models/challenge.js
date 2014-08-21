@@ -26,7 +26,7 @@ sequelize.define('Challenge', {
 		set: function(value) {
 			return this.setDataValue('technicalRequirements', JSON.stringify(value));
 		//},
-		// JSONB type return string, so it requires JSON.parse.
+		// JSONB type return string, so it requires JSON.parse.  This is commented out since 9.3 does not support JSONB
 		//get: function() {
 		//	return JSON.parse(this.getDataValue('technicalRequirements'));
 		}

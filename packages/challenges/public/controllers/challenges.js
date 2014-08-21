@@ -42,7 +42,6 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
             challenge.tags.push(tags[i].trim());
           }
         }
-        
 
         challenge.$save(function(response) {
           $location.path('challenges/' + response.id);
@@ -108,6 +107,10 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         challengeId: $stateParams.challengeId
       }, function(challenge) {
         window.ch = challenge;
+
+        if (challenge.tags) {
+          challenge.tagList = challenge.tags.join(',');
+        }
 
         $scope.challenge = challenge;
       });

@@ -18,8 +18,8 @@
     <dt>Overview</dt>
     <dd><span ng-bind-html="renderHtml(challenge.overview)"></span></dd>
     <dt>Description</dt>
-    <dd>{{challenge.description}}</dd>
-    <dt>Description for Registered Members</dt>
+    <dd><span ng-bind-html="renderHtml(challenge.description)"></span></dd>
+    <dt>Description (registered)</dt>
     <dd>{{challenge.registeredDescription}}</dd>
   </dl>
 

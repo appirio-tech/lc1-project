@@ -11,20 +11,16 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       if ($stateParams.challengeId) {
         $scope.findOne();
       } else {
-        var challenge = new Challenges({
-          title: this.title,
-          regStartDate: this.regStartDate,
-          subEndDate: this.subEndDate,
-          summary: this.summary,
-          description: this.description,
-          registeredDescription: this.registeredDescription,
-          type: this.type
-        });
+        var challenge = new Challenges({});
 
         challenge.$save(function(response) {
           $location.path('challenges/' + response.id + '/edit');
         });
       }
+    };
+
+    $scope.cancelChallenge = function() {
+      $location.path('challenges');
     };
 
     $scope.create = function(isValid) {

@@ -32,16 +32,10 @@ angular.module('mean.challenges').config(['$stateProvider',
       .state('all challenges', {
         url: '/challenges',
         templateUrl: 'challenges/views/list.html',
-        resolve: {
-          loggedin: checkLoggedin
-        }
       })
       .state('all challenges multi', {
         url: '/challenges-multi',
         templateUrl: 'challenges/views/listmultiview.html',
-        resolve: {
-          loggedin: checkLoggedin
-        }
       })
       .state('create challenge', {
         url: '/challenges/new',

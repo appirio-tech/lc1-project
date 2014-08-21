@@ -51,7 +51,7 @@
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.registeredDescription.$invalid }">
-      <label mean-token="'edit-registeredDescription'" for="description" class="col-md-2 control-label">Description for Challenge Registrants</label>
+      <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-md-2 control-label">Description for Challenge Registrants</label>
       <div class="col-md-10">
         <textarea name="registeredDescription" data-ng-model="challenge.registeredDescription" id="registeredDescription" cols="30" rows="3" class="form-control"></textarea>
       </div>
@@ -59,7 +59,8 @@
 
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
-        <button mean-token="'edit-submit'" type="submit" class="btn btn-default">Submit</button>
+        <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
+        <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelChallenge()">Cancel</button>
       </div>
     </div>
   </form>

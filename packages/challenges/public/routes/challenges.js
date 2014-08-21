@@ -31,25 +31,11 @@ angular.module('mean.challenges').config(['$stateProvider',
     $stateProvider
       .state('all challenges', {
         url: '/challenges',
-        templateUrl: 'challenges/views/list.html',
+        templateUrl: 'challenges/views/list.html'
       })
       .state('all challenges multi', {
         url: '/challenges-multi',
-        templateUrl: 'challenges/views/listmultiview.html',
-      })
-      .state('all challenges multi', {
-          url: '/challenges_multi',
-          templateUrl: 'challenges/views/listmultiview.html',
-          resolve: {
-            loggedin: checkLoggedin
-          }
-      })
-      .state('all challenges multi', {
-        url: '/challenges-multi',
-        templateUrl: 'challenges/views/listmultiview.html',
-        resolve: {
-          loggedin: checkLoggedin
-        }
+        templateUrl: 'challenges/views/listmultiview.html'
       })
       .state('create challenge', {
         url: '/challenges/new',
@@ -67,10 +53,7 @@ angular.module('mean.challenges').config(['$stateProvider',
       })
       .state('challenge by id', {
         url: '/challenges/:challengeId',
-        templateUrl: 'challenges/views/view.html',
-        resolve: {
-          loggedin: checkLoggedin
-        }
+        templateUrl: 'challenges/views/view.html'
       });
   }
 ]);

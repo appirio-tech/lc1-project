@@ -44,8 +44,8 @@ angular.module('mean.challenges').config(['$stateProvider',
         }
       })
       .state('create challenge', {
-        url: '/challenges/create',
-        templateUrl: 'challenges/views/create.html',
+        url: '/challenges/new',
+        templateUrl: 'challenges/views/edit.html',
         resolve: {
           loggedin: checkLoggedin
         }

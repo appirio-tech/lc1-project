@@ -6,37 +6,17 @@
 /**
  * Module dependencies.
  */
-var db = require('../models');
+var postgresql = require('postgresql-sequelize');
+var sequelize = postgresql.sequelize;
+var Challenge = sequelize.model('challenge');
 var _ = require('lodash');
-
-//@todo Move this to somewhere better
-db.sequelize
-  .authenticate()
-  .complete(function(err) {
-    if (!!err) {
-      console.log('Unable to connect to the database:', err);
-    } else {
-      console.log('Connection has been established successfully.');
-    }
-  });
-
-// Create table if it doesn't already exist
-db.sequelize
-  .sync()
-  .complete(function(err) {
-    if (!!err) {
-      console.log('An error occurred while creating the table:', err);
-    } else {
-      console.log('It worked!');
-    }
-  });
 
 
 /**
  * Find a challenge by id
  */
 exports.challenge = function (req, res, next, id) {
-  db.Challenge.find(id).success(function (challenge) {
+  Challenge.find(id).success(function (challenge) {
     if (!challenge) return res.status(400).json({
       error: 'Cannot find the challenge with ' + id
     });
@@ -55,7 +35,7 @@ exports.challenge = function (req, res, next, id) {
  * List of challenges
  */
 exports.all = function (req, res) {
-  db.Challenge.findAll().success(function (challenges) {
+  Challenge.findAll().success(function (challenges) {
     res.json(challenges);
   })
     .error(function (err) {
@@ -71,7 +51,7 @@ exports.all = function (req, res) {
  */
 exports.create = function (req, res) {
   var data = req.body;
-  db.Challenge.create(data).success(function (challenge) {
+  Challenge.create(data).success(function (challenge) {
     res.json(challenge);
   })
     .error(function (err) {

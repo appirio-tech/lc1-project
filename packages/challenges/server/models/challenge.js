@@ -1,22 +1,29 @@
 'use strict';
 
-/**
- * Challenge Model
- *
- * title
- * twitter
- * public_desc
- * private_desc
- * start_date
- * end_date
- */
-module.exports = function(sequelize, DataTypes) {
-  return sequelize.define('challenge', {
-    title: DataTypes.TEXT,
-    summary: DataTypes.TEXT,
-    description: DataTypes.STRING(140),
-    protectedDesc: DataTypes.TEXT,
-    startDate: DataTypes.DATE,
-    endDate: DataTypes.DATE
+
+var postgresql = require('postgresql-sequelize');
+var Sequelize = postgresql.Sequelize;
+var sequelize = postgresql.sequelize;
+
+
+sequelize.define('challenge', {
+  regStartDate: Sequelize.DATE,
+  subEndDate: Sequelize.DATE,
+  title: Sequelize.STRING(128),
+  type: Sequelize.STRING(32),
+  overview: Sequelize.STRING(140),
+  description: Sequelize.TEXT,
+  registeredDescription: Sequelize.TEXT,
+  tags: Sequelize.ARRAY(Sequelize.TEXT)
+});
+
+// sync with database
+sequelize
+  .sync({force: true})
+  .complete(function(err) {
+    if (!!err) {
+      console.log('An error occurred while syncing database:', err);
+    } else {
+      console.log('Database is synced!');
+    }
   });
-};

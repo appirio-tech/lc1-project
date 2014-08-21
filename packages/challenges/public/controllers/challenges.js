@@ -7,14 +7,36 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
   function($scope, $stateParams, $location, $sce, Global, Challenges) {
     $scope.global = Global;
 
+    $scope.checkNew = function() {
+      if ($stateParams.challengeId) {
+        $scope.findOne();
+      } else {
+        var challenge = new Challenges({
+          title: this.title,
+          regStartDate: this.regStartDate,
+          subEndDate: this.subEndDate,
+          summary: this.summary,
+          description: this.description,
+          registeredDescription: this.registeredDescription,
+          type: this.type
+        });
+
+        challenge.$save(function(response) {
+          $location.path('challenges/' + response.id + '/edit');
+        });
+      }
+    };
+
     $scope.create = function(isValid) {
       if (isValid) {
         var challenge = new Challenges({
           title: this.title,
-          startDate: this.startDate,
-          endDate: this.endDate,
+          regStartDate: this.regStartDate,
+          subEndDate: this.subEndDate,
           summary: this.summary,
-          description: this.description
+          description: this.description,
+          registeredDescription: this.registeredDescription,
+          type: this.type
         });
 
         challenge.$save(function(response) {
@@ -22,10 +44,12 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         });
 
         this.title = '';
-        this.startDate = '';
-        this.endDate = '';
+        this.regStartDate = '';
+        this.subEndDate = '';
         this.summary = '';
         this.description = '';
+        this.registeredDescription = '';
+        this.type = 'Architecture';
       } else {
         $scope.submitted = true;
       }

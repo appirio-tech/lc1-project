@@ -19,7 +19,7 @@ This core uses the following modules in addtion to the mean.io framework to supp
   ```
 
 ## Deadwood
-For your convenience we have pre-configured the development and production config files with actual live databases hosted via Heroku.  We are collective refereing to these two databases as **Deadwood**.
+For your convenience we have pre-configured the development config files with actual live databases hosted via Heroku.  We are collective refereing to these two databases as **Deadwood**.
 So you should be  able to run `npm install`  followed by `grunt` and see a live app with real data.  Please keep in mind you still need [PostgreSQL](http://www.postgresql.org/download/)
 installed localy to run the app, since the npm install of pg will look for local pg bindings.   The **Deadwood** databases are considered the wild west, and should be used at your own risk.   If you are working
 on a challenge that does **NOT** alter the model (i.e. a UI challenge) you are welcome to use **Deadwood**.   However if you are working on a challenge that needs to alter either database you should switch to  local
@@ -27,8 +27,10 @@ dbs.
 
 ## Switching to a local database and creating schema
 The `NODE_ENV` var defines which database you use.  We have added `config/env/local.js` to the gitignore so if you create this file it wont be commited and you can secure you local db credentials.   To switch to local do the following:
+
 1. copy `config/env/development.js` to `config/env/local.js`.
 1. edit this new file and add you db string for mongo and postgres.
 1. create the local postgres db
-1. from you shell run `export NODE_ENV=local` and start your app.
-1. We have been playing with the sequelize feature that creates the tables for you when the app is started so at any given time this feature may be off.  That being said you may need to create the tables in postgres first.   You eventualy will  find a script to do this in the docs or you can run pg_dump on the Deadwood database to get the schema.   The credentials are found in the `config/env/development.js` config file, please be respectful you have admin access to this database.
+1. from you shell run `grunt local` and start your app.
+
+We have been playing with the sequelize feature that creates the tables for you when the app is started so at any given time this feature may be off.  That being said you may need to create the tables in postgres first.   You eventualy will  find a script to do this in the docs or you can run pg_dump on the Deadwood database to get the schema.   The credentials are found in the `config/env/development.js` config file, please be respectful you have admin access to this database.

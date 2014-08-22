@@ -1,5 +1,5 @@
 
-# ![topcoder](http://www.topcoder.com/favicon.ico)  Project SERENITY: a refresh of the topcoder challenge lifecycle.
+# ![topcoder](http://www.topcoder.com/favicon.ico)  Project SERENITY: a refresh of the topcoder challenge lifecycle
 
 Major parts of this project are currently being developed  on the [MEAN.io framework](http://mean.io/)
 but we have added support for PostgreSQL.  Documentation for MEAN.io can be found in the [MEAN.io doc directory] (http://mean.io/#!/docs) as well as the results of our first challenge

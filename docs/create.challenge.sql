@@ -22,3 +22,16 @@ CREATE SEQUENCE challenges_id_seq
     NO MINVALUE
     NO MAXVALUE
     CACHE 1;
+
+--
+-- alter table from v0.0.1
+--
+/*
+ ALTER TABLE IF EXISTS challenges RENAME COLUMN "startDate" to "regStartDate";
+ ALTER TABLE IF EXISTS challenges RENAME COLUMN "endDate" to "subEndDate";
+ ALTER TABLE IF EXISTS challenges ALTER COLUMN  "title" TYPE character varying(128);
+ ALTER TABLE IF EXISTS challenges ALTER COLUMN  "title" DROP NOT NULL
+ ALTER TABLE IF EXISTS challenges ALTER COLUMN  "overview"  TYPE character varying(140);
+ ALTER TABLE IF EXISTS challenges ALTER COLUMN  "description"  TYPE text;
+ ALTER TABLE IF EXISTS challenges DROP COLUMN "functionalRequirements";
+ ALTER TABLE IF EXISTS challenges ADD COLUMN "registeredDescription" text;

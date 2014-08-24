@@ -38,5 +38,13 @@ module.exports = {
       user: 'EMAIL_ID',
       pass: 'PASSWORD'
     }
+  },
+  pg: {
+    dialect: 'postgres',
+    database: 'mean_test',
+    username: 'postgres',
+    password: '',
+    host: 'localhost',
+    port: 5432
   }
 };

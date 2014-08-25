@@ -29,7 +29,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
           title: this.title,
           regStartDate: this.regStartDate,
           subEndDate: this.subEndDate,
-          summary: this.summary,
+          summary: this.overview,
           description: this.description,
           registeredDescription: this.registeredDescription,
           type: this.type
@@ -50,7 +50,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         this.title = '';
         this.regStartDate = '';
         this.subEndDate = '';
-        this.summary = '';
+        this.overview = '';
         this.description = '';
         this.registeredDescription = '';
         this.type = 'Architecture';

@@ -67,13 +67,19 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
   var challenge = req.challenge;
   challenge = _.extend(challenge, req.body);
-
   challenge.save().success(function () {
     res.json(challenge);
   })
     .error(function (err) {
       console.log('update err: ' + JSON.stringify(err));
-      return res.status(500).json({
+
+      var status_code = 500;
+      if(challenge.title.length === 0)
+        status_code = 403;
+      else
+        status_code = 500;
+
+      return res.status(status_code).json({
         error: 'Cannot update the challenge id ' + challenge.id
       });
     });

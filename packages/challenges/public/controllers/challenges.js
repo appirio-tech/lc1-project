@@ -12,15 +12,23 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         $scope.findOne();
       } else {
         var challenge = new Challenges({});
-
+        challenge.title = 'Untitled Challenge';
         challenge.$save(function(response) {
+          Challenges.newChallengeId = response.id;
           $location.path('challenges/' + response.id + '/edit');
         });
       }
     };
 
-    $scope.cancelChallenge = function() {
-      $location.path('challenges');
+    $scope.cancelChallenge = function(challenge) {
+      if (Challenges.newChallengeId!==undefined && challenge.id === Challenges.newChallengeId) {
+        challenge.$remove(null,function(){
+          $scope.newChallengeId = null;
+          $location.path('challenges');
+        });
+      }else{
+          $location.path('challenges');
+      }
     };
 
     $scope.create = function(isValid) {
@@ -75,10 +83,11 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       }
     };
 
-    $scope.update = function(isValid) {
-
+    $scope.update = function(isValid, challengeForm) {
+      Challenges.newChallengeId = null;
       if (isValid) {
         var challenge = $scope.challenge;
+        challenge.title = challenge.title.trim();
 
         if (challenge.tagList) {
           challenge.tags = [];
@@ -90,6 +99,10 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
 
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);
+        }, function(){
+          challengeForm.title.$error.required = true;
+          challengeForm.title.$invalid = true;
+          $scope.submitted = true;
         });
       } else {
         $scope.submitted = true;

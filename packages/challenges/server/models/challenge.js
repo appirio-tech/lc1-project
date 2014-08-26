@@ -12,7 +12,13 @@ var sequelize = postgresql.sequelize;
 sequelize.define('challenge', {
   regStartDate: Sequelize.DATE,
   subEndDate: Sequelize.DATE,
-  title: Sequelize.STRING(128),
+  title: {
+    type: Sequelize.STRING(128),
+    validate: {
+      notNull: true,
+      notEmpty: true
+    }
+  },
   type: Sequelize.STRING(32),
   overview: Sequelize.STRING(140),
   description: Sequelize.TEXT,

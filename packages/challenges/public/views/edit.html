@@ -1,6 +1,6 @@
 <section data-ng-controller="ChallengesController" data-ng-init="checkNew()">
-  <form name="challengeForm" class="form-horizontal col-md-6" role="form" data-ng-submit="update(challengeForm.$valid)" novalidate>
-    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.title.$invalid }">
+  <form name="challengeForm" class="form-horizontal col-md-6" role="form" data-ng-submit="update(challengeForm.$valid, challengeForm)" novalidate>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.title.$invalid }" ng-required="true">
       <label mean-token="'edit-title'" for="title" class="col-md-2 control-label">Title</label>
       <div class="col-md-10">
         <input name="title" type="text" class="form-control" data-ng-model="challenge.title" id="title" placeholder="Title">
@@ -60,7 +60,7 @@
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
         <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
-        <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelChallenge()">Cancel</button>
+        <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelChallenge(challenge)">Cancel</button>
       </div>
     </div>
   </form>

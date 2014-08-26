@@ -67,22 +67,22 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
   var challenge = req.challenge;
   challenge = _.extend(challenge, req.body);
-  if(challenge.title.length === 0){
-    console.log('update err: ' + "required field 'title' is missing.");
-    return res.status(403).json({
-      error: 'Cannot update the challenge id ' + challenge.id
-    })
-  }else{
-    challenge.save().success(function () {
-      res.json(challenge);
-    })
-      .error(function (err) {
-        console.log('update err: ' + JSON.stringify(err));
-        return res.status(500).json({
-          error: 'Cannot update the challenge id ' + challenge.id
-        });
+  challenge.save().success(function () {
+    res.json(challenge);
+  })
+    .error(function (err) {
+      console.log('update err: ' + JSON.stringify(err));
+
+      var status_code = 500;
+      if(challenge.title.length === 0)
+        status_code = 403;
+      else
+        status_code = 500;
+
+      return res.status(status_code).json({
+        error: 'Cannot update the challenge id ' + challenge.id
       });
-  }
+    });
 };
 
 /**

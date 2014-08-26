@@ -11,8 +11,11 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       if ($stateParams.challengeId) {
         $scope.findOne();
       } else {
-        var challenge = new Challenges({});
-        challenge.title = 'Untitled Challenge';
+        var challenge = new Challenges({
+          title: 'Untitled Challenge',
+          type: 'Architecture'
+        });
+
         challenge.$save(function(response) {
           Challenges.newChallengeId = response.id;
           $location.path('challenges/' + response.id + '/edit');

@@ -49,7 +49,7 @@
   <div class="row padded">
     <div class="list-group cols-xs-3 col-md-3">
       <a class="list-group-item" ng-repeat="item in challenges" ng-class="{active: item.selected}" ng-click="selectItem(item)">
-        <h4>{{item.title}}<h4/>
+        <h4>{{item.title}}</h4>
       <span ng-bind-html="renderHtml(item.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}} </span>
         <span class="label label-warning" data-ng-repeat="tag in item.tags">{{tag}}</span>
       </a>
@@ -62,9 +62,9 @@
         <a class="btn" href="/#!/challenges/{{selected.id}}/edit">
           <i class="glyphicon glyphicon-edit"></i>
         </a>
-        <a class="btn" data-ng-click="remove(selected);">
-          <i class="glyphicon glyphicon-trash"></i>
-        </a>
+        <!--<a class="btn" data-ng-click="remove(selected);">-->
+          <!--<i class="glyphicon glyphicon-trash"></i>-->
+        <!--</a>-->
         <a class="btn" data-ng-click="debug = !debug"><i class="fa fa-bug"></i></a>
       </div>
 

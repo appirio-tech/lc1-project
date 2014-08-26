@@ -87,13 +87,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       Challenges.newChallengeId = null;
       if (isValid) {
         var challenge = $scope.challenge;
-
-        if(challenge.title===''){
-          challengeForm.title.$error.required = true;
-          challengeForm.title.$invalid = true;
-          $scope.submitted = true;
-          return;
-        }
+        challenge.title = challenge.title.trim();
 
         if (challenge.tagList) {
           challenge.tags = [];
@@ -105,6 +99,10 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
 
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);
+        }, function(){
+          challengeForm.title.$error.required = true;
+          challengeForm.title.$invalid = true;
+          $scope.submitted = true;
         });
       } else {
         $scope.submitted = true;

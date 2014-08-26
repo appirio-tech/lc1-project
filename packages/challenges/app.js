@@ -22,19 +22,19 @@ Challenges.register(function (app, auth, database) {
   //We are adding a link to the main menu for all authenticated users
   Challenges.menus.add({
     title: 'Challenges',
-    link: 'all challenges',
+    link: 'challenges.all',
     roles: ['authenticated'],
     menu: 'main'
   });
   Challenges.menus.add({
     title: 'Challenges multiview',
-    link: 'all challenges multi',
+    link: 'challenges.multi',
     roles: ['authenticated'],
     menu: 'main'
   });
   Challenges.menus.add({
     title: 'Create New Challenge',
-    link: 'create challenge',
+    link: 'challenges.new',
     roles: ['authenticated'],
     menu: 'main'
   });

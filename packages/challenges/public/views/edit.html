@@ -1,67 +1,75 @@
 <section data-ng-controller="ChallengesController" data-ng-init="checkNew()">
-  <form name="challengeForm" class="form-horizontal col-md-6" role="form" data-ng-submit="update(challengeForm.$valid)" novalidate>
+
+  <!-- display alert message -->
+  <alert ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)">{{alert.msg}}</alert>
+
+  <form name="challengeForm" class="form-horizontal col-md-6 col-sm-8 col-xs-8" role="form" data-ng-submit="update(challengeForm.$valid)" novalidate>
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.title.$invalid }">
-      <label mean-token="'edit-title'" for="title" class="col-md-2 control-label">Title</label>
-      <div class="col-md-10">
-        <input name="title" type="text" class="form-control" data-ng-model="challenge.title" id="title" placeholder="Title">
+      <label mean-token="'edit-title'" for="title" class="col-sm-2 control-label">Title</label>
+      <div class="col-sm-10">
+        <input name="title" type="text" class="form-control" data-ng-model="challenge.title" id="title" placeholder="untitled challenge">
         <div ng-show="submitted && challengeForm.title.$invalid" class="help-block">
           <p ng-show="challengeForm.title.$error.required">Title is required</p>
         </div>
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.type.$invalid }">
-      <label mean-token="'edit-type'" for="type" class="col-md-2 control-label">Challenge Type</label>
-      <div class="col-md-10">
+      <label mean-token="'edit-type'" for="type" class="col-sm-2 control-label">Challenge Type</label>
+      <div class="col-sm-10">
         <input name="type" type="text" class="form-control" data-ng-model="challenge.type" id="type" disabled value="Architecture">
       </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.regStartDate.$invalid }">
-      <label mean-token="'edit-regStartDate'" for="regStartDate" class="col-md-2 control-label">Start Date</label>
-      <div class="col-md-10">
+      <label mean-token="'edit-regStartDate'" for="regStartDate" class="col-sm-2 control-label">Start Date</label>
+      <div class="col-sm-10">
         <input name="regStartDate" type="text" class="form-control" data-ng-model="challenge.regStartDate" id="regStartDate" placeholder="Start Date">
       </div>
     </div>
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.subEndDate.$invalid }">
-      <label mean-token="'edit-subEndDate'" for="subEndDate" class="col-md-2 control-label">End Date</label>
-      <div class="col-md-10">
+      <label mean-token="'edit-subEndDate'" for="subEndDate" class="col-sm-2 control-label">End Date</label>
+      <div class="col-sm-10">
         <input name="subEndDate" type="text" class="form-control" data-ng-model="challenge.subEndDate" id="subEndDate" placeholder="End Date">
       </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.tagList.$invalid }">
-      <label mean-token="'edit-tagList'" for="tagList" class="col-md-2 control-label">Tags</label>
-      <div class="col-md-10">
+      <label mean-token="'edit-tagList'" for="tagList" class="col-sm-2 control-label">Tags</label>
+      <div class="col-sm-10">
         <input name="tagList" type="text" class="form-control" data-ng-model="challenge.tagList" id="tagList" placeholder="Tags">
       </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.overview.$invalid }">
-      <label mean-token="'edit-overview'" for="overview" class="col-md-2 control-label">Overview</label>
-      <div class="col-md-10">
+      <label mean-token="'edit-overview'" for="overview" class="col-sm-2 control-label">Overview</label>
+      <div class="col-sm-10">
         <textarea name="overview" data-ng-model="challenge.overview" id="overview" cols="30" rows="2" placeholder="Overview (140 character limit)" class="form-control"></textarea>
       </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.description.$invalid }">
-      <label mean-token="'edit-description'" for="description" class="col-md-2 control-label">Description</label>
-      <div class="col-md-10">
-        <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Overview" class="form-control"></textarea>
+      <label mean-token="'edit-description'" for="description" class="col-sm-2 control-label">Description</label>
+      <div class="col-sm-10">
+        <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Description" class="form-control"></textarea>
       </div>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.registeredDescription.$invalid }">
-      <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-md-2 control-label">Description (registered)</label>
-      <div class="col-md-10">
+      <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-sm-2 control-label">Description (registered)</label>
+      <div class="col-sm-10">
         <textarea name="registeredDescription" data-ng-model="challenge.registeredDescription" id="registeredDescription" cols="30" rows="3" class="form-control"></textarea>
       </div>
     </div>
 
     <div class="form-group">
-      <div class="col-md-offset-2 col-md-10">
+      <div class="col-sm-offset-2 col-sm-10">
         <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
         <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelChallenge()">Cancel</button>
       </div>
     </div>
   </form>
+
+  <div class="col-md-6 col-sm-4 col-xs-4">
+    <label class="btn" data-ng-class="{'btn-primary': !autosave.mode, 'btn-success': autosave.mode}" data-ng-model="autosave.mode" data-ng-change="toggleAutoSave()" btn-checkbox>Auto Save: {{autosave.text}}</label>
+  </div>
 </section>

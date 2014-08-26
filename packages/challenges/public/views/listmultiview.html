@@ -47,7 +47,7 @@
    Why don't you <a href="/#!/challenges/new">Create One</a>?</h1>
 
   <div class="row padded">
-    <div class="list-group cols-xs-3 col-md-3">
+    <div class="list-group cols-xs-6 col-sm-6 col-md-3">
       <a class="list-group-item" ng-repeat="item in challenges" ng-class="{active: item.selected}" ng-click="selectItem(item)">
         <h4>{{item.title}}<h4/>
       <span ng-bind-html="renderHtml(item.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}} </span>
@@ -55,7 +55,7 @@
       </a>
     </div>
 
-    <div ng-show="selected" class="col-xs-9 col-md-9 challenge-card">
+    <div ng-show="selected" class="col-xs-6 col-sm-6 col-md-9 challenge-card">
 
       <h2>{{selected.title}}</h2>
       <div>

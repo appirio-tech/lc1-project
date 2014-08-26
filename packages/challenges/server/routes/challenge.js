@@ -3,6 +3,7 @@
  */
 'use strict';
 
+var config = require('meanio').loadConfig();
 var challenges = require('../controllers/challenges');
 
 
@@ -20,5 +21,9 @@ module.exports = function(Challenges, app, auth, database) {
     // set the challengeId param
     app.param('challengeId', challenges.challenge);
 
-
+    // routes for client config
+    app.get('/clientConfig', auth.requiresLogin, function(req, res) {
+        // return client config
+        res.status(200).json(config.client);
+    });
 };

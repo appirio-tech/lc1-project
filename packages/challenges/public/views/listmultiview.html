@@ -28,9 +28,6 @@
             <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
               <i class="glyphicon glyphicon-edit"></i>
             </a>
-            <a class="btn" data-ng-click="remove(challenge);">
-              <i class="glyphicon glyphicon-trash"></i>
-            </a>
           </span>
       </h2>
 
@@ -58,13 +55,11 @@
     <div ng-show="selected" class="col-xs-9 col-md-9 challenge-card">
 
       <h2>{{selected.title}}</h2>
+
       <div>
         <a class="btn" href="/#!/challenges/{{selected.id}}/edit">
-          <i class="glyphicon glyphicon-edit"></i>
+            <i class="glyphicon glyphicon-edit"></i>
         </a>
-        <!--<a class="btn" data-ng-click="remove(selected);">-->
-          <!--<i class="glyphicon glyphicon-trash"></i>-->
-        <!--</a>-->
         <a class="btn" data-ng-click="debug = !debug"><i class="fa fa-bug"></i></a>
       </div>
 

@@ -7,10 +7,16 @@ var paths = {
 };
 
 module.exports = function(grunt) {
+  var databaseUrl;
 
   if (process.env.NODE_ENV !== 'production') {
     require('time-grunt')(grunt);
+    var envConfig = require('./config/env/' + (process.env.NODE_ENV || 'local'));
+    databaseUrl = 'postgres://' + envConfig.pg.username + ':' + envConfig.pg.password + '@' + envConfig.pg.host + ':5432/' + envConfig.pg.database;
+  } else {
+    databaseUrl = process.env.DATABASE_URL;
   }
+
 
   // Project Configuration
   grunt.initConfig({
@@ -98,6 +104,15 @@ module.exports = function(grunt) {
       },
       src: ['packages/**/server/tests/**/*.js']
     },
+    migrate: {
+      options: {
+        env: {
+          DATABASE_URL: databaseUrl   // the databaseUrl is resolved at the beginning based on the NODE_ENV, this value injects the config in the database.json
+        },
+        'migrations-dir': 'docs/schema/migrations', // defines the dir for the migration scripts
+        verbose: true   // tell me more stuff
+      }
+    },
     env: {
       test: {
         NODE_ENV: 'test'
@@ -123,7 +138,12 @@ module.exports = function(grunt) {
     grunt.registerTask('default', ['clean', 'jshint', 'csslint', 'concurrent']);
   }
 
-  grunt.registerTask('local', ['env:local', 'clean', 'jshint', 'csslint', 'concurrent']);
+  // db migrate
+  grunt.registerTask('dbmigrate', 'db up all the appliable scripts', function () {
+    grunt.task.run('migrate:up');
+  });
+
+  grunt.registerTask('local', ['env:local', 'dbmigrate', 'clean', 'jshint', 'csslint', 'concurrent']);
 
   //Test task.
   grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);

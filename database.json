@@ -1,0 +1,3 @@
+{
+    "local": {"ENV": "DATABASE_URL"}
+}

@@ -3,4 +3,4 @@
  */
 'use strict';
 
-angular.module('mean.challenges', []);
+angular.module('mean.challenges', ['ngGrid']);

@@ -40,5 +40,9 @@ module.exports = {
   },
   pg: {
     // Not needed in production.  Code reads from DATABASE_URL env variable
+  },
+  client: {
+    autosaveGracePeriod: 3,   // second unit
+    alertClearTimeout: 7     // second unit
   }
 };

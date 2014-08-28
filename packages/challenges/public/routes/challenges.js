@@ -27,32 +27,39 @@ angular.module('mean.challenges').config(['$stateProvider',
       return deferred.promise;
     };
 
+
     // states for my app
     $stateProvider
-      .state('all challenges', {
+      .state('challenges', {
+        abstract: true,
         url: '/challenges',
+        controller: 'ChallengesBaseController',
+        template: '<div data-ui-view></div>'
+      })
+      .state('challenges.all', {
+        url: '',
         templateUrl: 'challenges/views/list.html'
       })
-      .state('all challenges multi', {
-        url: '/challenges-multi',
+      .state('challenges.multi', {
+        url: '/multi',
         templateUrl: 'challenges/views/listmultiview.html'
       })
-      .state('create challenge', {
-        url: '/challenges/new',
+      .state('challenges.new', {
+        url: '/new',
         templateUrl: 'challenges/views/edit.html',
         resolve: {
           loggedin: checkLoggedin
         }
       })
-      .state('edit challenge', {
-        url: '/challenges/:challengeId/edit',
+      .state('challenges.edit', {
+        url: '/:challengeId/edit',
         templateUrl: 'challenges/views/edit.html',
         resolve: {
           loggedin: checkLoggedin
         }
       })
-      .state('challenge by id', {
-        url: '/challenges/:challengeId',
+      .state('challenges.view', {
+        url: '/:challengeId',
         templateUrl: 'challenges/views/view.html'
       });
   }

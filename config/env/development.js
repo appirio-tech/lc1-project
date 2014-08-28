@@ -45,5 +45,9 @@ module.exports = {
     host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
     dialect: 'postgres',
     port: 5432
+  },
+  client: {
+    autosaveGracePeriod: 3,   // second unit
+    alertClearTimeout: 7     // second unit
   }
 };

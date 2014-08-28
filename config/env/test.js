@@ -45,5 +45,9 @@ module.exports = {
     password: '',
     host: 'localhost',
     port: 5432
+  },
+  client: {
+    autosaveGracePeriod: 3,   // second unit
+    alertClearTimeout: 7     // second unit
   }
 };

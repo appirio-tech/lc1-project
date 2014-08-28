@@ -33,3 +33,9 @@ The `NODE_ENV` var defines which database you use. We have added `config/env/loc
 1. from you shell run `grunt local` and start your app.
 
 We have been playing with the sequelize feature that creates the tables for you when the app is started so at any given time this feature may be off.  That being said you may need to create the tables in postgres first. You eventually will  find a script to do this in the docs or you can run pg_dump on the **Deadwood** database to get the schema.  The credentials are found in the `config/env/development.js` config file, you have admin access to this database so please be respectful.
+
+## Database migrations
+
+To help keep databases in sync, please refer to the instructions in docs/db-migrate.md
+
+***Any changes to the schema must have a migration file.***

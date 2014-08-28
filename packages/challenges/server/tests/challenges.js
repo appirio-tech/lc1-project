@@ -25,6 +25,7 @@ describe('<Unit Test>', function() {
   describe('Model Challenge:', function() {
     beforeEach(function(done) {
       data = {
+        id: 100,  // I needed to add this to the orignal submission
         title: 'Challenge Title',
         type: 'type-code',
         overview: '<p>Challenge Overview</p>',
@@ -183,7 +184,7 @@ describe('<Unit Test>', function() {
       } else {
         done();
       }
-      
+
     });
   });
 });

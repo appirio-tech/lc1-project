@@ -40,7 +40,7 @@ module.exports = {
   },
   pg: {
     dialect: 'postgres',
-    database: 'serenity_tests',
+    database: 'mean_test',
     username: 'postgres',
     password: '',
     host: 'localhost',

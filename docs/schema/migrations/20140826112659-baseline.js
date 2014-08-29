@@ -25,7 +25,8 @@ exports.up = function (db, callback) {
                 'NO MINVALUE ' +
                 'NO MAXVALUE ' +
                 'CACHE 1;'),
-        db.runSql.bind(db,"ALTER TABLE ONLY challenges ALTER COLUMN id SET DEFAULT nextval('challenges_id_seq'::regclass);")
+        db.runSql.bind(db,"ALTER TABLE ONLY challenges ALTER COLUMN id SET DEFAULT nextval('challenges_id_seq'::regclass);"),
+        db.runSql.bind(db, 'ALTER TABLE ONLY challenges ADD CONSTRAINT challenges_pkey PRIMARY KEY (id);')
 
     ], callback);
 };

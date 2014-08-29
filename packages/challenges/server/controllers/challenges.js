@@ -55,6 +55,7 @@ exports.create = function (req, res) {
     res.json(challenge);
   })
     .error(function (err) {
+      console.log('create err: ' + JSON.stringify(err));
       return res.status(500).json({
         error: 'Cannot create the challenge'
       });

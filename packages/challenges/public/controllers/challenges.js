@@ -3,7 +3,7 @@
  */
 'use strict';
 
-angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges',
+angular.module('mean.challenges', ['ngGrid']).controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges',
   function($scope, $stateParams, $location, $sce, Global, Challenges) {
     $scope.global = Global;
 
@@ -144,6 +144,41 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
           selectedItem.selected = true;
         }
       });
+    };
+
+    $scope.gridOptions = {
+      data: 'challenges',
+      columnDefs: [
+        {
+          field: 'id',
+          displayName: '',
+          cellTemplate:
+            '<span>' +
+              '<a class="btn" ng-href="/#!/challenges/{{row.getProperty(col.field)}}/edit">' +
+                '<i class="glyphicon glyphicon-edit"></i>' +
+              '</a>' +
+            '</span>'
+        },
+        {
+          field: 'title',
+          displayName: 'Title',
+          cellTemplate:
+            '<div class="ngCellText ng-scope col2 colt2" ng-class="col.colIndex()">' +
+              '<span>' +
+                '<a data-ng-href="#!/challenges/{{row.getProperty(\'id\')}}">{{row.getProperty(col.field)}}</a>' +
+              '</span>' +
+            '</div>'
+        },
+        {
+          field: 'creator',
+          displayName: 'Creator'
+        },
+        {
+          field: 'createdAt',
+          displayName: 'Created',
+          cellFilter: 'date:\'yyyy/MM/dd HH:mm a\''
+        }
+      ]
     };
   }
 ]);

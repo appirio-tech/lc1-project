@@ -3,7 +3,7 @@
  */
 'use strict';
 
-// Challenges service used for challenges REST endpoint
+//grid dynamic style used for challenges list.
 angular.module('mean.challenges')
   .directive('challengeGrid', function($window){
     return function (scope, element) {

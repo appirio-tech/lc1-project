@@ -66,6 +66,8 @@
     "grunt-contrib-watch": "^0.6.1",
     "grunt-env": "^0.4.1",
     "grunt-nodemon": "0.2.1",
+    "grunt-db-migrate": "0.2.0",
+    "db-migrate": "0.7.1",
     "load-grunt-tasks": "^0.4.0",
     "lodash": "^2.4.1",
     "meanio": "~0.5.10",

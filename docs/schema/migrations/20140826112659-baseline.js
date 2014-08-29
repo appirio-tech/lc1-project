@@ -24,7 +24,9 @@ exports.up = function (db, callback) {
                 'INCREMENT BY 1 ' +
                 'NO MINVALUE ' +
                 'NO MAXVALUE ' +
-                'CACHE 1;')
+                'CACHE 1;'),
+        db.runSql.bind(db,"ALTER TABLE ONLY challenges ALTER COLUMN id SET DEFAULT nextval('challenges_id_seq'::regclass);")
+
     ], callback);
 };
 

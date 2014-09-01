@@ -15,6 +15,7 @@ exports.up = function (db, callback) {
                'description text, ' +
                '"registeredDescription" text, ' +
                'tags text[], ' +
+               'prizes json, ' +
                '"createdAt" timestamp with time zone NOT NULL, ' +
                '"updatedAt" timestamp with time zone NOT NULL ' +
            ');'),

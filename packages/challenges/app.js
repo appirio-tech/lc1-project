@@ -60,7 +60,7 @@ Challenges.register(function (app, auth, database) {
         //you now have the settings object
     });
    */
-
+  Challenges.aggregateAsset('css', 'challenges.css');
 
   return Challenges;
 });

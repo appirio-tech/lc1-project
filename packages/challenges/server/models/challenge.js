@@ -23,6 +23,7 @@ sequelize.define('challenge', {
   overview: Sequelize.STRING(140),
   description: Sequelize.TEXT,
   registeredDescription: Sequelize.TEXT,
-  tags: Sequelize.ARRAY(Sequelize.TEXT)
+  tags: Sequelize.ARRAY(Sequelize.TEXT),
+  prizes: Sequelize.TEXT //Sequelize do not have json datatype. Ref:https://github.com/sequelize/sequelize/wiki/API-Reference-DataTypes.
 },
 {tableName: 'challenges'});

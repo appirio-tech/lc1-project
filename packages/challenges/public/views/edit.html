@@ -64,4 +64,18 @@
       </div>
     </div>
   </form>
+
+  <div class="form-group">
+    <label class="col-md-1 control-label">Prizes</label>
+    <div class="col-md-2">
+      <a href="" ng-click="addNewPrize()">Add a prize
+        <i class="glyphicon glyphicon-plus"></i>
+      </a>
+    </div>
+    <div class="col-md-6">
+      <div ng-grid="prizesGridOptions" ng-style="prizesGridStyle()"></div>
+    </div>
+    <h3 class="prizeTotalAmount">Challenge total: $ {{totalAmount}}</h3>
+    <div class="col-md-6 alert alert-danger" role="alert" ng-show="!allPrizeValid">Please input valid values.</div>
+  </div>
 </section>

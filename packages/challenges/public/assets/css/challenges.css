@@ -1,3 +1,14 @@
 .challenges-example h1{
 	background-color: purple
 }
+
+.prizeWarningCell {
+    border: 2px solid red;
+    height: 30px;
+    width: 99%;
+}
+.prizeTotalAmount {
+    float: right;
+    color: #ae2d30;
+    margin-right: 15px;
+}

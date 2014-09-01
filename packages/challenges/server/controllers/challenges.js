@@ -55,6 +55,7 @@ exports.create = function (req, res) {
     res.json(challenge);
   })
     .error(function (err) {
+      console.log('create err: ' + JSON.stringify(err));
       return res.status(500).json({
         error: 'Cannot create the challenge'
       });
@@ -67,6 +68,22 @@ exports.create = function (req, res) {
 exports.update = function (req, res) {
   var challenge = req.challenge;
   challenge = _.extend(challenge, req.body);
+
+  if(challenge.prizes){
+    var tmp_prize;
+    for(var i=0; i<challenge.prizes.prizesArray.length; i+=1){
+      tmp_prize = challenge.prizes.prizesArray[i];
+      if(tmp_prize.amount===0) continue;
+      //prize amount invalid.
+      if(!tmp_prize.amount || tmp_prize.amount<0 || typeof(tmp_prize.amount)!=='number' ){
+        return res.status(403).json({
+          error: 'Cannot update the challenge id ' + challenge.id
+        });
+      }
+    }
+  }
+  challenge.prizes = JSON.stringify(challenge.prizes);
+
   challenge.save().success(function () {
     res.json(challenge);
   })
@@ -74,7 +91,7 @@ exports.update = function (req, res) {
       console.log('update err: ' + JSON.stringify(err));
 
       var status_code = 500;
-      if(challenge.title.length === 0)
+      if (challenge.title.length === 0)
         status_code = 403;
       else
         status_code = 500;

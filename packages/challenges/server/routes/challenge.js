@@ -4,21 +4,39 @@
 'use strict';
 
 var challenges = require('../controllers/challenges');
-
+var requirements = require('../controllers/challenge-requirements');
+var routeHelper = require('../lib/routeHelper');
 
 // The Package is past automatically as first parameter
 module.exports = function(Challenges, app, auth, database) {
 
-    // routes for Challenge mdoel CRUD operations
+    // routes for Challenge model CRUD operations
     app.route('/challenges')
-        .get(challenges.all)
-        .post(auth.requiresLogin, challenges.create);
+        .get(challenges.all, routeHelper.renderJson)
+        .post(auth.requiresLogin, challenges.create, routeHelper.renderJson);
     app.route('/challenges/:challengeId')
-        .get(challenges.show)
-        .put(auth.requiresLogin, challenges.update)
-        .delete(auth.requiresLogin, challenges.destroy);
+        .get(challenges.show, routeHelper.renderJson)
+        .put(auth.requiresLogin, challenges.update, routeHelper.renderJson)
+        .delete(auth.requiresLogin, challenges.destroy, routeHelper.renderJson);
     // set the challengeId param
     app.param('challengeId', challenges.challenge);
 
+
+    // route for requirement types
+    app.route('/requirementTypes')
+        .get(requirements.requirementTypes, routeHelper.renderJson);
+    // route for requirement neccesities
+    app.route('/requirementNeccesities')
+        .get(requirements.requirementNeccesities, routeHelper.renderJson);
+
+    // routes for challenge requirements
+    app.route('/challenges/:challengeId/requirements')
+        .get(requirements.all, routeHelper.renderJson)
+        .post(auth.requiresLogin, requirements.create, routeHelper.renderJson);
+    app.route('/challenges/:challengeId/requirements/:requirementId')
+        .get(requirements.show, routeHelper.renderJson)
+        .put(auth.requiresLogin, requirements.update, routeHelper.renderJson)
+        .delete(auth.requiresLogin, requirements.destroy, routeHelper.renderJson);
+    app.param('requirementId', requirements.challengeRequirement);
 
 };

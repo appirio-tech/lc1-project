@@ -5,7 +5,8 @@
 
 
 // Challenges service used for challenges REST endpoint
-angular.module('mean.challenges').factory('Challenges', ['$resource',
+angular.module('mean.challenges')
+.factory('Challenges', ['$resource',
   function($resource) {
     return $resource('challenges/:challengeId', {
       challengeId: '@id'
@@ -15,4 +16,17 @@ angular.module('mean.challenges').factory('Challenges', ['$resource',
       }
     });
   }
-]);
+])
+.factory('ChallengeRequirements', ['$resource',
+  function($resource) {
+    return $resource('challenges/:challengeId/requirements/:requirementId', {
+    	challengeId: '@id',
+      requirementId: '@id'
+    }, {
+      update: {
+        method: 'PUT'
+      }
+    });
+  }
+])
+;

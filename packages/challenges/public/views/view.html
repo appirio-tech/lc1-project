@@ -20,4 +20,60 @@
     <dd>{{challenge.registeredDescription}}</dd>
   </dl>
 
+
+  <!-- challenge requirements -->
+  <button type="button" class="btn btn-primary" data-ng-show="!showReqForm" data-ng-click="addRequirement()">Add Requirement+</button>
+  <form name="requirementForm" class="form-horizontal" role="form" data-ng-show="showReqForm" data-ng-submit="createRequirement(requirementForm.$valid, requirementForm)" novalidate>
+    <hr>
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.type.$invalid }">
+      <label mean-token="'edit-type'" for="type" class="col-sm-2 control-label">Requirement Type</label>
+      <div class="col-sm-6">
+        <label name="type" class="btn btn-warning" ng-model="requirement.type" btn-radio="type" data-ng-repeat="type in reqTypes">{{type}}</label>
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.score_min.$invalid }">
+      <label mean-token="'edit-score_min'" for="score_min" class="col-sm-2 control-label">Score Min</label>
+      <div class="col-sm-6">
+        <input name="score_min" type="number" class="form-control" data-ng-model="requirement.score_min" id="regStartDate" placeholder="Score Min">
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.score_max.$invalid }">
+      <label mean-token="'edit-score_max'" for="score_max" class="col-sm-2 control-label">Score Max</label>
+      <div class="col-sm-6">
+        <input name="score_max" type="number" class="form-control" data-ng-model="requirement.score_max" id="score_max" placeholder="Score Max">
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.tagList.$invalid }">
+      <label mean-token="'edit-tagList'" for="tagList" class="col-sm-2 control-label">Tags</label>
+      <div class="col-sm-6">
+        <input name="tagList" type="text" class="form-control" data-ng-model="requirement.tagList" id="tagList" placeholder="Tags">
+      </div>
+    </div>
+
+    <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.body.$invalid }">
+      <label mean-token="'edit-body'" for="body" class="col-sm-2 control-label">Body</label>
+      <div class="col-sm-6">
+        <textarea name="body" data-ng-model="requirement.body" id="body" cols="30" rows="2" placeholder="Requirement Body" class="form-control"></textarea>
+      </div>
+    </div>
+
+    <div class="form-group">
+      <div class="col-sm-offset-2 col-sm-6">
+        <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
+        <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelRequirement(requirement)">Cancel</button>
+      </div>
+    </div>
+  </form>
+
+  <hr/>
+  <ul class="challenges list-unstyled">
+    <li data-ng-repeat="req in requirements">
+      <h4>{{req.requirement.type}}, {{req.requirement.tags | json}}, {{req.requirement.score_max}}/{{req.requirement.score_min}}</h4>
+      <div class="well well-sm">{{req.requirement.body}}</div>
+    </li>
+  </ul>
+
 </section>

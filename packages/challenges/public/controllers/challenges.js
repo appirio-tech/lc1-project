@@ -3,8 +3,9 @@
  */
 'use strict';
 
-angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges',
-  function($scope, $stateParams, $location, $sce, Global, Challenges) {
+angular.module('mean.challenges').controller('ChallengesController', 
+    ['$scope', '$http', '$stateParams', '$location', '$sce', 'Global', 'Challenges', 'ChallengeRequirements',
+  function($scope, $http, $stateParams, $location, $sce, Global, Challenges, ChallengeRequirements) {
     $scope.global = Global;
 
     $scope.checkNew = function() {
@@ -16,6 +17,8 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
           type: 'Architecture'
         });
 
+        //FIXME This creates an empty challenge whenever Create New Challenge link is clicked.
+        // I fixed it in the autosave submission.
         challenge.$save(function(response) {
           Challenges.newChallengeId = response.id;
           $location.path('challenges/' + response.id + '/edit');
@@ -34,41 +37,41 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       }
     };
 
-    $scope.create = function(isValid) {
-      if (isValid) {
-        var challenge = new Challenges({
-          title: this.title,
-          regStartDate: this.regStartDate,
-          subEndDate: this.subEndDate,
-          summary: this.overview,
-          description: this.description,
-          registeredDescription: this.registeredDescription,
-          type: this.type
-        });
+    // $scope.create = function(isValid) {
+    //   if (isValid) {
+    //     var challenge = new Challenges({
+    //       title: this.title,
+    //       regStartDate: this.regStartDate,
+    //       subEndDate: this.subEndDate,
+    //       summary: this.overview,
+    //       description: this.description,
+    //       registeredDescription: this.registeredDescription,
+    //       type: this.type
+    //     });
 
-        if (this.tagList) {
-          challenge.tags = [];
-          var tags = this.tagList.split(',');
-          for (var i = 0; i < tags.length; i += 1) {
-            challenge.tags.push(tags[i].trim());
-          }
-        }
+    //     if (this.tagList) {
+    //       challenge.tags = [];
+    //       var tags = this.tagList.split(',');
+    //       for (var i = 0; i < tags.length; i += 1) {
+    //         challenge.tags.push(tags[i].trim());
+    //       }
+    //     }
 
-        challenge.$save(function(response) {
-          $location.path('challenges/' + response.id);
-        });
+    //     challenge.$save(function(response) {
+    //       $location.path('challenges/' + response.id);
+    //     });
 
-        this.title = '';
-        this.regStartDate = '';
-        this.subEndDate = '';
-        this.overview = '';
-        this.description = '';
-        this.registeredDescription = '';
-        this.type = 'Architecture';
-      } else {
-        $scope.submitted = true;
-      }
-    };
+    //     this.title = '';
+    //     this.regStartDate = '';
+    //     this.subEndDate = '';
+    //     this.overview = '';
+    //     this.description = '';
+    //     this.registeredDescription = '';
+    //     this.type = 'Architecture';
+    //   } else {
+    //     $scope.submitted = true;
+    //   }
+    // };
 
     $scope.remove = function(challenge) {
       if (challenge) {
@@ -119,16 +122,21 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
     };
 
     $scope.findOne = function() {
+      $scope.requirements = [];
+      $scope.showReqForm = false;
+
       Challenges.get({
         challengeId: $stateParams.challengeId
       }, function(challenge) {
-        window.ch = challenge;
-
         if (challenge.tags) {
           challenge.tagList = challenge.tags.join(',');
         }
-
         $scope.challenge = challenge;
+
+        // get challenge requirements
+        ChallengeRequirements.query({challengeId: challenge.id}, function(requirements){
+          $scope.requirements = requirements;
+        });
       });
     };
 
@@ -145,5 +153,64 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         }
       });
     };
+
+
+    /*
+     * methods for challenge requirement
+     */
+
+    $http.get('/requirementTypes').success(function(response) {
+      $scope.reqTypes = response;
+    })
+    .error(function(err){
+      console.log('err on getting requirement types: ', err);
+    });
+
+    $http.get('/requirementNeccesities').success(function(response) {
+      $scope.reqNeccesities = response;
+    })
+    .error(function(err){
+      console.log('err on getting requirement neccesities: ', err);
+    });
+
+    $scope.addRequirement = function() {
+      $scope.showReqForm = true;
+      $scope.requirement = new ChallengeRequirements();
+      $scope.requirement.type = $scope.reqTypes[0];
+    };
+
+    $scope.createRequirement = function(isValid, requirementForm) {
+      if (isValid) {
+        var challenge = $scope.challenge;
+        var requirement = $scope.requirement;
+        requirement.body = requirement.body.trim();
+
+        if (requirement.tagList) {
+          requirement.tags = [];
+          var tags = requirement.tagList.split(',');
+          for (var i = 0; i < tags.length; i += 1) {
+            requirement.tags.push(tags[i].trim());
+          }
+        }
+
+        requirement.$save({challengeId: challenge.id}, function(response) {
+          console.log('saved req: ', response);
+          $scope.showReqForm = false;
+          $scope.requirements.unshift(response);
+        }, function(err){
+          console.log('req save err: ', err);
+          //TODO display error message
+          $scope.submitted = true;
+        });
+      } else {
+        $scope.submitted = true;
+      }
+    };
+
+    $scope.cancelRequirement = function(challenge) {
+      $scope.showReqForm = false;
+      $scope.requirement = null;
+    };
+
   }
 ]);

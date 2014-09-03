@@ -1,3 +1,66 @@
-<section data-ng-controller="IndexController">
+<!-- <section data-ng-controller="IndexController">
   <h1 mean-token="'home-default'">This is the home view</h1>
+</section> -->
+
+
+<style>
+  .challenge-card {
+    padding: 8px 8px 0;
+    background: #eee;
+    border-radius: 5px;
+  }
+  body,
+  h1,
+  h2,
+  h3,
+  h4,
+  h5,
+  h6 {
+    font-family: 'Noto Sans', 'PT Sans', 'Open Sans', 'Helvetica Neue', Arial, Helvetica, sans-serif;
+  }
+</style>
+
+
+
+<section data-ng-controller="ChallengesController" data-ng-init="find()">
+
+  <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
+   Why don't you <a href="/#!/challenges/new">Create One</a>?</h1>
+
+  <div class="row padded">
+    <div class="list-group cols-xs-3 col-md-3">
+      <a class="list-group-item" ng-repeat="item in challenges" ng-class="{active: item.selected}" ng-click="selectItem(item)">
+        <h4>{{item.title}}</h4>
+      <span ng-bind-html="renderHtml(item.overview)"></span>  <span ng-show="debug">DEBUG: {{selected.id}} </span>
+        <span class="label label-warning" data-ng-repeat="tag in item.tags">{{tag}}</span>
+      </a>
+    </div>
+
+    <div ng-show="selected" class="col-xs-9 col-md-9 challenge-card">
+
+      <h2>{{selected.title}}</h2>
+
+      <div>
+        <a class="btn" data-ng-click="debug = !debug"><i class="fa fa-bug"></i></a>
+      </div>
+
+      <span>Start Date: {{selected.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{selected.subEndDate | date:'shortDate'}}</span> <br>
+      <br><br>
+
+      <dl>
+        <dt>Overview</dt>
+        <dd><span ng-bind-html="renderHtml(selected.overview)"></span></dd><p/>
+        <dt>Description</dt>
+        <dd>{{selected.description}}</dd><p/>
+        <dt>Description for Registrants</dt>
+        <dd>{{selected.registeredDescription}}</dd>
+      </dl>
+
+      <span ng-show="debug"><b>DEBUG: selected=<br/></b> {{selected}}</span>
+    </div>
+  </div>
+
+
+<!-- <button class="glyphicon glyphicon-wrench" ng-click="debug = !debug" style="position: absolute; bottom: 10px;"></button> -->
+
 </section>

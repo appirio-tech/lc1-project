@@ -39,9 +39,10 @@
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.overview.$invalid }">
       <label mean-token="'edit-overview'" for="overview" class="col-md-2 control-label">Overview</label>
       <div class="col-md-10">
-        <textarea name="overview" data-ng-model="challenge.overview" id="overview" cols="30" rows="2" placeholder="Overview (140 character limit)" class="form-control"></textarea>
+        <textarea name="overview" data-ng-model="challenge.overview" maxlength="140" id="overview" cols="30" rows="2" placeholder="Overview (140 character limit)" class="form-control"></textarea>
       </div>
-      chars remaining: {{challenge.overview.length}}
+      <span ng-show="challenge.overview.length > 100 && challenge.overview.length < 120 "> chars remaining: {{140 - challenge.overview.length}} </span>
+      <span ng-show="challenge.overview.length > 119 " style="color: #ff0000"> chars remaining: {{140 - challenge.overview.length}} </span>
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.description.$invalid }">

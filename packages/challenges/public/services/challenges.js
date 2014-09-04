@@ -41,16 +41,4 @@ angular.module('mean.challenges')
       }
     });
   }
-])
-.factory('ChallengeRegistrants', ['$resource',
-  function($resource) {
-    return $resource('challenges/:challengeId/register', {
-      challengeId: '@id'
-    },
-    {
-      register: {
-        method: 'POST'
-      }
-    });
-  }
 ]);

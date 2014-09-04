@@ -10,9 +10,22 @@ angular.module('mean.challenges')
   function($resource) {
     return $resource('challenges/:challengeId', {
       challengeId: '@id'
-    }, {
+    }, 
+    {
       update: {
         method: 'PUT'
+      }
+    });
+  }
+])
+.factory('ChallengeLaunch', ['$resource',
+  function($resource) {
+    return $resource('challenges/:challengeId/launch', {
+      challengeId: '@id'
+    }, 
+    {
+      launch: {
+        method: 'POST'
       }
     });
   }

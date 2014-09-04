@@ -1,0 +1,11 @@
+<div class="modal-header">
+    <h3 class="modal-title">Launch challenge</h3>
+</div>
+<div class="modal-body">
+    <span ng-hide="error">Challenge has been started.</span>
+    <span ng-show="error === 'regStartDateBeforeSubEndDate'">Challenge could not be started: Registration Start Date should be before Submission End Date.</span>
+    <span ng-show="error === 'subEndDateAfterNow'">Challenge could not be started: Submission End Date should be after current date.</span>
+</div>
+<div class="modal-footer">
+    <button class="btn btn-primary" ng-click="ok()">OK</button>
+</div>

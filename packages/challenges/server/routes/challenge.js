@@ -4,6 +4,7 @@
 'use strict';
 
 var challenges = require('../controllers/challenges');
+var launch = require('../controllers/launch');
 var requirements = require('../controllers/challenge-requirements');
 var routeHelper = require('../lib/routeHelper');
 
@@ -18,6 +19,8 @@ module.exports = function(Challenges, app, auth, database) {
         .get(challenges.show, routeHelper.renderJson)
         .put(auth.requiresLogin, challenges.update, routeHelper.renderJson)
         .delete(auth.requiresLogin, challenges.destroy, routeHelper.renderJson);
+    app.route('/challenges/:challengeId/launch')
+        .post(auth.requiresLogin, launch.launch, routeHelper.renderJson);
     // set the challengeId param
     app.param('challengeId', challenges.challenge);
 
@@ -38,5 +41,7 @@ module.exports = function(Challenges, app, auth, database) {
         .put(auth.requiresLogin, requirements.update, routeHelper.renderJson)
         .delete(auth.requiresLogin, requirements.destroy, routeHelper.renderJson);
     app.param('requirementId', requirements.challengeRequirement);
+
+
 
 };

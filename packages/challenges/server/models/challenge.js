@@ -24,7 +24,8 @@ sequelize.define('Challenge', {
     overview: Sequelize.STRING(140),
     description: Sequelize.TEXT,
     registeredDescription: Sequelize.TEXT,
-    tags: Sequelize.ARRAY(Sequelize.TEXT)
+    tags: Sequelize.ARRAY(Sequelize.TEXT),
+    status: Sequelize.ENUM('draft', 'started')
   },
   {tableName: 'challenges'}
 );

@@ -4,8 +4,8 @@
 'use strict';
 
 angular.module('mean.challenges').controller('ChallengesController', 
-    ['$scope', '$http', '$stateParams', '$location', '$sce', 'Global', 'Challenges', 'ChallengeRequirements',
-  function($scope, $http, $stateParams, $location, $sce, Global, Challenges, ChallengeRequirements) {
+    ['$scope', '$http', '$stateParams', '$location', '$sce', '$modal', 'Global', 'Challenges', 'ChallengeLaunch', 'ChallengeRequirements',
+  function($scope, $http, $stateParams, $location, $sce, $modal, Global, Challenges, ChallengeLaunch, ChallengeRequirements) {
     $scope.global = Global;
 
     $scope.checkNew = function() {
@@ -32,9 +32,31 @@ angular.module('mean.challenges').controller('ChallengesController',
           $scope.newChallengeId = null;
           $location.path('challenges');
         });
-      }else{
+      } else {
           $location.path('challenges');
       }
+    };
+
+    var ChallengeLaunchModalController = function($scope, $modalInstance, error) {
+      $scope.error = error;
+      $scope.ok = function() {
+        $modalInstance.close();
+      };
+    };
+
+    $scope.launch = function(challenge) {
+      ChallengeLaunch.launch({id: challenge.id}, function(data) {
+        if (!data.error) {
+          challenge.status = 'started';
+        }
+        $modal.open({
+          templateUrl: 'challenges/views/modallaunch.html',
+          controller: ChallengeLaunchModalController,
+          resolve: {
+            error: function() { return data.error; }
+          }
+        });
+      }); 
     };
 
     // $scope.create = function(isValid) {

@@ -9,6 +9,11 @@
               <i class="glyphicon glyphicon-edit"></i>
             </a>
           </span>
+          <span data-ng-hide="challenge.status === 'started'">
+            <a class="btn" ng-click="launch(challenge)">
+              <i class="fa fa-rocket"></i>
+            </a>
+          </span>
       </h2>
 
       <div data-ng-bind-html="renderHtml(challenge.overview)"></div>

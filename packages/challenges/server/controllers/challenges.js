@@ -110,4 +110,3 @@ exports.show = function (req, res, next) {
   req.data = req.challenge;
   next();
 };
-

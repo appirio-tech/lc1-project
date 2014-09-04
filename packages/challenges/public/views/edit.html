@@ -41,12 +41,13 @@
       <div class="col-md-10">
         <textarea name="overview" data-ng-model="challenge.overview" id="overview" cols="30" rows="2" placeholder="Overview (140 character limit)" class="form-control"></textarea>
       </div>
+      chars remaining: {{challenge.overview.length}}
     </div>
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.description.$invalid }">
       <label mean-token="'edit-description'" for="description" class="col-md-2 control-label">Description</label>
       <div class="col-md-10">
-        <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Overview" class="form-control"></textarea>
+        <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Description" class="form-control"></textarea>
       </div>
     </div>
 

@@ -26,12 +26,12 @@ Challenges.register(function (app, auth, database) {
     roles: ['authenticated'],
     menu: 'main'
   });
-  Challenges.menus.add({
-    title: 'Challenges multiview',
-    link: 'all challenges multi',
-    roles: ['authenticated'],
-    menu: 'main'
-  });
+  // Challenges.menus.add({
+  //   title: 'Challenges multiview',
+  //   link: 'all challenges multi',
+  //   roles: ['authenticated'],
+  //   menu: 'main'
+  // });
   Challenges.menus.add({
     title: 'Create New Challenge',
     link: 'create challenge',

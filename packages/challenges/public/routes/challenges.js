@@ -54,6 +54,13 @@ angular.module('mean.challenges').config(['$stateProvider',
       .state('challenge by id', {
         url: '/challenges/:challengeId',
         templateUrl: 'challenges/views/view.html'
+      })
+      .state('register challenge', {
+        url: '/challenges/:challengeId/register',
+        templateUrl: 'challenges/views/register.html',
+        resolve: {
+          loggedin: checkLoggedin
+        }
       });
   }
 ]);

@@ -5,6 +5,7 @@
     <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
       <i class="glyphicon glyphicon-edit"></i>
     </a>
+    <button class="btn" ng-click="registerChallenge(challenge)" ng-show="infoLoaded&&!registered">Register</button>
   </div>
 
   <span>Start Date: {{challenge.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{challenge.subEndDate | date:'shortDate'}}</span> <br>

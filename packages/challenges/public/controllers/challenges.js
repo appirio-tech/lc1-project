@@ -4,8 +4,8 @@
 'use strict';
 
 angular.module('mean.challenges').controller('ChallengesController', 
-    ['$scope', '$http', '$stateParams', '$location', '$sce', '$modal', 'Global', 'Challenges', 'ChallengeLaunch', 'ChallengeRequirements',
-  function($scope, $http, $stateParams, $location, $sce, $modal, Global, Challenges, ChallengeLaunch, ChallengeRequirements) {
+    ['$scope', '$http', '$stateParams', '$location', '$sce', '$modal', 'Global', 'Challenges', 'ChallengeLaunch', 'ChallengeRequirements', 'ChallengeRegistrants',
+  function($scope, $http, $stateParams, $location, $sce, $modal, Global, Challenges, ChallengeLaunch, ChallengeRequirements, ChallengeRegistrants) {
     $scope.global = Global;
 
     $scope.checkNew = function() {
@@ -159,6 +159,17 @@ angular.module('mean.challenges').controller('ChallengesController',
         ChallengeRequirements.query({challengeId: challenge.id}, function(requirements){
           $scope.requirements = requirements;
         });
+
+        // get registrants info
+        $scope.registered = false;
+        $scope.infoLoaded = false;
+        ChallengeRegistrants.query({challengeId: challenge.id}, function(registrants){
+          angular.forEach(registrants, function(item){
+            if(item.userId === window.user._id)
+              $scope.registered = true;
+          });
+          $scope.infoLoaded = true;
+        });
       });
     };
 
@@ -234,5 +245,16 @@ angular.module('mean.challenges').controller('ChallengesController',
       $scope.requirement = null;
     };
 
+    $scope.registerChallenge = function(challenge) {
+      $location.path('challenges/'+ challenge.id+ '/register');
+    };
+    $scope.register = function(challenge) {
+      ChallengeRegistrants.register({id: challenge.id}, function(data){
+        $location.path('challenges/' + challenge.id);
+      });
+    };
+    $scope.cancelRegister = function(challenge) {
+      $location.path('challenges/' + challenge.id);
+    };
   }
 ]);

@@ -1,10 +1,18 @@
+<style>
+ .launched {
+   color: #f5b107;
+ }
+
+ </style>
+
+
 <section data-ng-controller="ChallengesController" data-ng-init="find()">
   <ul class="challenges list-unstyled">
     <li data-ng-repeat="challenge in challenges">
 
       <h2>
-        <a data-ng-href="#!/challenges/{{challenge.id}}">{{challenge.title}}</a>
-          <span>
+        <a ng-class="{launched: challenge.status=='started'}" data-ng-href="#!/challenges/{{challenge.id}}">{{challenge.title}}</a>
+          <span data-ng-hide="challenge.status === 'started'">
             <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
               <i class="glyphicon glyphicon-edit"></i>
             </a>

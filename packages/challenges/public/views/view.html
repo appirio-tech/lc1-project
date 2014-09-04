@@ -2,10 +2,22 @@
 
   <h2>{{challenge.title}}</h2>
   <div>
-    <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
+    <span data-ng-hide="challenge.status === 'started'">
+      <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
+        <i class="glyphicon glyphicon-edit"></i>
+      </a>
+    </span>
+
+    <span data-ng-hide="challenge.status === 'started'">
+      <a class="btn" ng-click="launch(challenge)">
+        <i class="fa fa-rocket"></i>
+      </a>
+    </span>
+
     <button class="btn" ng-click="registerChallenge(challenge)" ng-show="infoLoaded&&!registered">Register</button>
+
+
+
   </div>
 
   <span>Start Date: {{challenge.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{challenge.subEndDate | date:'shortDate'}}</span> <br>

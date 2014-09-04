@@ -3,18 +3,19 @@
   <h2>{{challenge.title}}</h2>
   <div>
     <span data-ng-hide="challenge.status === 'started'">
-    <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
-      <i class="glyphicon glyphicon-edit"></i>
-    </a>
-  </span>
+      <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
+        <i class="glyphicon glyphicon-edit"></i>
+      </a>
+    </span>
 
-  <span data-ng-hide="challenge.status === 'started'">
-    <a class="btn" ng-click="launch(challenge)">
-      <i class="fa fa-rocket"></i>
-    </a>
-  </span>
+    <span data-ng-hide="challenge.status === 'started'">
+      <a class="btn" ng-click="launch(challenge)">
+        <i class="fa fa-rocket"></i>
+      </a>
+    </span>
 
-
+    <!-- pass challenge as the parameter to register -->
+    <register-button challenge="challenge"></register-button>
 
 
   </div>

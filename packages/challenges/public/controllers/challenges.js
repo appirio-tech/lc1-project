@@ -159,6 +159,7 @@ angular.module('mean.challenges').controller('ChallengesController',
         ChallengeRequirements.query({challengeId: challenge.id}, function(requirements){
           $scope.requirements = requirements;
         });
+
       });
     };
 

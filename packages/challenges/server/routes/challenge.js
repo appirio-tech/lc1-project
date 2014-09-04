@@ -6,6 +6,7 @@
 var challenges = require('../controllers/challenges');
 var launch = require('../controllers/launch');
 var requirements = require('../controllers/challenge-requirements');
+var challengeRegistrants = require('../controllers/challenge-registrants');
 var routeHelper = require('../lib/routeHelper');
 
 // The Package is past automatically as first parameter
@@ -42,6 +43,9 @@ module.exports = function(Challenges, app, auth, database) {
         .delete(auth.requiresLogin, requirements.destroy, routeHelper.renderJson);
     app.param('requirementId', requirements.challengeRequirement);
 
-
+    // routes for register challenge
+    app.route('/challenges/:challengeId/register')
+        .post(auth.requiresLogin, challengeRegistrants.register, routeHelper.renderJson)
+        .get(challengeRegistrants.getRegInfoByCha, routeHelper.renderJson);
 
 };

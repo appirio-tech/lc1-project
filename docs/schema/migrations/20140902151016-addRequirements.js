@@ -42,5 +42,6 @@ exports.up = function(db, callback) {
 
 exports.down = function(db, callback) {
   db.dropTable('requirements', callback);
+  db.dropTable('challenge_requirements', callback);
 
 };

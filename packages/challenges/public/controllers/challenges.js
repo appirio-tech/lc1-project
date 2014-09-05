@@ -153,11 +153,11 @@ angular.module('mean.challenges').controller('ChallengesController',
       console.log('Error on getting requirement types: ', err);
     });
 
-    $http.get('/requirementNeccesities').success(function(response) {
-      $scope.reqNeccesities = response;
+    $http.get('/requirementNecesities').success(function(response) {
+      $scope.reqNecesities = response;
     })
     .error(function(err){
-      console.log('Error on getting requirement neccesities: ', err);
+      console.log('Error on getting requirement necesities: ', err);
     });
 
     $scope.addRequirement = function() {

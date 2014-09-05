@@ -12,7 +12,7 @@ var sequelize = postgresql.sequelize;
 // Requirement model
 sequelize.define('Requirement', {
     type: {type: 'requirement_type', allowNull: false},
-    necessity: {type: 'requirement_neccesity'},
+    necesity: {type: 'requirement_necesity'},
     body: {type: DataTypes.TEXT, allowNull: false},
     score_min: {type: 'smallint', allowNull: false},
     score_max: {type: 'smallint', allowNull: false},

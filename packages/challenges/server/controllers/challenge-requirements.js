@@ -51,10 +51,10 @@ exports.requirementTypes = function (req, res, next) {
 };
 
 /**
- * Return the list of requirement neccesity values.
+ * Return the list of requirement necesity values.
  */
-exports.requirementNeccesities = function (req, res, next) {
-  _getEnumTypeValues('requirement_neccesity', function (err, values) {
+exports.requirementNecesities = function (req, res, next) {
+  _getEnumTypeValues('requirement_necesity', function (err, values) {
   	if (err) {
   		routeHelper.addError(req, 'DatabaseReadError', err);
   	} else {

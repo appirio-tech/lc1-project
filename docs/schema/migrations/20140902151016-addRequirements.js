@@ -5,14 +5,14 @@ var type = dbm.dataType;
 exports.up = function(db, callback) {
   async.series([
       db.runSql.bind(db,
-         "CREATE TYPE requirement_neccesity AS ENUM ( 'Must', 'Should', 'Nice', 'Optional');"),
+         "CREATE TYPE requirement_necesity AS ENUM ( 'Must', 'Should', 'Nice', 'Optional');"),
       db.runSql.bind(db,
           "CREATE TYPE requirement_type AS ENUM ( 'Functional', 'Technical', 'Informational', 'Other' );"),
       db.runSql.bind(db,
         'CREATE TABLE requirements (' +
         'id serial NOT NULL,' +
         'type requirement_type NOT NULL,' +
-        'necessity requirement_neccesity,' +
+        'necesity requirement_necesity,' +
         'body text NOT NULL,' +
         'score_min smallint NOT NULL,' +
         'score_max smallint NOT NULL,' +

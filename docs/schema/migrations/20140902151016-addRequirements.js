@@ -11,11 +11,11 @@ exports.up = function(db, callback) {
       db.runSql.bind(db,
         'CREATE TABLE requirements (' +
         'id serial NOT NULL,' +
-        'type requirement_type,' +
+        'type requirement_type NOT NULL,' +
         'necessity requirement_neccesity,' +
         'body text NOT NULL,' +
-        'score_min integer NOT NULL,' +
-        'score_max integer NOT NULL,' +
+        'score_min smallint NOT NULL,' +
+        'score_max smallint NOT NULL,' +
         'created_by_user_id integer NOT NULL,' +
         'is_private boolean NOT NULL DEFAULT true,' +
         'difficulty integer,' +

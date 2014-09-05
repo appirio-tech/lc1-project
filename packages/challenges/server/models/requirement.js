@@ -12,10 +12,10 @@ var sequelize = postgresql.sequelize;
 // Requirement model
 sequelize.define('Requirement', {
     type: {type: 'requirement_type', allowNull: false},
-    necessity: {type: 'requirement_neccesity', allowNull: false},
+    necessity: {type: 'requirement_neccesity'},
     body: {type: DataTypes.TEXT, allowNull: false},
-    score_min: {type: DataTypes.INTEGER, allowNull: false},
-    score_max: {type: DataTypes.INTEGER, allowNull: false},
+    score_min: {type: 'smallint', allowNull: false},
+    score_max: {type: 'smallint', allowNull: false},
     created_by_user_id: {type: DataTypes.INTEGER, allowNull: false},
     is_private: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: true},
     difficulty: {type: DataTypes.INTEGER},

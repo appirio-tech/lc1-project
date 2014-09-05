@@ -58,7 +58,7 @@ Then, open a browser and go to:
 
 ## REST Response
 
-I changed the response format and how to set the eror response in the code, this makes easy to change the response data format and set the error object without duplicating codes. The client-side code should use HTTP status code to determine the API is successful or failed.
+I changed the response format and how to set the error response in the code, this makes it easy to change the response data format and set the error object without duplicating code. The client-side code should use HTTP status code to determine whether the API is successful or failed.
 
 When an API fails, ***error*** object is returned with `4xx or 5xx` status code.
 
@@ -71,7 +71,7 @@ When an API fails, ***error*** object is returned with `4xx or 5xx` status code.
 		}
 	}
 
-When API is successful, the actual data object is returned with HTTP status code `200`. This is also what the AngularJS $resource service expects, makes easier to create AngularJS $resource.
+When API is successful, the actual data object is returned with HTTP status code `200`. This is also what the AngularJS $resource service expects, makes it easier to create AngularJS $resource.
 
 ##### Sample successful response
 
@@ -89,9 +89,9 @@ When API is successful, the actual data object is returned with HTTP status code
 The ***postman.json*** is included to the submission to test CRUD operations of `ChallengeRequirement` model.
 
 
-## Heroku Deploy
+## Heroku Deployment
 
-Before you start make sure you have the [Heroku toolbelt](<https://toolbelt.heroku.com/")
+Before you start make sure you have the [Heroku toolbelt](https://toolbelt.heroku.com)
 installed. The `config/env/production.js` is already configured to use `MONGOLAB_URI` from MongoLab addon, just create MongoDB instance from `MongoLab`, no additional configuration is needed. Note that the PostgreSQL is configured from DATABASE_URL, no need to configure it.
 
 	$ git init
@@ -111,7 +111,7 @@ installed. The `config/env/production.js` is already configured to use `MONGOLAB
 
 ##### Models and Controller Added
 
-Two models are added for this challenge, they are ***Requirement*** and ***ChallengeRequirement***. The Requirement table has details of a requirement, the ChallengeRequirement is a join table that connects a Challenge and Requirement. I avoid to use an association between models as the challenge requirement urged not to use high-level. The SQL to create these tables is provided in the ***docs/create.requirements.sql***.
+Two models are added for this challenge, they are ***Requirement*** and ***ChallengeRequirement***. The Requirement table has details of a requirement, the ChallengeRequirement is a join table that connects a Challenge and Requirement. I avoided using an association between models as the challenge requirement urged not to use high-level. The SQL to create these tables is provided in the ***docs/create.requirements.sql***.
 
 The controller for challenge requirement is implemented in ***controllers/challenge-requirements.js***.
 
@@ -124,7 +124,7 @@ Currently the logged in user is saved in req.user, but this user object is Mongo
 * Added `ChallengeRequirements` resource.
 * Added list of requirements in the challenge view.
 * Added `Add Requirement` button in the challenge view.
-	* On clikcing `Add Requirement` button, new form to add a requirement shows up.
+	* On clicking `Add Requirement` button, new form to add a requirement shows up.
 	* To save the requirement to current challenge, click `Save` button.
 	* Clicking `Cancel` button removes the form.
 
@@ -133,8 +133,8 @@ When new requirement is added to the challenge, the Requirement is created with 
 
 ## Suggestions
 
-* Consistent name convension for table and field names.
-	* Currently both camel-case or snake-case are used, suggest to set the naming convention for the project.
+* Consistent naming convention for table and field names.
+	* Currently both camel-case and snake-case are used, suggest to set the naming convention for the project.
 	* model name: singular with first letter upper case, ex) ***Challenge***.
 	* table name: plural with lower case, ex) ***challenges***
 	* field name: snake-case with lower case which can be distinguished from a regular variable,  ex) ***challenge_id***.
@@ -143,4 +143,4 @@ When new requirement is added to the challenge, the Requirement is created with 
 
 
 
-Thank very much
+Thank you very much

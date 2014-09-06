@@ -29,7 +29,7 @@ module.exports = function(Challenges, app, auth, database) {
     // route for requirement types
     app.route('/requirementTypes')
         .get(requirements.requirementTypes, routeHelper.renderJson);
-    // route for requirement necesities
+    // route for requirement necessities
     app.route('/requirementNecessities')
         .get(requirements.requirementNecessities, routeHelper.renderJson);
 

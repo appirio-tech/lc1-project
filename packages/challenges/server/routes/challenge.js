@@ -30,8 +30,8 @@ module.exports = function(Challenges, app, auth, database) {
     app.route('/requirementTypes')
         .get(requirements.requirementTypes, routeHelper.renderJson);
     // route for requirement necesities
-    app.route('/requirementNecesities')
-        .get(requirements.requirementNecesities, routeHelper.renderJson);
+    app.route('/requirementNecessities')
+        .get(requirements.requirementNecessities, routeHelper.renderJson);
 
     // routes for challenge requirements
     app.route('/challenges/:challengeId/requirements')

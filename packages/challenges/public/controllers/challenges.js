@@ -59,42 +59,6 @@ angular.module('mean.challenges').controller('ChallengesController',
       }); 
     };
 
-    // $scope.create = function(isValid) {
-    //   if (isValid) {
-    //     var challenge = new Challenges({
-    //       title: this.title,
-    //       regStartDate: this.regStartDate,
-    //       subEndDate: this.subEndDate,
-    //       summary: this.overview,
-    //       description: this.description,
-    //       registeredDescription: this.registeredDescription,
-    //       type: this.type
-    //     });
-
-    //     if (this.tagList) {
-    //       challenge.tags = [];
-    //       var tags = this.tagList.split(',');
-    //       for (var i = 0; i < tags.length; i += 1) {
-    //         challenge.tags.push(tags[i].trim());
-    //       }
-    //     }
-
-    //     challenge.$save(function(response) {
-    //       $location.path('challenges/' + response.id);
-    //     });
-
-    //     this.title = '';
-    //     this.regStartDate = '';
-    //     this.subEndDate = '';
-    //     this.overview = '';
-    //     this.description = '';
-    //     this.registeredDescription = '';
-    //     this.type = 'Architecture';
-    //   } else {
-    //     $scope.submitted = true;
-    //   }
-    // };
-
     $scope.remove = function(challenge) {
       if (challenge) {
         challenge.$remove();
@@ -186,20 +150,20 @@ angular.module('mean.challenges').controller('ChallengesController',
       $scope.reqTypes = response;
     })
     .error(function(err){
-      console.log('err on getting requirement types: ', err);
+      console.log('Error on getting requirement types: ', err);
     });
 
-    $http.get('/requirementNeccesities').success(function(response) {
-      $scope.reqNeccesities = response;
+    $http.get('/requirementNecessities').success(function(response) {
+      $scope.reqNecessities = response;
     })
     .error(function(err){
-      console.log('err on getting requirement neccesities: ', err);
+      console.log('Error on getting requirement necessities: ', err);
     });
 
     $scope.addRequirement = function() {
       $scope.showReqForm = true;
       $scope.requirement = new ChallengeRequirements();
-      $scope.requirement.type = $scope.reqTypes[0];
+      $scope.requirement.type = $scope.reqTypes[2];
     };
 
     $scope.createRequirement = function(isValid, requirementForm) {

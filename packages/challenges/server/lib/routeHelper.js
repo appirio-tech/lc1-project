@@ -68,7 +68,6 @@ exports.renderJson = function(req, res, next) {
         // console.log('Sending back error response : ', req.error);
         if (req.error.name === 'ValidationError') {
             res.status(400).json({
-                // successful: false,
                 error : {
                     name : req.error.name,
                     message : _.pluck(_.values(req.error.errors), 'message').join(', ')
@@ -76,7 +75,6 @@ exports.renderJson = function(req, res, next) {
             });
         } else {
             res.status(req.error.responseCode).json({
-                // successful: false,
                 error : {
                     name : req.error.name,
                     message : req.error.message

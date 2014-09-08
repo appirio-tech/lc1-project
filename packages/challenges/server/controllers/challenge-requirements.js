@@ -16,51 +16,52 @@ var routeHelper = require('../lib/routeHelper');
 
 
 /**
+ * Return the values of enum type by SQL.
+ */
+function _getEnumTypeValues(type, callback) {
+	// sql to get the values of enum type
+	var sql = 'SELECT e.enumlabel FROM pg_enum e ' +
+  					'JOIN pg_type t ON e.enumtypid = t.oid '+
+  					'WHERE t.typname = \''+type+'\'';
+
+  sequelize.query(sql).success(function (results) {
+  	var values = [];
+  	_.forEach(results, function(value) {
+  		values.push(value.enumlabel);
+  	});
+    callback(null, values);
+  })
+    .error(function (err) {
+    	callback(err);
+    });
+}
+
+/**
  * Return the list of requirement type values.
  */
 exports.requirementTypes = function (req, res, next) {
-
-	// sql to get the values of requirement_type enum type
-	var sql = 'SELECT e.enumlabel FROM pg_enum e ' +
-  					'JOIN pg_type t ON e.enumtypid = t.oid '+
-  					'WHERE t.typname = \'requirement_type\'';
-
-  sequelize.query(sql).success(function (results) {
-  	var types = [];
-  	_.forEach(results, function(type) {
-  		types.push(type.enumlabel);
-  	});
-    req.data = types;
+  _getEnumTypeValues('requirement_type', function (err, values) {
+  	if (err) {
+  		routeHelper.addError(req, 'DatabaseReadError', err);
+  	} else {
+    	req.data = values;
+    }
     next();
-  })
-    .error(function (err) {
-    	routeHelper.addError(req, 'DatabaseReadError', err);
-    	next();
-    });
+  });
 };
 
 /**
- * Return the list of requirement neccesity values.
+ * Return the list of requirement necessity values.
  */
-exports.requirementNeccesities = function (req, res, next) {
-
-	// sql to get the values of requirement_neccesity enum type
-	var sql = 'SELECT e.enumlabel FROM pg_enum e ' +
-  					'JOIN pg_type t ON e.enumtypid = t.oid '+
-  					'WHERE t.typname = \'requirement_neccesity\'';
-
-  sequelize.query(sql).success(function (results) {
-  	var neccesities = [];
-  	_.forEach(results, function(neccesity) {
-  		neccesities.push(neccesity.enumlabel);
-  	});
-    req.data = neccesities;
+exports.requirementNecessities = function (req, res, next) {
+  _getEnumTypeValues('requirement_necessity', function (err, values) {
+  	if (err) {
+  		routeHelper.addError(req, 'DatabaseReadError', err);
+  	} else {
+    	req.data = values;
+    }
     next();
-  })
-    .error(function (err) {
-    	routeHelper.addError(req, 'DatabaseReadError', err);
-    	next();
-    });
+  });
 };
 
 /**
@@ -71,7 +72,7 @@ exports.challengeRequirement = function (req, res, next, id) {
 		function(callback) {
 		  ChallengeRequirement.find(id).success(function (challengeRequirement) {
 		    if (!challengeRequirement) {
-		    	routeHelper.addErrorMessage(req, 'EntityNotFound', 'Cannot find the challengeRequirement of id '+id, 400);
+		    	routeHelper.addErrorMessage(req, 'EntityNotFound', 'Cannot find the challengeRequirement with id '+id, 404);
 		    } else {
 		    	challengeRequirement.dataValues.challenge = req.challenge;
 		    }
@@ -82,17 +83,17 @@ exports.challengeRequirement = function (req, res, next, id) {
 		  	callback(req.error);
 		  });
 		},
-		function(challengeRequirement, callback){
+		function(challengeRequirement, callback) {
 			Requirement.find(challengeRequirement.requirementId).success(function(requirement){
 				if (!requirement) {
-					routeHelper.addErrorMessage(req, 'DatabaseReadError', 'Cannot find the requirement of id '+challengeRequirement.requirementId);
+					routeHelper.addErrorMessage(req, 'DatabaseReadError', 'Cannot find the requirement with id '+challengeRequirement.requirementId);
 				} else {
 					challengeRequirement.dataValues.requirement = requirement;
 				}
 				callback(req.error, challengeRequirement);
 			});
 		}
-	], function(err, challengeRequirement){
+	], function(err, challengeRequirement) {
 		if (err) return next();
 
 		req.challengeRequirement = challengeRequirement;
@@ -122,9 +123,9 @@ exports.all = function (req, res, next) {
 		  	callback(req.error);
 		  });
 		},
-		function(challengeRequirements, callback){
-			async.each(challengeRequirements, function(challengeRequirement, cb){
-				Requirement.find(challengeRequirement.requirementId).success(function(requirement){
+		function(challengeRequirements, callback) {
+			async.each(challengeRequirements, function(challengeRequirement, cb) {
+				Requirement.find(challengeRequirement.requirementId).success(function(requirement) {
 					if (!requirement) {
 						routeHelper.addErrorMessage(req, 'DatabaseReadError', 'Cannot find the requirement of id '+challengeRequirement.requirementId);
 						cb(req.error);
@@ -133,14 +134,14 @@ exports.all = function (req, res, next) {
 					}
 					cb();
 				});
-			}, function(err){
+			}, function(err) {
 				if (err) {
 					routeHelper.addError(req, 'DatabaseReadError', err);
 				}
 				callback(req.error, challengeRequirements);
 			});
 		}
-	], function(err, challengeRequirements){
+	], function(err, challengeRequirements) {
 		if (err) return next();
 
 		req.data = challengeRequirements;
@@ -166,23 +167,23 @@ exports.create = function (req, res, next) {
 		  	callback(req.error);
 		  });
 		},
-		function(requirement, callback){
-			var chaReq = {
+		function(requirement, callback) {
+			var challengeRequirementData = {
 				challengeId: req.challenge.id,
 				requirementId: requirement.id
 			};
-			ChallengeRequirement.create(chaReq).success(function (challengeRequirement){
+			ChallengeRequirement.create(challengeRequirementData).success(function (challengeRequirement) {
 				// need to set challenge and requirement to dataValues property
 				challengeRequirement.dataValues.challenge = req.challenge;
 				challengeRequirement.dataValues.requirement = requirement;
 				callback(null, challengeRequirement);
 			})
-			.error(function(err){
+			.error(function(err) {
 		  	routeHelper.addError(req, 'DatabaseSaveError', err);
 		  	callback(req.error);
 			});
 		},
-	], function(err, challengeRequirement){
+	], function(err, challengeRequirement) {
 		if (err) return next();
 
 		req.data = challengeRequirement;

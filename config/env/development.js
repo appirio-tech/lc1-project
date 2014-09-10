@@ -77,11 +77,11 @@ module.exports = {
   },
   postgresurl : 'postgres://idgimrogqewzfg:-C6oh1ld9u_pm4201sctLVqPwX@ec2-54-197-250-52.compute-1.amazonaws.com/dc6c3p1lnfqrvo',
   pg: {
-     database: 'dc6c3p1lnfqrvo',
-     username: 'idgimrogqewzfg',
-     password: '-C6oh1ld9u_pm4201sctLVqPwX',
-     host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
-     dialect: 'postgres',
-     port: 5432
+    database: 'dc6c3p1lnfqrvo',
+    username: 'idgimrogqewzfg',
+    password: '-C6oh1ld9u_pm4201sctLVqPwX',
+    host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
+    dialect: 'postgres',
+    port: 5432
   }
 };

@@ -13,9 +13,9 @@ module.exports = function(config) {
     } else {
       dburl = config.postgresurl;
     }
-    var sequelize = new Sequelize(postgresurl, config.pg),
+    var sequelize = new Sequelize(dburl, config.pg),
     db = {};
-    
+
     // Add JSON and JSONB data type to Sequelize
     Sequelize.JSON = 'JSON';
     Sequelize.JSONB = 'JSONB';

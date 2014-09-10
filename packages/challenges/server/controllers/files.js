@@ -129,4 +129,4 @@ exports.deleteFile = function(req, res, next) {
     routeHelper.addError(req,'DatabaseError', err);
     return next();
   });
-};
+}:

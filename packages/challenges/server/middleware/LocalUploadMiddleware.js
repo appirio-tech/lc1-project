@@ -66,4 +66,4 @@ module.exports = function(options) {
     form.parse(req);
   };
   return middleware;
-};
+}:

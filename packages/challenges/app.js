@@ -6,7 +6,14 @@
 /*
  * Defining the Package
  */
-var Module = require('meanio').Module;
+var mean = require('meanio'),
+  Module = mean.Module,
+  datasource = require('./datasource'),
+  /**
+   * Loading config
+   * @type {Object}
+   */
+  config = mean.loadConfig();
 
 var Challenges = new Module('challenges');
 
@@ -16,8 +23,14 @@ var Challenges = new Module('challenges');
  */
 Challenges.register(function (app, auth, database) {
 
-  //We enable routing. By default the Package Object is passed to the routes
-  Challenges.routes(app, auth, database);
+  /**
+   * Initializing datasource for this package
+   */
+  datasource.init(config);
+
+  // We enable routing. By default the Package Object is passed to the routes
+  // Based on the configuration local or s3 file upload middlewares will be initialized
+  Challenges.routes(app, auth, database, config);
 
   //We are adding a link to the main menu for all authenticated users
   Challenges.menus.add({

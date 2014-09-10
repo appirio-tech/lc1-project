@@ -1,15 +1,26 @@
 {
-    "name": "challenge",
-    "version": "0.0.1",
-    "description": "Some description of challenge",
-    "author": {
-        "name": "mean scaffold"
-    },
-    "mean": "0.4.0",
-    "engines": {
-        "node": "0.10.x",
-        "npm": "1.4.x"
-    },
-    "dependencies": {},
-    "license": "MIT"
+  "name": "challenge",
+  "version": "0.0.1",
+  "description": "Some description of challenge",
+  "author": {
+    "name": "mean scaffold"
+  },
+  "mean": "0.4.0",
+  "engines": {
+    "node": "0.10.x",
+    "npm": "1.4.x"
+  },
+  "dependencies": {
+    "multiparty": "3.3.2",
+    "knox": "0.9.1",
+    "batch": "0.5.1",
+    "fs-extra": "^0.11.0"
+  },
+  "devDependencies": {
+    "mocha": "1.21.4",
+    "jshint": "2.5.5",
+    "grunt-mocha-test": "^0.10.2",
+    "supertest" : "0.13.0"
+  },
+  "license": "MIT"
 }

@@ -3,6 +3,20 @@
  */
 'use strict';
 
+/**
+* Defining ChallengeRegistrant model
+*/
+module.exports = function(sequelize, DataTypes) {
+
+  var ChallengeRegistrant = sequelize.define('ChallengeRegistrant', {
+    challengeId: DataTypes.INTEGER,
+    userId: DataTypes.STRING(32)
+  }, {tableName: 'challenge_registrants'});
+
+  return ChallengeRegistrant;
+};
+
+/*
 
 var postgresql = require('postgresql-sequelize');
 var Sequelize = postgresql.Sequelize;
@@ -16,3 +30,4 @@ sequelize.define('ChallengeRegistrant', {
   },
   {'tableName': 'challenge_registrants'}
 );
+*/

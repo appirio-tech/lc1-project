@@ -125,6 +125,10 @@ angular.module('mean.challenges').controller('ChallengesController',
         });
 
       });
+      /**
+       * Loading this challenge files
+       */
+      loadFiles();
     };
 
     $scope.renderHtml = function(html) {
@@ -198,6 +202,110 @@ angular.module('mean.challenges').controller('ChallengesController',
       $scope.showReqForm = false;
       $scope.requirement = null;
     };
+	  
+    /**
+     * BASE PATH
+     * @type {String}
+     */
+    var BASE_PATH = '/challenges';
+	  /**
+     * HTTP OK STATUS CODE
+     */
+    var HTTP_OK = 200;
 
+    /**
+     * Reset upload form
+     */
+    var resetUploadForm = function() {
+      /**
+       * Resetting uploaded file
+       * @type {Object}
+       */
+      $scope.uploadSuccess = false;
+      $scope.showUploadProgressBar = false;
+      $scope.invalidFile = false;
+      $scope.uploadError = false;
+      $scope.uploadErrorData = undefined;
+    };
+    /**
+     * Upload file controller method
+     * @param  {Object}       upload         Upload model
+     * @param  {Boolean}      isValid        isValid TRUE if uploadForm is valid
+     */
+    $scope.uploadFile = function(upload, isValid) {
+      if(isValid) {
+        if(angular.isUndefined(upload.file)) {
+          $scope.invalidFile = true;
+          return;
+        }
+        /**
+         * Form is valid process file upload
+         */
+        // show the progress bar here
+        $scope.showUploadProgressBar = true;
+        // upload url
+        var url = BASE_PATH + '/' + $stateParams.challengeId + '/upload';
+        // form data
+        var data = new FormData();
+        data.append('title', upload.title);
+        data.append('file', upload.file);
+        FileService.upload(url, data, function(data, status) {
+          if(status===HTTP_OK) {
+            $scope.uploadSuccess = true;
+            $scope.showUploadProgressBar = false;
+          } else {
+            $scope.uploadError = true;
+            $scope.uploadErrorData = data;
+          }
+          $timeout(resetUploadForm, 3000, true);
+        });
+      }
+    };
+
+    /**
+     * Call reset uploadform
+     */
+    resetUploadForm();
+
+    /**
+     * Model for all files. In view UI this list is shown
+     * @type {Array}
+     */
+    $scope.allFiles = [];
+
+    /**
+     * Local function. This is called form findOne() during ng-init.
+     * It will fetch list of files from a REST endpoint
+     */
+    var loadFiles = function() {
+      $scope.loadingFiles = true;
+      // load Files url
+      var url = BASE_PATH + '/' + $stateParams.challengeId + '/files';
+      FileService.getAll(url, function(data, status) {
+        if(status === HTTP_OK) {
+          $scope.allFiles = data;
+        } else {
+          $scope.loadError = true;
+        }
+        $scope.loadingFiles = false;
+      });
+    };
+
+    /**
+     * Controller function to delete file
+     * @param  {Number}         fileId      Id of the file to delete
+     */
+    $scope.deleteFile = function(fileId) {
+      // delete resource URL
+      var url = BASE_PATH + '/files' + '/' + fileId;
+      FileService.deleteFile(url, function(data, status) {
+        if(status===HTTP_OK) {
+          $window.location.reload();
+        } else {
+          $scope.loadError = true;
+          $scope.deleteError = data;
+        }
+      });
+    };
   }
 ]);

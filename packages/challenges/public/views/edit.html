@@ -66,4 +66,39 @@
       </div>
     </div>
   </form>
+
+  <!-- File upload section start-->
+    <div class="col-md-6">
+      <h3>Upload file</h3>
+      <p ng-if="uploadSuccess" class="text-success">File uploaded successfully</p>
+      <p ng-if="uploadError" class="text-danger">{{uploadErrorData | json}}</p>
+      <form ng-if="!showUploadProgressBar && !uploadError" name="uploadForm" class="form-horizontal" role="form" novalidate>
+        <div class="form-group" ng-class="{ 'has-error' : submitted && uploadForm.title.$invalid }">
+          <label for="title" class="col-md-3 control-label">Title</label>
+          <div class="col-md-8">
+            <input class="form-control" name="title" ng-model="upload.title" type="text" placeholder="Title" required />
+            <p ng-if="submitted && uploadForm.title.$invalid" class="text-danger">Title is mandatory field</p>
+          </div>
+        </div>
+
+        <div class="form-group" ng-class="{ 'has-error' : submitted && invalidFile }">
+          <label class="col-md-3 control-label">Choose file</label>
+          <div class="col-md-8">
+            <input class="form-control" type="file" file-select="upload.file"/>
+            <p ng-if="submitted && invalidFile" class="text-danger">Please select a file</p>
+          </div>
+        </div>
+
+        <div class="form-group">
+          <div class="col-md-offset-3 col-md-8">
+            <button type="submit" ng-click="submitted=true ; uploadFile(upload, uploadForm.$valid)" class="btn btn-success">Upload</button>
+          </div>
+        </div>
+      </form>
+      <div class="" ng-if="showUploadProgressBar">
+        <p>Please wait... uploading file</p>
+      </div>
+    </div>
+    <!-- File upload section end -->
+  </div>
 </section>

@@ -6,11 +6,25 @@
 /**
  * Module dependencies.
  */
-var postgresql = require('postgresql-sequelize');
-var sequelize = postgresql.sequelize;
-var Challenge = sequelize.model('Challenge');
+var datasource = require('./../../datasource').getDataSource();
+var Challenge = datasource.Challenge;
 var _ = require('lodash');
 var routeHelper = require('../lib/routeHelper');
+
+/**
+ * HTTP OK STATUS CODE
+ */
+var HTTP_OK = 200;
+
+/**
+ * HTTP SERVER ERROR STATUS CODE
+ */
+var HTTP_SERVER_ERROR = 500;
+
+/**
+ * HTTP NO CONTENT STATUS CODE
+ */
+var HTTP_NO_CONTENT = 204;
 
 /**
  * Find a challenge by id
@@ -109,4 +123,34 @@ exports.show = function (req, res, next) {
 
   req.data = req.challenge;
   next();
+};
+
+
+/**
+ * Reurns the list of files for the specified challege Id
+ * @param  {Object}         req         Request Object
+ * @param  {Object}         res         Response object
+ * @param  {Function}       next        Next function
+ */
+exports.getAllFiles = function(req, res, next) {
+  var challengeId = req.params.challengeId;
+
+  Challenge.find(challengeId).success(function(challenge) {
+    if(challenge) {
+      challenge.getFiles().success(function(files) {
+        req.data = files;
+        return next();
+      }).error(function(err) {
+        routeHelper.addError(req, 'DatabaseReadError',err);
+        return next();
+      });
+    } else {
+      // No files for the given challenge id
+      // Instead of throwing error will return HTTP NO CONTENT
+      return next();
+    }
+  }).error(function(err) {
+      routeHelper.addError(req, 'DatabaseReadError',err);
+      return next();
+  });
 };

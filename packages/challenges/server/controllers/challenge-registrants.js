@@ -6,9 +6,8 @@
 /**
  * Module dependencies.
  */
-var postgresql = require('postgresql-sequelize');
-var sequelize = postgresql.sequelize;
-var ChallengeRegistrant = sequelize.model('ChallengeRegistrant');
+var datasource = require('./../../datasource').getDataSource();
+var ChallengeRegistrant = datasource.ChallengeRegistrant;
 var routeHelper = require('../lib/routeHelper');
 
 exports.register = function(req, res, next){

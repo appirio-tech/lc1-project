@@ -15,6 +15,11 @@ module.exports = function(config) {
     }
     var sequelize = new Sequelize(postgresurl, config.pg),
     db = {};
+    
+    // Add JSON and JSONB data type to Sequelize
+    Sequelize.JSON = 'JSON';
+    Sequelize.JSONB = 'JSONB';
+
     fse.readdirSync(__dirname).filter(function(file) {
       return ((file.indexOf('.' ) !== 0) && (file !== 'index.js') && (file.slice(-3) === '.js'));
     }).forEach(function(file) {

@@ -33,10 +33,10 @@ module.exports = {
    */
   aws : {
     secure: false,
-    key: 'AKIAJZS2NZA4O6QGYWJA',
-    secret: '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',
-    bucket: 'challenge-api',
-    region : 'ap-southeast-1'
+    key: 'KEY',
+    secret: 'SECRET',
+    bucket: 'BUCKET',
+    region : 'REGION'
   },
   db: 'mongodb://heroku_app28672932:lbjk306k1jr7r13g25sbj3a1rr@ds063809.mongolab.com:63809/heroku_app28672932',
   app: {

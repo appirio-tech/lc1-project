@@ -3,9 +3,12 @@
  */
 'use strict';
 
-angular.module('mean.challenges').controller('ChallengesController', 
-    ['$scope', '$http', '$stateParams', '$location', '$sce', '$modal', 'Global', 'Challenges', 'ChallengeLaunch', 'ChallengeRequirements',
-  function($scope, $http, $stateParams, $location, $sce, $modal, Global, Challenges, ChallengeLaunch, ChallengeRequirements) {
+/**
+ * FileService is added as a dependency
+ */
+
+angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges','FileService','$window','$timeout','$http','ChallengeRequirements', 'ChallengeLaunch','$modal',
+  function($scope, $stateParams, $location, $sce, Global, Challenges, FileService, $window, $timeout, $http, ChallengeRequirements, ChallengeLaunch, $modal) {
     $scope.global = Global;
 
     $scope.checkNew = function() {

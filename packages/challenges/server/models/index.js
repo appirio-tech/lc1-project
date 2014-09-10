@@ -11,9 +11,9 @@ module.exports = function(config) {
     if(process.env.DATA_URL) {
       dburl = process.env.DATA_URL;
     } else {
-      dburl = config.dburl;
+      dburl = config.postgresurl;
     }
-    var sequelize = new Sequelize(dburl, config.pg),
+    var sequelize = new Sequelize(postgresurl, config.pg),
     db = {};
     fse.readdirSync(__dirname).filter(function(file) {
       return ((file.indexOf('.' ) !== 0) && (file !== 'index.js') && (file.slice(-3) === '.js'));

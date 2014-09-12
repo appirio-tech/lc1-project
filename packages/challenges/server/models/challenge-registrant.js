@@ -14,4 +14,4 @@ module.exports = function(sequelize, DataTypes) {
   }, {tableName: 'challenge_registrants'});
 
   return ChallengeRegistrant;
-}:
+};

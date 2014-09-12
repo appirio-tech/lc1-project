@@ -4,16 +4,9 @@ module.exports = function(config) {
     path = require('path'),
     Sequelize = require('sequelize'),
     lodash = require('lodash');
-    // reading config
-    // dburl will be the database url and pg will be postgres options
-    // Try to read DB_URL from environment
-    var dburl;
-    if(process.env.DATA_URL) {
-      dburl = process.env.DATA_URL;
-    } else {
-      dburl = config.postgresurl;
-    }
-    var sequelize = new Sequelize(dburl, config.pg),
+    // reading config.
+    var postgresurl = config.pg.dialect +'://' + config.pg.username + ':' + config.pg.password + '@' + config.pg.host + ':' + config.pg.port + '/' + config.pg.database;
+    var sequelize = new Sequelize(postgresurl, config.pg),
     db = {};
 
     // Add JSON and JSONB data type to Sequelize

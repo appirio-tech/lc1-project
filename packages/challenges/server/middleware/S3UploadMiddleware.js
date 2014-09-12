@@ -1,5 +1,54 @@
 'use strict';
 
+/**
+ * Amazon s3 storage provider.
+ * A storage provider should implement atleast following two methods
+ *
+ * /**
+ *  * Store method. It will store the file based on the service provided by this provided
+ *  * This method will set the request object property fileUploadStatus
+ *  * fileUploadStatus : {
+ *  *   file : {
+ *  *      filePath : ''
+ *  *      tempPath : ''
+ *  *      fileName : ''
+ *  *      size : ''
+ *  *      storageType : ''
+ *  *   }
+ *  *   err : Describes the error in case there is one
+ *  *   statusCode : remote server status code
+ *  * }
+ *  *
+ * function store(req,res,next) {
+ *   // do something store the file and set the request object
+ * }
+ *
+ * /**
+ * * Delete handleer. This method delete the specified file from resource
+ * * @param  {File}           file              The file object to delete
+ * * @param  {Function}       callback          Callback function
+ * *
+ * * The signature of callback function
+ * *
+ * * function callback(err) {
+ * *   if(err) {
+ * *      // error occured during delete
+ * *   } else {
+ * *     // deleted successfully. Proceed
+ * *   }
+ * * }
+ *
+ * function delete(file, callback) {
+ *   // do something. Delete file from resource
+ * }
+ *
+ *
+ *
+ */
+
+/**
+ * Module dependencies
+ */
 var multiparty = require('multiparty'),
   knox = require('knox'),
   Batch = require('batch'),
@@ -7,7 +56,12 @@ var multiparty = require('multiparty'),
    * HTTP OK STATUS CODE
    * @type {Number}
    */
-  HTTP_OK = 200;
+  HTTP_OK = 200,
+
+  /**
+   * HTTP NO CONTENT STATUS CODE
+   */
+  HTTP_NO_CONTENT = 204;
 
 var headers = {
   'x-amz-acl': 'public-read',
@@ -24,7 +78,7 @@ function onEnd() {
   console.log('Multi part form parsed successfully');
 }
 
-module.exports = function(options) {
+module.exports = function(options, config) {
   var err = checkOptions(options);
   if(err) {
     throw err;
@@ -41,7 +95,15 @@ module.exports = function(options) {
     region: options.aws.region
   });
 
-  var middleware = function(req, res, next) {
+  var provider = {};
+
+  /**
+   * Storage provider store implementation
+   * @param  {Object}       req       Request object
+   * @param  {Object}       res       Response object
+   * @param  {Function}     next      Next function
+   */
+  provider.store = function(req, res, next) {
     var form = new multiparty.Form(),
       batch = new Batch();
     /**
@@ -81,7 +143,7 @@ module.exports = function(options) {
         tempPath : '',
         fileName : fileName,
         size : part.byteCount,
-        storageType : options.uploads.s3Storage
+        storageType : options.id
       };
 
       s3Client.putStream(part, targetPath, headers, function(err, s3Response) {
@@ -106,5 +168,36 @@ module.exports = function(options) {
     form.parse(req);
   };
 
-  return middleware;
+  /**
+   * Delete handleer. This method delete the specified file from resource
+   * @param  {File}           file              The file object to delete
+   * @param  {Function}       callback          Callback function
+   *
+   * The signature of callback function
+   *
+   * function callback(err) {
+   *   if(err) {
+   *      // error occured during delete
+   *   } else {
+   *     // deleted successfully. Proceed
+   *   }
+   * }
+   */
+  provider.delete = function(file, callback) {
+    if(!file.filePath) {
+      callback(new Error('Invalid file'));
+      return;
+    }
+    // s3 storage delete s3 object
+    s3Client.del(file.filePath).on('response', function(res) {
+      if(res.statusCode === HTTP_OK || res.statusCode === HTTP_NO_CONTENT) {
+        // File deleted from s3
+        callback(null);
+      } else {
+        callback(new Error('Failed to delete s3 file'));
+      }
+    }).end();
+
+  };
+  return provider;
 };

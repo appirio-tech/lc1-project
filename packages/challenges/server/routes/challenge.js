@@ -16,36 +16,30 @@ var routeHelper = require('../lib/routeHelper');
 var files = require('../controllers/files');
 
 /**
- * File upload middlewares
+ * Storage provider
  * @type {Object}
  */
-var LocalUploadMiddleware = require('../middleware/LocalUploadMiddleware');
-var S3UploadMiddleware = require('../middleware/S3UploadMiddleware');
+var provider;
 
 // The Package is past automatically as first parameter
 module.exports = function(Challenges, app, auth, database, config) {
 
-    /**
-     * Application base path
-     * @type {String}
-     */
-    var BASE_PATH = '/challenges';
-    /**
-    * Initializing file upload middle ware based on configuration
-    */
-    var uploadOptions = config.uploads;
-    var uploadMiddleware;
-    if(uploadOptions.isLocalStorage) {
-    /**
-     * Local storage is configured. Initializing local upload middleware
-     */
-    uploadMiddleware = new LocalUploadMiddleware(config);
+  /**
+   * Application base path
+   * @type {String}
+   */
+  var BASE_PATH = '/challenges';
+  /**
+  * Initializing storage provider
+  */
+  var storageProviders = config.storageProviders,
+    providerName = config.uploads.storageProvider;
+
+  if(storageProviders.hasOwnProperty(providerName)) {
+    var providerConfig = storageProviders[providerName];
+    provider = require(config.root + '/' + providerConfig.path)(providerConfig.options, config);
   } else {
-    /**
-     * Local storage is not configured. Default storage option would be Amazon s3 service
-     * Initializing amazon s3 middleware
-     */
-    uploadMiddleware = new S3UploadMiddleware(config);
+    throw new Error(providerName + 'is not configured in Storage Providers');
   }
 
   /**
@@ -57,7 +51,7 @@ module.exports = function(Challenges, app, auth, database, config) {
      * Added routeHelper middleware
      */
     .all(auth.requiresLogin)
-    .all(uploadMiddleware)
+    .all(provider.store)
     .post(files.uploadHandler, routeHelper.renderJson);
 
 

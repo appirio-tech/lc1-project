@@ -15,17 +15,14 @@ var config = require('meanio').loadConfig();
 var knox = require('knox');
 var routeHelper = require('../lib/routeHelper');
 
-
 /**
- * Creating knox s3 client
+ * Loading storage provider 
  */
-var s3Client = knox.createClient({
-  secure: config.aws.secure,
-  key: config.aws.key,
-  secret: config.aws.secret,
-  bucket: config.aws.bucket,
-  region: config.aws.region
-});
+var storageProviders = config.storageProviders,
+  providerName = config.uploads.storageProvider;
+var providerConfig = storageProviders[providerName];
+
+var provider = require(config.root + '/' + providerConfig.path)(providerConfig.options, config);
 
 /**
  * upload file handler
@@ -76,32 +73,6 @@ exports.uploadHandler = function(req, res, next) {
   });
 };
 
-/**
- * Delete file from resource
- * This method will delete the file from file system of amazon s3 based on configuration
- * @param  {Object}         file           File Object to be deleted
- * @param  {Function}       callback       callback function
- */
-var deleteFileFromResource = function(file, callback) {
-  if(file.storageType === config.uploads.localStorage) {
-    // local storage configured deleting file
-    fse.remove(file.filePath, function(err) {
-      callback(err);
-    });
-  } else if(file.storageType === config.uploads.s3Storage) {
-    // s3 storage delete s3 object
-    s3Client.del(file.filePath).on('response', function(res) {
-      if(res.statusCode === HTTP_OK || res.statusCode === HTTP_NO_CONTENT) {
-        // File deleted from s3
-        callback(null);
-      } else {
-        callback(new Error('Failed to delete s3 file'));
-      }
-    }).end();
-  } else {
-    callback(new Error('Storage type not supported for file Id ' + file.id));
-  }
-};
 
 /**
  * Delete file handler
@@ -111,7 +82,7 @@ var deleteFileFromResource = function(file, callback) {
 exports.deleteFile = function(req, res, next) {
   var fileId = req.params.fileId;
   File.find(fileId).success(function(file) {
-    deleteFileFromResource(file, function(err) {
+    provider.delete(file, function(err) {
       if(err) {
         routeHelper.addError(req,'InernalServerError', err);
         return next();
@@ -129,4 +100,4 @@ exports.deleteFile = function(req, res, next) {
     routeHelper.addError(req,'DatabaseError', err);
     return next();
   });
-}:
+};

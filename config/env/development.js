@@ -4,39 +4,14 @@ module.exports = {
 
   /**
    * Uploads configuration
-   * If local storage will be false then application by defaults initialize S3 upload service
-   * For local storage uploadsDirectory is mandatory.
-   * If temp directory is not given it will default to os.tempdir()
-   *
-   * For s3 upload configuration
-   * key, secret bucket and region properties are mandatory
    * @type {Object}
    */
   uploads : {
-    isLocalStorage : true,
-    uploadsDirectory : './uploads',
-    tempDir : './temp',
     /**
-     * Constant representing Local storage type
-     * @type {Number}
+     * Should be configured in storageProviders
+     * @type {String}
      */
-    localStorage : 1,
-    /**
-     * Constant representing S3 Storage type
-     * @type {Number}
-     */
-    s3Storage : 2
-  },
-  /**
-   * AWS configuration for s3 upload service
-   * @type {Object}
-   */
-  aws : {
-    secure: false,
-    key: 'KEY',
-    secret: 'SECRET',
-    bucket: 'BUCKET',
-    region : 'REGION'
+    storageProvider : 'local'
   },
   db: 'mongodb://heroku_app28672932:lbjk306k1jr7r13g25sbj3a1rr@ds063809.mongolab.com:63809/heroku_app28672932',
   app: {
@@ -75,7 +50,6 @@ module.exports = {
       pass: 'PASSWORD'
     }
   },
-  postgresurl : 'postgres://idgimrogqewzfg:-C6oh1ld9u_pm4201sctLVqPwX@ec2-54-197-250-52.compute-1.amazonaws.com/dc6c3p1lnfqrvo',
   pg: {
     database: 'dc6c3p1lnfqrvo',
     username: 'idgimrogqewzfg',
@@ -83,5 +57,56 @@ module.exports = {
     host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
     dialect: 'postgres',
     port: 5432
+  },
+
+  /**
+   * Storage providers can be configured here
+   * A storage provider should support two operations
+   * store and delete
+   * @type {Object}
+   */
+  storageProviders : {
+    local : {
+      /**
+       * This path is needed to load the provider during application load
+       * @type {String}
+       */
+      path : './packages/challenges/server/middleware/LocalUploadMiddleware',
+      options : {
+        /**
+         * Unique Id for this storage provider
+         * NOTE: Every storage provider should have a unique id
+         * @type {Number}
+         */
+        id : 1,
+        /**
+         * These are upload directories for local storage provider
+         * @type {String}
+         */
+        uploadsDirectory : './uploads',
+        tempDir : './temp'
+      }
+    },
+    amazonS3 : {
+      path : './packages/challenges/server/middleware/S3UploadMiddleware',
+      options : {
+        /**
+         * This path is needed to load the provider during application load
+         * @type {String}
+         */
+        id: 2,
+        /**
+         * AWS configuration for s3 upload service
+         * @type {Object}
+         */
+        aws : {
+          secure: false,
+          key: 'KEY',
+          secret: 'SECRET_KEY',
+          bucket: 'bucket',
+          region : 'region'
+        }
+      }
+    }
   }
 };

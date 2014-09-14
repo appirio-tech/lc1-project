@@ -12,21 +12,6 @@ var _ = require('lodash');
 var routeHelper = require('../lib/routeHelper');
 
 /**
- * HTTP OK STATUS CODE
- */
-var HTTP_OK = 200;
-
-/**
- * HTTP SERVER ERROR STATUS CODE
- */
-var HTTP_SERVER_ERROR = 500;
-
-/**
- * HTTP NO CONTENT STATUS CODE
- */
-var HTTP_NO_CONTENT = 204;
-
-/**
  * Find a challenge by id
  */
 exports.challenge = function (req, res, next, id) {

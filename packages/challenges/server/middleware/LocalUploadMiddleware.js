@@ -148,7 +148,7 @@ module.exports = function(options, config) {
     fse.remove(file.filePath, function(err) {
       callback(err);
     });
-  }
+  };
 
   return provider;
 };

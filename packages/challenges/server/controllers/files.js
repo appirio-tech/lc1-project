@@ -10,9 +10,7 @@
 var datasource = require('./../../datasource').getDataSource();
 var Challenge = datasource.Challenge;
 var File = datasource.File;
-var fse = require('fs-extra');
 var config = require('meanio').loadConfig();
-var knox = require('knox');
 var routeHelper = require('../lib/routeHelper');
 
 /**

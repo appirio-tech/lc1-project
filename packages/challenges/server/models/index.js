@@ -4,8 +4,9 @@ module.exports = function(config) {
     path = require('path'),
     Sequelize = require('sequelize'),
     lodash = require('lodash');
+
     // reading config.
-    var postgresurl = config.pg.dialect +'://' + config.pg.username + ':' + config.pg.password + '@' + config.pg.host + ':' + config.pg.port + '/' + config.pg.database;
+    var postgresurl = config.pgURL || (config.pg.dialect +'://' + config.pg.username + ':' + config.pg.password + '@' + config.pg.host + ':' + config.pg.port + '/' + config.pg.database);
     var sequelize = new Sequelize(postgresurl, config.pg),
     db = {};
 

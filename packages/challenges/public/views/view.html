@@ -89,4 +89,34 @@
     </li>
   </ul>
 
+  <!-- View all files section -->
+  
+  <div class="row">
+    <div ng-if="loadingFiles || loadError" class="row">
+      <p ng-if="loadingFiles">Loading files... please wait</p>
+      <p ng-if="loadError" class="text-danger">Cannot able to fetch file list for this challenge. Try again</p>
+      <p ng-if="loadError" class="text-danger">{{deleteError | json}}</p>
+    </div>
+    <div ng-if="!loadingFiles && !loadError" class="row">
+      <div class="col-md-12">
+        <table class="table table-hover table-striped">
+          <thead>
+            <tr>
+              <th>File Name</th>
+              <th>Title</th>
+              <th>Delete</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="file in allFiles">
+              <td>{{file.fileName}}</td>
+              <td>{{file.title}}</td>
+              <td><a href ng-click="deleteFile(file.id)">Delete</a></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+
 </section>

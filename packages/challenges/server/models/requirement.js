@@ -3,14 +3,12 @@
  */
 'use strict';
 
+/**
+* Defining Requirement model
+*/
+module.exports = function(sequelize, DataTypes) {
 
-var postgresql = require('postgresql-sequelize');
-var Sequelize = postgresql.Sequelize;
-var DataTypes = Sequelize;
-var sequelize = postgresql.sequelize;
-
-// Requirement model
-sequelize.define('Requirement', {
+  var Requirement = sequelize.define('Requirement', {
     type: {type: 'requirement_type', allowNull: false},
     necessity: {type: 'requirement_necessity'},
     body: {type: DataTypes.TEXT, allowNull: false},
@@ -22,7 +20,8 @@ sequelize.define('Requirement', {
     tags: DataTypes.ARRAY(DataTypes.TEXT),
     textsearchable_body: 'tsvector',
     is_in_library: {type: DataTypes.BOOLEAN, allowNull: false, defaultValue: false},
-    weight: {type: DataTypes.DECIMAL(5, 3), allowNull: false, defaultValue: 1},
-  }, 
-  {'tableName': 'requirements'}
-);
+    weight: {type: DataTypes.DECIMAL(5, 3), allowNull: false, defaultValue: 1}
+  }, {tableName: 'requirements'});
+
+  return Requirement;
+};

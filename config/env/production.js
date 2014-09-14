@@ -1,6 +1,17 @@
 'use strict';
 
 module.exports = {
+  /**
+   * Uploads configuration
+   * @type {Object}
+   */
+  uploads : {
+    /**
+     * Should be configured in storageProviders
+     * @type {String}
+     */
+    storageProvider : 'local'
+  },
   db: process.env.MONGOLAB_URI,
   app: {
     name: '[topcoder serenity]'
@@ -38,7 +49,5 @@ module.exports = {
       pass: 'PASSWORD'
     }
   },
-  pg: {
-    // Not needed in production.  Code reads from DATABASE_URL env variable
-  }
+  pgURL: node.env.DATABASE_URL
 };

@@ -9,8 +9,51 @@ var requirements = require('../controllers/challenge-requirements');
 var challengeRegistrants = require('../controllers/challenge-registrants');
 var routeHelper = require('../lib/routeHelper');
 
+/**
+ * File controller
+ * @type {Object}
+ */
+var files = require('../controllers/files');
+
+/**
+ * Storage provider
+ * @type {Object}
+ */
+var provider;
+
 // The Package is past automatically as first parameter
-module.exports = function(Challenges, app, auth, database) {
+module.exports = function(Challenges, app, auth, database, config) {
+
+  /**
+   * Application base path
+   * @type {String}
+   */
+  var BASE_PATH = '/challenges';
+  /**
+  * Initializing storage provider
+  */
+  var storageProviders = config.storageProviders,
+    providerName = config.uploads.storageProvider;
+
+  if(storageProviders.hasOwnProperty(providerName)) {
+    var providerConfig = storageProviders[providerName];
+    provider = require(config.root + '/' + providerConfig.path)(providerConfig.options, config);
+  } else {
+    throw new Error(providerName + 'is not configured in Storage Providers');
+  }
+
+  /**
+   * configuring middlewares for file upload
+   */
+  app.route(BASE_PATH + '/:challengeId/upload')
+    /**
+     * configuring middlewares for express-jwt
+     * Added routeHelper middleware
+     */
+    .all(auth.requiresLogin)
+    .all(provider.store)
+    .post(files.uploadHandler, routeHelper.renderJson);
+
 
     // routes for Challenge model CRUD operations
     app.route('/challenges')
@@ -47,5 +90,18 @@ module.exports = function(Challenges, app, auth, database) {
     app.route('/challenges/:challengeId/register')
         .post(auth.requiresLogin, challengeRegistrants.register, routeHelper.renderJson)
         .get(challengeRegistrants.getRegInfoByCha, routeHelper.renderJson);
+
+
+    // adding route to get all files for a challenge
+    // Added route Helper middle ware
+    app.route(BASE_PATH + '/:challengeId/files')
+        .all(auth.requiresLogin)
+        .get(challenges.getAllFiles, routeHelper.renderJson);
+
+    // adding routes for file delete
+    // Added route Helper middle ware
+    app.route(BASE_PATH + '/files/:fileId')
+        .all(auth.requiresLogin)
+        .delete(files.deleteFile, routeHelper.renderJson);
 
 };

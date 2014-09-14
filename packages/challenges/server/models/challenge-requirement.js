@@ -3,16 +3,15 @@
  */
 'use strict';
 
+/**
+* Defining ChallengeRequirement model
+*/
+module.exports = function(sequelize, DataTypes) {
 
-var postgresql = require('postgresql-sequelize');
-var Sequelize = postgresql.Sequelize;
-var DataTypes = Sequelize;
-var sequelize = postgresql.sequelize;
+  var ChallengeRequirement = sequelize.define('ChallengeRequirement', {
+    challengeId: DataTypes.INTEGER,
+    requirementId: DataTypes.INTEGER
+  }, {tableName: 'challenge_requirements'});
 
-// ChallengeRequirement model
-sequelize.define('ChallengeRequirement', {
-  	challengeId: DataTypes.INTEGER,
-  	requirementId: DataTypes.INTEGER
-  }, 
-  {'tableName': 'challenge_requirements'}
-);
+  return ChallengeRequirement;
+};

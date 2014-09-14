@@ -1,6 +1,18 @@
 'use strict';
 
 module.exports = {
+
+  /**
+   * Uploads configuration
+   * @type {Object}
+   */
+  uploads : {
+    /**
+     * Should be configured in storageProviders
+     * @type {String}
+     */
+    storageProvider : 'local'
+  },
   db: 'mongodb://heroku_app28672932:lbjk306k1jr7r13g25sbj3a1rr@ds063809.mongolab.com:63809/heroku_app28672932',
   app: {
     name: '[topcoder serenity]'

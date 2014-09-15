@@ -11,8 +11,12 @@ module.exports = function(grunt) {
 
   if (process.env.NODE_ENV !== 'production') {
     require('time-grunt')(grunt);
-    var envConfig = require('./config/env/' + (process.env.NODE_ENV || 'local'));
-    databaseUrl = 'postgres://' + envConfig.pg.username + ':' + envConfig.pg.password + '@' + envConfig.pg.host + ':5432/' + envConfig.pg.database;
+    // I need to put this code check in since it would not run even in development if you did not have a local.js config file
+    if (grunt.file.exists('./config/env/local.js')) {
+      var envConfig = require('./config/env/' + (process.env.NODE_ENV || 'local' ));
+      databaseUrl = 'postgres://' + envConfig.pg.username + ':' + envConfig.pg.password + '@' + envConfig.pg.host + ':5432/' + envConfig.pg.database;
+    }
+
   } else {
     databaseUrl = process.env.DATABASE_URL;
   }

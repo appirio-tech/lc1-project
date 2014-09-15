@@ -56,6 +56,7 @@ module.exports = {
     password: '-C6oh1ld9u_pm4201sctLVqPwX',
     host: 'ec2-54-197-250-52.compute-1.amazonaws.com',
     dialect: 'postgres',
-    port: 5432
+    port: 5432,
+    native: true
   }
 };

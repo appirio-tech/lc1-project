@@ -49,5 +49,5 @@ module.exports = {
       pass: 'PASSWORD'
     }
   },
-  pgURL: node.env.DATABASE_URL
+  pgURL: process.env.DATABASE_URL
 };

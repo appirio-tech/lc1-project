@@ -1,0 +1,22 @@
+<section>
+  <accordion close-others="true" ng-init="debug=true">
+    <accordion-group data-ng-repeat="article in articles | limitTo:limit" is-open="status.open" class="well2">
+      <accordion-heading >
+        <div  style="font-size: 14px;">
+          {{article.title}} <small> {{article.created | date:'mediumDate'}} </small>
+          <i class="pull-right glyphicon" ng-class="{'fa fa-minus-circle': status.open, 'fa fa-plus-circle': !status.open}"></i>
+        </div>
+      </accordion-heading>
+      <div>{{article.content}}</div>
+      <div><i>Added by {{article.user.name}} <i> on  <small> {{article.created | date:'short'}} </small> </div>
+       </accordion-group>
+
+       <center>
+       <a ng-show="limit < articles.length" href ng-click="incrementLimit()">more</a>
+       <a ng-show="limit != 0" href ng-click="decrementLimit()">less</a>
+       <small>there are {{articles.length}} News articles, showing
+       <span ng-show="limit < articles.length" >{{limit}}</span>
+       <span ng-show="limit >= articles.length" >all</span></small></center>
+
+  </accordion>
+</section>

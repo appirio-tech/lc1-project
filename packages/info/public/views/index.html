@@ -1,0 +1,60 @@
+<div class="" data-ng-controller="InfoController" ng-init="loadIssues()">
+  <h5>Package: {{package.name}}</h5>
+
+  <div class="row">
+    <div class="col-md-8">
+      <h4> Issues </h4>
+      <div class="well">
+
+
+        <h5> open (last{{openlimit}}) </h5>
+        <div ng-repeat="openissue in issues | filter: {state: 'open'} | limitTo:openlimit ">
+          <img ng-src="{{openissue.assignee.avatar_url}}" height="16px" />
+          <a href="https://github.com/topcoderinc/serenity-core/issues/{{openissue.number}}" target="_blank">#{{openissue.number}}</a>
+          {{openissue.title}} <small>updated: {{openissue.updated_at | date:'shortDate' }}</small>
+          <small>(created {{openissue.created_at | date:'shortDate' }})</small>
+          <span ng-repeat="label in openissue.labels">
+            <span style="color: #{{label.color}}">{{label.name}} </span>
+          </span>
+          <button ng-show="openissue.milestone.title" type="button" class="btn btn-primary btn-xs">{{openissue.milestone.title}}
+          </button>
+        </div>
+
+        <center>
+          <a ng-show="openlimit < issues.length" href ng-click="incrementOpenLimit()">more</a>
+          <a ng-show="openlimit != 0" href ng-click="decrementOpenLimit()">less</a>
+          <small>there are {{issues.length}} issues, showing
+            <span ng-show="openlimit < issues.length" >{{openlimit}}</span>
+            <span ng-show="openlimit >= issues.length" >all</span></small>
+        </center>
+
+      </div>
+
+      <div class="well">
+        <h5> closed (last{{closedlimit}}) </h5>
+        <div ng-repeat="closeissue in issues | filter: {state: 'close'} | limitTo:closedlimit ">
+          <img ng-src="{{closeissue.assignee.avatar_url}}" height="16px" />
+          <a href="https://github.com/topcoderinc/serenity-core/issues/{{closeissue.number}}" target="_blank">#{{closeissue.number}}</a>
+          {{closeissue.title}} <small>updated: {{closeissue.updated_at | date:'shortDate' }}</small>
+          <small>(created {{closeissue.created_at | date:'shortDate' }})</small>
+          <span ng-repeat="label in closeissue.labels">
+            <span style="color: #{{label.color}}">{{label.name}} </span>
+          </span>
+          <button ng-show="closeissue.milestone.title" type="button" class="btn btn-primary btn-xs">{{closeissue.milestone.title}}
+          </button>
+        </div>
+
+        <center>
+          <a ng-show="closedlimit < issues.length" href ng-click="incrementClosedLimit()">more</a>
+          <a ng-show="closedlimit != 0" href ng-click="decrementClosedLimit()">less</a>
+          <small>there are {{issues.length}} issues, showing
+            <span ng-show="closedlimit < issues.length" >{{closedlimit}}</span>
+            <span ng-show="closedlimit >= issues.length" >all</span></small>
+        </center>
+      </div>
+
+    </div>
+  </div>
+
+
+</div>

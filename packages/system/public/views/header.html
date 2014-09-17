@@ -1,8 +1,18 @@
+<style>
+.popover-content {
+padding: 9px 14px; // that is bootstrap default
+background: #5789c6;
+color: #555;
+}
+</style>
+
+
+
 <div class="page-header" data-ng-controller="HeaderController">
   <div class="logo pull-left">
     <a class="navbar-brand" ui-sref="home" mean-token="'site-title'">
       <img ng-src="/system/assets/img/favicon.ico"/>
-      [serenity]
+      [serenity] <span style="color: #EA8300;" >PREVIEW</span>
       </a>
   </div>
 
@@ -11,6 +21,24 @@
       <li data-ng-repeat="item in menus.main" ui-route="/{{item.link}}" ng-class="{active: $uiRoute}">
         <a mean-token="item.link" ui-sref='{{item.link}}'>{{item.title}}</a>
       </li>
+      <li><a href="https://sites.google.com/a/appirio.com/products/home/loudercrowd">Louder Crowd wiki</a></li>
+      <li><a href="https://github.com/topcoderinc/serenity-core/issues/new" target "_blank">
+          <i class="fa fa-bug"
+            popover="create github ticket"
+            popover-trigger="mouseenter"
+            popover-placement="bottom" >
+          </i>
+        </a>
+      </li>
+      <li><a href="https://github.com/topcoderinc/serenity-core" target "_blank">
+          <i class="fa fa-github fa-lg"
+            popover="github repo"
+            popover-trigger="mouseenter"
+            popover-placement="bottom">
+          </i>
+        </a>
+      </li>
+
     </ul>
   </div>
 

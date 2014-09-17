@@ -8,7 +8,7 @@ module.exports = {
   uploads : {
     /**
      * Should be configured in storageProviders
-     * @type {String} 
+     * @type {String}
      */
     storageProvider : 'local'
   },

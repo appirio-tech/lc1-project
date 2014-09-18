@@ -9,9 +9,13 @@
           <a class="btn" href="/#!/articles/{{article._id}}/edit">
             <i class="glyphicon glyphicon-edit"></i>
           </a>
+          <a class="btn" data-ng-click="remove(article);">
+            <i class="glyphicon glyphicon-trash"></i>
+          </a>
         </span>
       </h2>
       <div>{{article.content}}</div>
+      <div ng-if='article.tags' >tags: <button type="button" class="btn btn-primary btn-xs">{{article.tags}}</button> </div>
     </li>
   </ul>
   <h1 data-ng-hide="!articles || articles.length">No articles yet. <br> Why don't you <a href="/#!/articles/create">Create One</a>?</h1>

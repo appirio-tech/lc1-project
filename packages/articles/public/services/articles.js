@@ -12,3 +12,15 @@ angular.module('mean.articles').factory('Articles', ['$resource',
     });
   }
 ]);
+
+angular.module('mean.articles').factory('ArticlesByTag', ['$resource',
+	function($resource) {
+		return $resource('articles/tag/:mytag', {
+			articleId: '@_id'
+		}, {
+			update: {
+				method: 'PUT'
+			}
+		});
+	}
+]);

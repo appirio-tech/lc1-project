@@ -95,3 +95,19 @@ exports.all = function(req, res) {
 
   });
 };
+
+/**
+ * Get articles by tag
+ */
+exports.getArticlesByTag = function(req, res, next, mytag) {
+    var searchTag = mytag;
+    Article.find({ 'tags': new RegExp(searchTag, 'i')  }).sort('-created').populate('user', 'name username').exec(function(err, articles) {
+        if (err) {
+            return res.jsonp(500, {
+                error: 'Cannot list the News'
+            });
+        }
+        res.jsonp(articles);
+
+    });
+};

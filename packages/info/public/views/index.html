@@ -54,7 +54,12 @@
       </div>
 
     </div>
-  </div>
+  <!-- </div> -->
 
+<div class="col-md-4">
+  <h5><i class="fa fa-book"/> News</h5>
+<div class="well well2" ng-controller="NewsArticleController" ng-include src="'articles/views/listbytag.html'" data-ng-init="findByTag()"></div>
+</div>
+</div> <!-- end row -->
 
 </div>

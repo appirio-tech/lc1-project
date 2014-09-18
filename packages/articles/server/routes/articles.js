@@ -20,6 +20,10 @@ module.exports = function(Articles, app, auth) {
     .put(auth.requiresLogin, hasAuthorization, articles.update)
     .delete(auth.requiresLogin, hasAuthorization, articles.destroy);
 
+  app.route('/articles/tag/:mytag')
+    .get(articles.getArticlesByTag);
+
   // Finish with setting up the articleId param
   app.param('articleId', articles.article);
+  app.param('mytag', articles.getArticlesByTag);
 };

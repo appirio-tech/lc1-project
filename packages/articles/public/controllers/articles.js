@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles',
-  function($scope, $stateParams, $location, Global, Articles) {
+angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles', 'ArticlesByTag',
+  function($scope, $stateParams, $location, Global, Articles, ArticlesByTag) {
     $scope.global = Global;
 
     $scope.hasAuthorization = function(article) {
@@ -13,7 +13,8 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
       if (isValid) {
         var article = new Articles({
           title: this.title,
-          content: this.content
+          content: this.content,
+          tags: this.tags,
         });
         article.$save(function(response) {
           $location.path('articles/' + response._id);
@@ -21,6 +22,7 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
 
         this.title = '';
         this.content = '';
+        this.tags = '';
       } else {
         $scope.submitted = true;
       }
@@ -64,6 +66,15 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
       });
     };
 
+    $scope.findByTag = function() {
+      ArticlesByTag.query({
+        mytag: $stateParams.mytag
+      }, function(articles) {
+        $scope.articles = articles;
+
+      });
+    };
+
     $scope.findOne = function() {
       Articles.get({
         articleId: $stateParams.articleId
@@ -71,5 +82,35 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
         $scope.article = article;
       });
     };
+  }
+]);
+
+   // news controller   This section gets the accordian for the Info on the home page
+angular.module('mean.articles').controller('NewsArticleController', ['$scope', '$stateParams', '$location', 'Global', 'ArticlesByTag',
+  function($scope, $stateParams, $location, Global, ArticlesByTag) {
+    $scope.global = Global;
+
+
+    // show more or less news articles
+    var limitStep = 5;
+      $scope.limit = limitStep;
+      $scope.incrementLimit = function() {
+          $scope.limit += limitStep;
+      };
+      $scope.decrementLimit = function() {
+          $scope.limit -= limitStep;
+      };
+
+
+
+    $scope.findByTag = function() {
+      ArticlesByTag.query({
+        mytag: 'news'
+      }, function(articles) {
+        $scope.articles = articles;
+
+      });
+    };
+
   }
 ]);

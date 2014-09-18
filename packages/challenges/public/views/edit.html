@@ -63,6 +63,10 @@
       <div class="col-md-offset-2 col-md-10">
         <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
         <button mean-token="'edit-cancel'" type="button" class="btn btn-default" data-ng-click="cancelChallenge(challenge)">Cancel</button>
+        <button mean-token="'edit-launch'" ng-hide="challenge.status === 'started'" type="button" class="btn btn-primary" ng-click="launch(challenge)">
+          <i class="fa fa-rocket">
+          Launch</i></button>
+
       </div>
     </div>
   </form>

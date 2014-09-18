@@ -6,13 +6,16 @@
       <a class="btn" href="/#!/challenges/{{challenge.id}}/edit">
         <i class="glyphicon glyphicon-edit"></i>
       </a>
+      <a class="btn" data-ng-click="remove(challenge);">
+      <i class="glyphicon glyphicon-trash"></i>
+    </a>
     </span>
 
-    <span data-ng-hide="challenge.status === 'started'">
+    <!-- <span data-ng-hide="challenge.status === 'started'">
       <a class="btn" ng-click="launch(challenge)">
         <i class="fa fa-rocket"></i>
       </a>
-    </span>
+    </span> -->
 
     <!-- pass challenge as the parameter to register -->
     <register-button challenge="challenge"></register-button>
@@ -90,7 +93,7 @@
   </ul>
 
   <!-- View all files section -->
-  
+
   <div class="row">
     <div ng-if="loadingFiles || loadError" class="row">
       <p ng-if="loadingFiles">Loading files... please wait</p>

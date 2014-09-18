@@ -74,6 +74,8 @@ Challenges.register(function (app, auth, database) {
     });
    */
 
+  Challenges.angularDependencies(['ngGrid', 'angular-loading-bar']);
+  Challenges.aggregateAsset('css', 'challenges.css');
 
   return Challenges;
 });

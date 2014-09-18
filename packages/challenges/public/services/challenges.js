@@ -10,10 +10,14 @@ angular.module('mean.challenges')
   function($resource) {
     return $resource('challenges/:challengeId', {
       challengeId: '@id'
-    }, 
+    },
     {
       update: {
         method: 'PUT'
+      },
+      query: {
+          method: 'GET',
+          isArray: false
       }
     });
   }
@@ -22,7 +26,7 @@ angular.module('mean.challenges')
   function($resource) {
     return $resource('challenges/:challengeId/launch', {
       challengeId: '@id'
-    }, 
+    },
     {
       launch: {
         method: 'POST'

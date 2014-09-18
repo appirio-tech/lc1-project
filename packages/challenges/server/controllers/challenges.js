@@ -32,14 +32,29 @@ exports.challenge = function (req, res, next, id) {
 /**
  * List of challenges
  */
-exports.all = function (req, res, next) {
-  Challenge.findAll().success(function (challenges) {
-    req.data = challenges;
-    next();
+exports.all = function (req, res) {
+  Challenge.findAndCountAll({
+    where: ['1=1'],
+    limit: req.query.take || 10,
+    offset: req.query.skip || 0
+  }).success(function (result) {
+    res.json({
+      totalCount: result.count,
+      data: result.rows
+    });
   })
+
+    /*Challenge.findAll().success(function (challenges) {
+    res.json({
+        totalCount: 100,
+        data: challenges
+    });
+  })*/
     .error(function (err) {
-        routeHelper.addError(req, 'DatabaseReadError', err);
-        next();
+      console.log('list err: ' + JSON.stringify(err));
+      return res.status(500).json({
+        error: 'Cannot list the challenges'
+      });
     });
 };
 
@@ -76,7 +91,7 @@ exports.update = function (req, res, next) {
       var status_code = 500;
       if(challenge.title.length === 0)
         status_code = 403;
-      
+
       routeHelper.addError(req, 'DatabaseSaveError', err, status_code);
       next();
     });

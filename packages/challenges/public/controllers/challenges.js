@@ -7,8 +7,8 @@
  * FileService is added as a dependency
  */
 
-angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges','FileService','$window','$timeout','$http','ChallengeRequirements', 'ChallengeLaunch','$modal',
-  function($scope, $stateParams, $location, $sce, Global, Challenges, FileService, $window, $timeout, $http, ChallengeRequirements, ChallengeLaunch, $modal) {
+angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges','FileService','$window','$timeout','$http','ChallengeRequirements', 'ChallengeLaunch','$modal', '$log',
+  function($scope, $stateParams, $location, $sce, Global, Challenges, FileService, $window, $timeout, $http, ChallengeRequirements, ChallengeLaunch, $modal, $log) {
     $scope.global = Global;
 
     $scope.checkNew = function() {
@@ -59,23 +59,31 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
             error: function() { return data.error; }
           }
         });
-      }); 
+      });
     };
 
     $scope.remove = function(challenge) {
       if (challenge) {
         challenge.$remove();
+        $log.log('removed called');
+        // $location.path('challenges');  // this happense too soon, the splice has not completed
 
         for (var i in $scope.challenges) {
           if ($scope.challenges[i] === challenge) {
             $scope.challenges.splice(i, 1);
           }
         }
+
+
       } else {
         $scope.challenge.$remove(function(response) {
           $location.path('challenges');
+          $log.log('remove response returned');
         });
       }
+      //FIXME  The response never comes so we never reload the list view
+      // I call it here anyway but the deleted record will still show up.
+      $location.path('challenges'); // try here maybe ready now
     };
 
     $scope.update = function(isValid, challengeForm) {
@@ -205,7 +213,7 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       $scope.showReqForm = false;
       $scope.requirement = null;
     };
-	  
+
     /**
      * BASE PATH
      * @type {String}

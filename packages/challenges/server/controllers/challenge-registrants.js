@@ -11,9 +11,12 @@ var ChallengeRegistrant = datasource.ChallengeRegistrant;
 var routeHelper = require('../lib/routeHelper');
 
 exports.register = function(req, res, next){
+  console.log('the user is ' + JSON.stringify(req.user));
   var chaReg = {
     challengeId: req.challenge.id,
-    userId:  req.user._id.toString()
+    userId:  req.user._id.toString(),
+    handle: req.user.username.toString(),
+    role: 'registered'
   };
   ChallengeRegistrant.findOrCreate(chaReg).success(function(chaReg, created){
     if(!created)

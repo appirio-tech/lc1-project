@@ -45,8 +45,8 @@ The `NODE_ENV` var defines which database you use. We have added `config/env/loc
 1. copy `config/env/development.js` to `config/env/local.js`.
 1. edit this new file and add you db string for mongo and postgres.
 1. create the local postgres db
-1. from you shell run `grunt local` and start your app.
 1. run `grunt dbmigrate`
+1. from you shell run `grunt local` and start your app.
 
 ## Database migrations
 

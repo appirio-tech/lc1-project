@@ -19,7 +19,8 @@ This core uses the following modules in addition to the mean.io framework to sup
   ```
 
 # Quickstart
-This should be supper simple to get up and running.
+This should be supper simple to get up and running.  *Please only use this method in testing and when working on frond end changes.*
+
 1.  Checkout out the code from the github repo `git clone https://github.com/topcoderinc/serenity-core.git`
 2.  cd to serenity-core and run npm install  *the post install script will run bower and get all the bower modules*
 3.  Although the default env **development** comes pre-configured with connection url (Deadwood) for postgres you will still need postgres installed and in your path to create the bindings.
@@ -27,7 +28,7 @@ This should be supper simple to get up and running.
 5. Here is a list of dependencies that assume you have installed
   1. Node.js
   2. postgresSQL (for bindings in pg npm, and running local)
-  3.  mongodb (for running local)
+  3. mongodb (for running local)
   4. grunt (installed globally)
   5. bower (installed globally)
   6. mean-cli (installed globally if you want to use the scaffolding tool)
@@ -45,8 +46,7 @@ The `NODE_ENV` var defines which database you use. We have added `config/env/loc
 1. edit this new file and add you db string for mongo and postgres.
 1. create the local postgres db
 1. from you shell run `grunt local` and start your app.
-
-We have been playing with the sequelize feature that creates the tables for you when the app is started so at any given time this feature may be off.  That being said you may need to create the tables in postgres first. You eventually will  find a script to do this in the docs or you can run pg_dump on the **Deadwood** database to get the schema.  The credentials are found in the `config/env/development.js` config file, you have admin access to this database so please be respectful.
+1. run `grunt dbmigrate`
 
 ## Database migrations
 

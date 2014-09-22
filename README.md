@@ -19,7 +19,7 @@ This core uses the following modules in addition to the mean.io framework to sup
   ```
 
 # Quickstart
-This should be supper simple to get up and running.  *Please only use this method in testing and when working on frond end changes.*
+This should be supper simple to get up and running.  *Please only use this method in testing and when working on front end changes.*
 
 1.  Checkout out the code from the github repo `git clone https://github.com/topcoderinc/serenity-core.git`
 2.  cd to serenity-core and run npm install  *the post install script will run bower and get all the bower modules*

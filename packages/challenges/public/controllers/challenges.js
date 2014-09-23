@@ -178,7 +178,9 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
     $scope.addRequirement = function() {
       $scope.showReqForm = true;
       $scope.requirement = new ChallengeRequirements();
-      $scope.requirement.type = $scope.reqTypes[2];
+      $scope.requirement.type = $scope.reqTypes[0];  // sets the default type to functional
+      $scope.requirement.score_min = 0;  //sets default value to 0
+      $scope.requirement.score_max = 4;  //sets default value to 4
     };
 
     $scope.createRequirement = function(isValid, requirementForm) {

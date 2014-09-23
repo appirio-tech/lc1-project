@@ -41,6 +41,8 @@
   <button type="button" class="btn btn-primary" data-ng-show="!showReqForm" data-ng-click="addRequirement()">Add Requirement+</button>
   <form name="requirementForm" class="form-horizontal" role="form" data-ng-show="showReqForm" data-ng-submit="createRequirement(requirementForm.$valid, requirementForm)" novalidate>
     <hr>
+    <!-- hiding the type, score_min, score_max, and tags to simplify for mvp -->
+    <!--
     <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.type.$invalid }">
       <label mean-token="'edit-type'" for="type" class="col-sm-2 control-label">Requirement Type</label>
       <div class="col-sm-6">
@@ -68,9 +70,10 @@
         <input name="tagList" type="text" class="form-control" data-ng-model="requirement.tagList" id="tagList" placeholder="Tags">
       </div>
     </div>
+  -->
 
     <div class="form-group" ng-class="{ 'has-error' : submitted && requirementForm.body.$invalid }">
-      <label mean-token="'edit-body'" for="body" class="col-sm-2 control-label">Body</label>
+      <label mean-token="'edit-body'" for="body" class="col-sm-2 control-label">Requirment  {{requirements.length +1 }}</label>
       <div class="col-sm-6">
         <textarea name="body" data-ng-model="requirement.body" id="body" cols="30" rows="2" placeholder="Requirement Body" class="form-control"></textarea>
       </div>
@@ -86,8 +89,8 @@
 
   <hr/>
   <ul class="challenges list-unstyled">
-    <li data-ng-repeat="req in requirements">
-      <h4>{{req.requirement.type}}, {{req.requirement.tags | json}}, {{req.requirement.score_max}}/{{req.requirement.score_min}}</h4>
+    <li data-ng-repeat="req in requirements | orderBy:id">
+      <h4> index: {{$index + 1}} id:{{req.id}} {{req.requirement.type}}, {{req.requirement.tags | json}}, {{req.requirement.score_max}}/{{req.requirement.score_min}}</h4>
       <div class="well well-sm">{{req.requirement.body}}</div>
     </li>
   </ul>

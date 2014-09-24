@@ -3,7 +3,8 @@
     "css": {
       "bower_components/build/css/dist.min.css": [
           "bower_components/ng-grid/ng-grid.css",
-          "bower_components/angular-loading-bar/src/loading-bar.css"
+          "bower_components/angular-loading-bar/src/loading-bar.css",
+          "bower_components/angular-ui-select/dist/select.min.css"
           ]
     },
     "js": {
@@ -18,7 +19,8 @@
         "bower_components/angular-bootstrap/ui-bootstrap-tpls.js",
         "bower_components/ng-grid/ng-grid-2.0.12.min.js",
         "bower_components/ng-grid/plugins/ng-grid-flexible-height.js",
-        "bower_components/angular-loading-bar/src/loading-bar.js"
+        "bower_components/angular-loading-bar/src/loading-bar.js",
+        "bower_components/angular-ui-select/dist/select.min.js"
       ]
     }
   }

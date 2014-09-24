@@ -74,7 +74,7 @@ Challenges.register(function (app, auth, database) {
     });
    */
 
-  Challenges.angularDependencies(['ngGrid', 'angular-loading-bar']);
+  Challenges.angularDependencies(['ngGrid', 'angular-loading-bar', 'ui.select']);
   Challenges.aggregateAsset('css', 'challenges.css');
 
   return Challenges;

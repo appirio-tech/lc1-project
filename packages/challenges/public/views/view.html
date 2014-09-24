@@ -24,8 +24,10 @@
   </div>
 
   <span>Start Date: {{challenge.regStartDate | date:'shortDate'}}</span> &nbsp; <span>End Date: {{challenge.subEndDate | date:'shortDate'}}</span> <br>
-  <span>Tags: {{challenge.tagList}}</span>
+  Tags: <span class="label label-info margin-left" ng-repeat="tag in challenge.tags">{{tag}}</span> &nbsp;
   <br><br>
+  Account Id: <span>{{challenge.accountId}}</span>
+  <BR><BR>
 
   <dl>
     <dt>Overview</dt>

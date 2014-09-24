@@ -7,8 +7,8 @@
  * FileService is added as a dependency
  */
 
-angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges','FileService','$window','$timeout','$http','ChallengeRequirements', 'ChallengeLaunch','$modal', '$log',
-  function($scope, $stateParams, $location, $sce, Global, Challenges, FileService, $window, $timeout, $http, ChallengeRequirements, ChallengeLaunch, $modal, $log) {
+angular.module('mean.challenges').controller('ChallengesController', ['$scope', '$stateParams', '$location', '$sce', 'Global', 'Challenges','FileService','$window','$timeout','$http','ChallengeRequirements', 'ChallengeLaunch', 'Tags', '$modal', '$log', '$q',
+  function($scope, $stateParams, $location, $sce, Global, Challenges, FileService, $window, $timeout, $http, ChallengeRequirements, ChallengeLaunch, Tags, $modal, $log, $q) {
     $scope.global = Global;
 
     $scope.checkNew = function() {
@@ -92,14 +92,6 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         var challenge = $scope.challenge;
         challenge.title = challenge.title.trim();
 
-        if (challenge.tagList) {
-          challenge.tags = [];
-          var tags = challenge.tagList.split(',');
-          for (var i = 0; i < tags.length; i += 1) {
-            challenge.tags.push(tags[i].trim());
-          }
-        }
-
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);
         }, function(){
@@ -125,10 +117,15 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       Challenges.get({
         challengeId: $stateParams.challengeId
       }, function(challenge) {
-        if (challenge.tags) {
-          challenge.tagList = challenge.tags.join(',');
-        }
         $scope.challenge = challenge;
+        angular.forEach(challenge.tags, function(tag){
+
+          // need to put the tags of challenge into tag list, otherwise, the tag of challenge
+          // will not be displayed in tag list option.
+          if ($scope.allTags.indexOf(tag) < 0) {
+            $scope.allTags.push(tag);
+          }
+        });
 
         // get challenge requirements
         ChallengeRequirements.query({challengeId: challenge.id}, function(requirements){
@@ -318,6 +315,33 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
           $scope.loadError = true;
           $scope.deleteError = data;
         }
+      });
+    };
+
+    // get all tags
+    $scope.allTags = [];
+    var getAllTags = function() {
+      // clear if exist
+      $scope.allTags = [];
+      Tags.query(function(tags) {
+        angular.forEach(tags, function(tag){
+          $scope.allTags.push(tag.name);
+        });
+      });
+    };
+    getAllTags();
+
+    // query account based on the query string.
+    $scope.getAccounts = function(query) {
+      // to improve performance, will query when user input more than 1 char.
+      if (query.length < 2) {
+        var deferred = $q.defer();
+        deferred.resolve([]);
+        // For typeahead of ui-bootstrap, should return a promise, which is resolved as an array.
+        return deferred.promise;
+      }
+      return $http.get('/accounts/' + query).then(function(result) {
+        return result.data;
       });
     };
   }

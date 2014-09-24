@@ -15,6 +15,9 @@ var routeHelper = require('../lib/routeHelper');
  */
 var files = require('../controllers/files');
 
+var accounts = require('../controllers/accounts');
+var tags = require('../controllers/tags');
+
 /**
  * Storage provider
  * @type {Object}
@@ -103,5 +106,16 @@ module.exports = function(Challenges, app, auth, database, config) {
     app.route(BASE_PATH + '/files/:fileId')
         .all(auth.requiresLogin)
         .delete(files.deleteFile, routeHelper.renderJson);
+
+    // adding routes for account query and create
+    app.route('/accounts')
+        .post(auth.requiresLogin, accounts.create, routeHelper.renderJson);
+    app.route('/accounts/:queryKey')
+        .get(accounts.all, routeHelper.renderJson);
+
+    // adding routes for tag query and create
+    app.route('/tags')
+        .post(auth.requiresLogin, tags.create, routeHelper.renderJson)
+        .get(tags.all, routeHelper.renderJson);
 
 };

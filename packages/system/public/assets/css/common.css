@@ -48,3 +48,7 @@ footer p {
 .ng-valid.ng-dirty {
 	border-color: #78FA89;
 }
+
+.margin-left {
+	margin-left: 10px;
+}

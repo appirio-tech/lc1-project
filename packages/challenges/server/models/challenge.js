@@ -20,6 +20,7 @@ module.exports = function(sequelize, DataTypes) {
     description: DataTypes.TEXT,
     registeredDescription: DataTypes.TEXT,
     tags: DataTypes.ARRAY(DataTypes.TEXT),
+    accountId: DataTypes.STRING(32),
     }, {
       tableName : 'challenges',
       associate : function(models) {

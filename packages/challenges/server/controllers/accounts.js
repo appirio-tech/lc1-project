@@ -25,7 +25,8 @@ exports.create = function(req, res, next){
 
 exports.all = function(req, res, next){
   var query = req.params.queryKey;
-  Account.findAll({where: ['"accountId" like \'' + query + '%\'']}).success(function(data){
+  // changed to ilike to use case insensitve search ktb 9/24/14
+  Account.findAll({where: ['"name" ilike \'' + query + '%\'']}).success(function(data){
     req.data = data;
     next();
   })

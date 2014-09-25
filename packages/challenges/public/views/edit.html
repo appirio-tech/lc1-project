@@ -32,7 +32,15 @@
      <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.account.$invalid }">
       <label mean-token="'edit-account'" for="account" class="col-md-2 control-label">Account</label>
       <div class="col-md-10">
-        <input name="account" type="text" data-ng-model="challenge.accountId" placeholder="Input to search..." typeahead="account.accountId for account in getAccounts($viewValue)" typeahead-loading="loadingAccounts" class="form-control">
+        accountid:  <input name="account" type="text" data-ng-model="selectedAccountId" />
+        <input name="dummy"
+              type="text"
+              data-ng-model="challenge.accountId"
+              placeholder="Input to search..."
+              typeahead="account.name for account in getAccounts($viewValue)"
+              typeahead-on-select="setAccountId($item)"
+              typeahead-loading="loadingAccounts"
+              class="form-control">
         <i ng-show="loadingAccounts" class="glyphicon glyphicon-refresh"></i>
       </div>
     </div>
@@ -66,13 +74,13 @@
         <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Description" class="form-control"></textarea>
       </div>
     </div>
-
+<!--
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.registeredDescription.$invalid }">
       <label mean-token="'edit-registeredDescription'" for="registeredDescription" class="col-md-2 control-label">Description (registered)</label>
       <div class="col-md-10">
         <textarea name="registeredDescription" data-ng-model="challenge.registeredDescription" id="registeredDescription" cols="30" rows="3" class="form-control"></textarea>
       </div>
-    </div>
+    </div> -->
 
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">

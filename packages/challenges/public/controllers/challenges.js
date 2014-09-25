@@ -91,6 +91,8 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       if (isValid) {
         var challenge = $scope.challenge;
         challenge.title = challenge.title.trim();
+        // swamp to the accountId ktb
+        challenge.accountId = $scope.selectedAccountId;
 
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);
@@ -330,6 +332,13 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       });
     };
     getAllTags();
+
+    // helper to set the accountid instead
+    $scope.selected = '';
+
+    $scope.setAccountId = function(item){
+      $scope.selectedAccountId = item.accountId;
+    };
 
     // query account based on the query string.
     $scope.getAccounts = function(query) {

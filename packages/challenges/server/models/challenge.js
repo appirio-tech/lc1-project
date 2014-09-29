@@ -25,8 +25,11 @@ module.exports = function(sequelize, DataTypes) {
       tableName : 'challenges',
       associate : function(models) {
         Challenge.hasMany(models.File);
+        Challenge.belongsTo(models.Account, {foreignKey: 'accountId'});
       }
     });
+
+ // was Challenge.hasOne(models.Account, {as: 'Account', foreignKey: 'accountId'});
 
   return Challenge;
 

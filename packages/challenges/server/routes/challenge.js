@@ -62,10 +62,15 @@ module.exports = function(Challenges, app, auth, database, config) {
     app.route('/challenges')
         .get(challenges.all, routeHelper.renderJson)
         .post(auth.requiresLogin, challenges.create, routeHelper.renderJson);
+    app.route('/challengesx')
+        .get(challenges.allExpanded, routeHelper.renderJson);
     app.route('/challenges/:challengeId')
         .get(challenges.show, routeHelper.renderJson)
         .put(auth.requiresLogin, challenges.update, routeHelper.renderJson)
         .delete(auth.requiresLogin, challenges.destroy, routeHelper.renderJson);
+    //expanded chalenge details
+    app.route('/challengesx/:challengeId')
+          .get(challenges.showx, routeHelper.renderJson);
     app.route('/challenges/:challengeId/launch')
         .post(auth.requiresLogin, launch.launch, routeHelper.renderJson);
     // set the challengeId param

@@ -8,6 +8,8 @@
  */
 var datasource = require('./../../datasource').getDataSource();
 var Challenge = datasource.Challenge;
+var File = datasource.File;
+var Account = datasource.Account;
 var _ = require('lodash');
 var routeHelper = require('../lib/routeHelper');
 
@@ -15,11 +17,32 @@ var routeHelper = require('../lib/routeHelper');
  * Find a challenge by id
  */
 exports.challenge = function (req, res, next, id) {
+  console.log('here I am in the challenge call');
   Challenge.find(id).success(function (challenge) {
     if (!challenge) {
       routeHelper.addErrorMessage(req, 'EntityNotFound', 'Cannot find the challenge with id '+id, 404);
     } else {
       req.challenge = challenge;
+    }
+    next();
+  })
+    .error(function (err) {
+      routeHelper.addError(req, 'DatabaseReadError', err);
+      next();
+    });
+};
+
+/**
+ * Find a challenge by id with files and account expanded
+ */
+exports.challengeExpanded = function (req, res, next, id) {
+  console.log('the id you are looking for is: ', id);
+  Challenge.find({where: {id: id}, include: [File,Account]}).success(function (challenge) {
+    if (!challenge) {
+      routeHelper.addErrorMessage(req, 'EntityNotFound', 'Cannot find the challenge with id '+id, 404);
+    } else {
+      req.challengeExpanded = challenge;
+      console.log('the id you are looking for is: ', id);
     }
     next();
   })
@@ -44,6 +67,39 @@ exports.all = function (req, res) {
     });
   })
 
+  /*Challenge.findAll().success(function (challenges) {
+  res.json({
+      totalCount: 100,
+      data: challenges
+  });
+})*/
+  .error(function (err) {
+    console.log('list err: ' + JSON.stringify(err));
+    return res.status(500).json({
+      error: 'Cannot list the challenges'
+    });
+  });
+};
+
+
+
+/**
+ * List of challenges Expanded to get the Files and Accounts
+ */
+exports.allExpanded = function (req, res) {
+  Challenge.findAndCountAll({
+    where: ['1=1'],
+    include:  [File,Account],
+    limit: req.query.take || 10,
+    offset: req.query.skip || 0
+  }).success(function (result) {
+    console.log(' the files are' + result.file);
+    res.json({
+      totalCount: result.count,
+      data: result.rows
+    });
+  })
+
     /*Challenge.findAll().success(function (challenges) {
     res.json({
         totalCount: 100,
@@ -53,7 +109,7 @@ exports.all = function (req, res) {
     .error(function (err) {
       console.log('list err: ' + JSON.stringify(err));
       return res.status(500).json({
-        error: 'Cannot list the challenges'
+        error: 'Cannot list the expanded challenges'
       });
     });
 };
@@ -120,8 +176,20 @@ exports.destroy = function (req, res, next) {
  */
 exports.show = function (req, res, next) {
   if (req.error) return next();
+  console.log('show called');
 
   req.data = req.challenge;
+  next();
+};
+
+/**
+ * Show a expanded challenge
+ */
+exports.showx = function (req, res, next) {
+  if (req.error) return next();
+  console.log('showx called');
+
+  req.data = req.challengeExpanded;
   next();
 };
 

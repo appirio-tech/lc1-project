@@ -32,13 +32,14 @@
      <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.account.$invalid }">
       <label mean-token="'edit-account'" for="account" class="col-md-2 control-label">Account</label>
       <div class="col-md-10">
-        accountid:  <input name="account" type="text" data-ng-model="selectedAccountId" />
-        <input name="dummy"
+        <!-- accountid:  <input name="account" type="text" data-ng-model="selectedAccountId" /> -->
+        <input name="account"
               type="text"
               data-ng-model="challenge.accountId"
               placeholder="Input to search..."
               typeahead="account.name for account in getAccounts($viewValue)"
               typeahead-on-select="setAccountId($item)"
+              typeahead-editable="false"
               typeahead-loading="loadingAccounts"
               class="form-control">
         <i ng-show="loadingAccounts" class="glyphicon glyphicon-refresh"></i>

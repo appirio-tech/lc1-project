@@ -353,5 +353,41 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         return result.data;
       });
     };
+
+      /*
+     * code changes for just markdown
+     */
+
+    // Initially preview is off, which is Edit mode.
+    $scope.preview = false;   // Edit mode
+    $scope.previewButtonText = 'Preview';
+    $scope.togglePreviewEdit = function() {
+      console.log('togglePreviewEdit: ', $scope.preview);
+      $scope.preview = ! $scope.preview;
+      if ($scope.preview) {
+        $scope.previewButtonText = 'Edit';
+      } else {
+        $scope.previewButtonText = 'Preview';
+      }
+    };
+
+      $scope.showMarkdownHelp = function() {
+      console.log('markdownHelp: ');
+      $modal.open({
+        templateUrl: 'markdownHelpModal.html',
+        controller: 'MarkdownHelpModalController',
+        size: 'sm'
+      });
+    };
+
   }
-]);
+])
+
+
+// markdown help modal controller
+.controller('MarkdownHelpModalController', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+
+    $scope.close = function () {
+      $modalInstance.close();
+    };
+}]) ;

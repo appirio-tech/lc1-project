@@ -13,7 +13,9 @@
     "angular-ui-router": "#master",
     "ng-grid": "2.0.12",
 	  "angular-loading-bar": "0.5.1",
-    "angular-ui-select": "~0.7.0"
+    "angular-ui-select": "~0.7.0",
+    "angular-sanitize": "latest",
+    "showdown": "latest"
   },
   "resolutions": { "angular": "1.2.25" }
 }

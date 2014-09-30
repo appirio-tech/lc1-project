@@ -9,6 +9,7 @@
     },
     "js": {
       "bower_components/build/js/dist.min.js": [
+        "bower_components/showdown/src/showdown.js",
         "bower_components/jquery/dist/jquery.min.js",
         "bower_components/angular/angular.js",
         "bower_components/angular-mocks/angular-mocks.js",
@@ -20,7 +21,8 @@
         "bower_components/ng-grid/ng-grid-2.0.12.min.js",
         "bower_components/ng-grid/plugins/ng-grid-flexible-height.js",
         "bower_components/angular-loading-bar/src/loading-bar.js",
-        "bower_components/angular-ui-select/dist/select.min.js"
+        "bower_components/angular-ui-select/dist/select.min.js",
+        "bower_components/angular-sanitize/angular-sanitize.js"
       ]
     }
   }

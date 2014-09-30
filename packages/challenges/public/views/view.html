@@ -30,12 +30,14 @@
   <BR><BR>
 
   <dl>
-    <dt>Overview</dt>
+    <dt>Overview:</dt>
     <dd><span ng-bind-html="renderHtml(challenge.overview)"></span></dd>
-    <dt>Description</dt>
-    <dd><span ng-bind-html="renderHtml(challenge.description)"></span></dd>
-    <dt>Description (registered)</dt>
-    <dd>{{challenge.registeredDescription}}</dd>
+
+
+    <dt>Description:</dt>
+    <dd><span data-tc-markdown="challenge.description"></span></dd>
+
+
   </dl>
 
 

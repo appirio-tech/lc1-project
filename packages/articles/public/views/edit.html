@@ -8,25 +8,67 @@
           <p ng-show="articleForm.title.$error.required">Title is required</p>
         </div>
       </div>
-
     </div>
+
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <label type="button" class="btn btn-warning" data-ng-click="togglePreviewEdit()">{{previewButtonText}}</label>
+        <label type="button" class="btn btn-info" data-ng-click="showMarkdownHelp()">?</label>
+      </div>
+    </div>
+
     <div class="form-group" ng-class="{ 'has-error' : submitted && articleForm.content.$invalid }">
       <label mean-token="'edit-content'" for="content" class="col-md-2 control-label">Content</label>
-      <div class="col-md-10">
+      <div class="col-md-10" ng-show="!preview">
         <textarea name="content" data-ng-model="article.content" id="content" cols="30" rows="10" placeholder="Content" class="form-control" required></textarea>
         <div ng-show="submitted && articleForm.content.$invalid" class="help-block">
           <p ng-show="articleForm.content.$error.required">Content is required</p>
         </div>
       </div>
+      <div class="col-md-10" ng-show="preview">
+        <div class="md-preview">
+          <div data-tc-markdown="article.content"></div>
+        </div>
+      </div>
     </div>
-    <label mean-token="'create-tags'" class="col-md-3 control-label">Tags</label>
-    <div class="col-md-9">
-      <input name="tags" type="text" class="form-control" data-ng-model="article.tags" id="tags" placeholder="Tags">
+
+    <div class="form-group">
+      <label mean-token="'create-tags'" for="tags" class="col-md-2 control-label">Tags</label>
+      <div class="col-md-10">
+        <input name="tags" type="text" class="form-control" data-ng-model="article.tags" id="tags" placeholder="Tags">
+      </div>
     </div>
+
     <div class="form-group">
       <div class="col-md-offset-2 col-md-10">
-        <button mean-token="'edit-submit'" type="submit" class="btn btn-default">Submit</button>
+        <button mean-token="'edit-submit'" type="submit" class="btn btn-primary">Save</button>
       </div>
     </div>
   </form>
 </section>
+
+  <!-- template for markdown help modal -->
+  <script type="text/ng-template" id="markdownHelpModal.html">
+      <div class="modal-header">
+          <h3 class="modal-title">Markdown Help</h3>
+      </div>
+      <div class="modal-body">
+        <table class="table table-striped">
+          <thead><th>Result</th><th>Markdown</th></thead>
+          <tbody>
+            <tr><td><strong>Bold</strong><td>**text**</td></tr>
+            <tr><td><em>Emphasize</em><td>*text*</td></tr>
+            <tr><td>Link<td>[title](http://)</td></tr>
+            <tr><td>Image<td>![alt](http://)</td></tr>
+            <tr><td>List<td>* item</td></tr>
+            <tr><td>H1<td># Heading</td></tr>
+            <tr><td>H2<td>## Heading</td></tr>
+            <tr><td>H3<td>### Heading</td></tr>
+          </tbody>
+        </table>
+        <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Documentation</a>
+      </div>
+      <div class="modal-footer">
+          <button class="btn btn-primary" ng-click="close()">Close</button>
+      </div>
+  </script>

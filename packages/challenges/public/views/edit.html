@@ -69,10 +69,25 @@
       <span ng-show="challenge.overview.length > 119 " style="color: #ff0000"> chars remaining: {{140 - challenge.overview.length}} </span>
     </div>
 
+    <div class="form-group">
+      <div class="col-md-offset-2 col-md-10">
+        <!-- <label type="button" class="btn btn-warning" data-ng-click="togglePreviewEdit()">{{previewButtonText}}</label>
+        <label type="button" class="btn btn-info" data-ng-click="showMarkdownHelp()">?</label> -->
+        <a href="" data-ng-click="togglePreviewEdit()">{{previewButtonText}}</a> &nbsp  &nbsp
+        <a href="" data-ng-click="showMarkdownHelp()">Markdown Help</a>
+      </div>
+    </div>
+
     <div class="form-group" ng-class="{ 'has-error' : submitted && challengeForm.description.$invalid }">
       <label mean-token="'edit-description'" for="description" class="col-md-2 control-label">Description</label>
-      <div class="col-md-10">
+      <div class="col-md-10"  ng-show="!preview">
         <textarea name="description" data-ng-model="challenge.description" id="description" cols="30" rows="3" placeholder="Description" class="form-control"></textarea>
+      </div>
+    </div>
+    <div class="col-md-10" ng-show="preview">
+        <div class="md-preview">
+          <div data-tc-markdown="challenge.description"></div>
+        </div>
       </div>
     </div>
 <!--
@@ -130,3 +145,30 @@
     <!-- File upload section end -->
   </div>
 </section>
+
+
+<!-- template for markdown help modal -->
+<script type="text/ng-template" id="markdownHelpModal.html">
+    <div class="modal-header">
+        <h3 class="modal-title">Markdown Help</h3>
+    </div>
+    <div class="modal-body">
+        <table class="table table-striped">
+          <thead><th>Result</th><th>Markdown</th></thead>
+          <tbody>
+            <tr><td><strong>Bold</strong><td>**text**</td></tr>
+            <tr><td><em>Emphasize</em><td>*text*</td></tr>
+            <tr><td>Link<td>[title](http://)</td></tr>
+            <tr><td>Image<td>![alt](http://)</td></tr>
+            <tr><td>List<td>* item</td></tr>
+            <tr><td>H1<td># Heading</td></tr>
+            <tr><td>H2<td>## Heading</td></tr>
+            <tr><td>H3<td>### Heading</td></tr>
+          </tbody>
+        </table>
+        <a href="http://daringfireball.net/projects/markdown/syntax" target="_blank">Markdown Documentation</a>
+    </div>
+    <div class="modal-footer">
+        <button class="btn btn-primary" ng-click="close()">Close</button>
+    </div>
+</script>

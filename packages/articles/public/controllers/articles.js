@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Global', 'Articles', 'ArticlesByTag',
-  function($scope, $stateParams, $location, Global, Articles, ArticlesByTag) {
+angular.module('mean.articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', '$modal', 'Global', 'Articles', 'ArticlesByTag',
+  function($scope, $stateParams, $location, $modal, Global, Articles, ArticlesByTag) {
     $scope.global = Global;
 
     $scope.hasAuthorization = function(article) {
@@ -82,11 +82,44 @@ angular.module('mean.articles').controller('ArticlesController', ['$scope', '$st
         $scope.article = article;
       });
     };
-  }
-]);
 
-   // news controller   This section gets the accordian for the Info on the home page
-angular.module('mean.articles').controller('NewsArticleController', ['$scope', '$stateParams', '$location', 'Global', 'ArticlesByTag',
+    /*
+     * code changes for just markdown
+     */
+
+    // Initially preview is off, which is Edit mode.
+    $scope.preview = false;   // Edit mode
+    $scope.previewButtonText = 'Preview';
+    $scope.togglePreviewEdit = function() {
+      console.log('togglePreviewEdit: ', $scope.preview);
+      $scope.preview = ! $scope.preview;
+      if ($scope.preview) {
+        $scope.previewButtonText = 'Edit';
+      } else {
+        $scope.previewButtonText = 'Preview';
+      }
+    };
+
+    $scope.showMarkdownHelp = function() {
+      console.log('markdownHelp: ');
+      $modal.open({
+        templateUrl: 'markdownHelpModal.html',
+        controller: 'MarkdownHelpModalController',
+        size: 'sm'
+      });
+    };
+
+  }
+])
+// markdown help modal controller
+.controller('MarkdownHelpModalController', ['$scope', '$modalInstance', function($scope, $modalInstance) {
+
+    $scope.close = function () {
+      $modalInstance.close();
+    };
+}])
+// news controller   This section gets the accordian for the Info on the home page
+.controller('NewsArticleController', ['$scope', '$stateParams', '$location', 'Global', 'ArticlesByTag',
   function($scope, $stateParams, $location, Global, ArticlesByTag) {
     $scope.global = Global;
 

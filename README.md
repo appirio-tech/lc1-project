@@ -2,7 +2,7 @@
 # ![topcoder](http://www.topcoder.com/favicon.ico)  Project SERENITY: a refresh of the topcoder challenge lifecycle
 
 
-* [![build status](https://api.travis-ci.org/repositories/topcoderinc/serenity-core.svg)](https://api.travis-ci.org/repositories/topcoderinc/serenity-core)
+* [![build status](https://api.travis-ci.org/repositories/topcoderinc/serenity-core.svg)](https://travis-ci.org/topcoderinc/serenity-core)
 * [![depencies status](https://david-dm.org/topcoderinc/serenity-core.png)](https://david-dm.org/topcoderinc/serenity-core)
 * [![dev dependencies](https://david-dm.org/topcoderinc/serenity-core/dev-status.png)](https://david-dm.org/topcoderinc/serenity-core#info=devDependencies&view=table)
 
@@ -14,7 +14,7 @@ This core uses the following modules in addition to the mean.io framework to sup
 
  * [pg](https://www.npmjs.org/package/pg)
  * [Sequelize](http://sequelizejs.com)
- 
+
 
  The following additions have been made to the default MEAN.io package.json to include the above dependencies
  ```

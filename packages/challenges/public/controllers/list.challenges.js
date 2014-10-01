@@ -54,7 +54,7 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
             enableRowSelection:false,
             data: 'challenges',
             columnDefs: [
-                {field:'id', displayName:'ID', width: 75},
+                {field:'id', displayName:'ID', width: 75, sort: {direction: 'desc', priority: 1} },
                 {field:'title', displayName: 'Title', cellTemplate: '<a data-ng-href="#!/challenges/{{row.getProperty(\'id\')}}">{{row.getProperty(col.field)}}</a>' },
                 {field:'status', displayName: 'status'},
                 {field:'createdAt', displayName:'Created', cellFilter: 'date:\'yyyy-MM-dd HH:mm a Z\'' },
@@ -65,10 +65,10 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
             headerRowHeight: 50,
             enablePaging: true,
             showFooter: true,
-            useExternalSorting: true,
+            //useExternalSorting: true,
             totalServerItems: 'totalServerItems',
             pagingOptions: $scope.pagingOptions,
-            sortInfo: $scope.sortInfo
+            //sortInfo: $scope.sortInfo
         };
 
         $scope.$watch('pagingOptions', function (newVal, oldVal) {

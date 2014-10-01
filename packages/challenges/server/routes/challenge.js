@@ -62,6 +62,9 @@ module.exports = function(Challenges, app, auth, database, config) {
     app.route('/challenges')
         .get(challenges.all, routeHelper.renderJson)
         .post(auth.requiresLogin, challenges.create, routeHelper.renderJson);
+    app.route('/heroku/challenges')
+        .get(challenges.allOnHeroku, routeHelper.renderJson)
+        .post(auth.requiresLogin, challenges.createHeroku, routeHelper.renderJson);
     app.route('/challengesx')
         .get(challenges.allExpanded, routeHelper.renderJson);
     app.route('/challenges/:challengeId')

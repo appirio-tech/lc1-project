@@ -1,6 +1,11 @@
 
 # ![topcoder](http://www.topcoder.com/favicon.ico)  Project SERENITY: a refresh of the topcoder challenge lifecycle
 
+
+* [![build status](https://api.travis-ci.org/repositories/topcoderinc/serenity-core.svg)](https://api.travis-ci.org/repositories/topcoderinc/serenity-core)
+* [![depencies status](https://david-dm.org/topcoderinc/serenity-core.png)](https://david-dm.org/topcoderinc/serenity-core)
+* [![dev dependencies](https://david-dm.org/topcoderinc/serenity-core/dev-status.png)](https://david-dm.org/topcoderinc/serenity-core#info=devDependencies&view=table)
+
 Major parts of this project are currently being developed  on the [MEAN.io framework](http://mean.io/)
 but we have added support for PostgreSQL.  Documentation for MEAN.io can be found in the [MEAN.io doc directory] (http://mean.io/#!/docs) as well as the results of our first challenge
 [PEAN.io prototype - MEAN with PostgreSQL support](http://www.topcoder.com/challenge-details/30045010) which should help you set up your environment as well as standup a [Heroku](heroku.com) instance.
@@ -9,12 +14,11 @@ This core uses the following modules in addition to the mean.io framework to sup
 
  * [pg](https://www.npmjs.org/package/pg)
  * [Sequelize](http://sequelizejs.com)
- *  [postgresql-sequelize](https://www.npmjs.org/package/postgresql-sequelize)  a custom Sequelize adaptor that supports JSON and JSONB
+ 
 
  The following additions have been made to the default MEAN.io package.json to include the above dependencies
  ```
     "pg": "^3.4.1",
-    "postgresql-sequelize": "0.0.5",
     "sequelize": "^1.7.9",
   ```
 

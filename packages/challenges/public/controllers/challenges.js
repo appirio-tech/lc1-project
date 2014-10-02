@@ -17,7 +17,8 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
       } else {
         var challenge = new Challenges({
           title: 'Untitled Challenge',
-          type: 'Architecture'
+          type: 'Architecture',
+          createdBy:  $scope.global.user.username
         });
 
         //FIXME This creates an empty challenge whenever Create New Challenge link is clicked.
@@ -93,6 +94,8 @@ angular.module('mean.challenges').controller('ChallengesController', ['$scope', 
         challenge.title = challenge.title.trim();
         // swamp to the accountId ktb
         challenge.accountId = $scope.selectedAccountId;
+        //  add the user
+        challenge.updatedBy = $scope.global.user.username;
 
         challenge.$update(function() {
           $location.path('challenges/' + challenge.id);

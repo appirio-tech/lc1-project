@@ -5,6 +5,8 @@
 module.exports = function(sequelize, DataTypes) {
 
   var Challenge = sequelize.define('Challenge', {
+    createdBy:  DataTypes.STRING(64),
+    updatedBy:  DataTypes.STRING(64),
     regStartDate: DataTypes.DATE,
     subEndDate: DataTypes.DATE,
     title: {

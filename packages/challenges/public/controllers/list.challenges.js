@@ -57,6 +57,8 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
                 {field:'id', displayName:'ID', width: 75, sort: {direction: 'desc', priority: 1} },
                 {field:'title', displayName: 'Title', cellTemplate: '<a data-ng-href="#!/challenges/{{row.getProperty(\'id\')}}">{{row.getProperty(col.field)}}</a>' },
                 {field:'status', displayName: 'status'},
+                {field:'createdBy', displayName: 'CreatedBy'},
+                {field:'type', displayName: 'type'},
                 {field:'createdAt', displayName:'Created', cellFilter: 'date:\'yyyy-MM-dd HH:mm a Z\'' },
                 {field:'id', displayName:'', width:75, cellTemplate: '<a class="btn " href="/#!/challenges/{{row.getProperty(col.field)}}/edit"><i class="glyphicon glyphicon-edit"></i></a>' }
             ],

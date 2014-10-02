@@ -38,6 +38,7 @@ exports.issues = function (options, res, error) {
     }
     // sends http request
     req = https.request(options, function (response) {
+      console.log('isssue request STATUS: ' + response.statusCode);
         var body = '';
         response.setEncoding('utf8');
         response.on('data', function (chunk) {

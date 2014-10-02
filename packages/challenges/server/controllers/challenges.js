@@ -17,7 +17,6 @@ var routeHelper = require('../lib/routeHelper');
  * Find a challenge by id
  */
 exports.challenge = function (req, res, next, id) {
-  console.log('here I am in the challenge call');
   Challenge.find(id).success(function (challenge) {
     if (!challenge) {
       routeHelper.addErrorMessage(req, 'EntityNotFound', 'Cannot find the challenge with id '+id, 404);

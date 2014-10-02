@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014 TopCoder, Inc. All rights reserved. 
+ * Copyright (c) 2014 TopCoder, Inc. All rights reserved.
  */
 'use strict';
 
@@ -22,13 +22,13 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
         $scope.filterOptions = {};
 
         $scope.sortInfo = {
-            fields: ['challengeId'],
-            directions: ['asc']
+            fields: ['updatedAt'],
+            directions: ['desc']
         };
 
         $scope.pagingOptions = {
             pageSizes: [10, 25, 50, 100],
-            pageSize: 10,
+            pageSize: 25,
             currentPage: 1
         };
 
@@ -59,7 +59,8 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
                 {field:'status', displayName: 'status'},
                 {field:'createdBy', displayName: 'CreatedBy'},
                 {field:'type', displayName: 'type'},
-                {field:'createdAt', displayName:'Created', cellFilter: 'date:\'yyyy-MM-dd HH:mm a Z\'' },
+                {field:'createdAt', displayName:'Created', cellFilter: 'date:\'yyyy/MM/dd hh:mm a Z\'' },
+                {field:'updatedAt', visible: false },
                 {field:'id', displayName:'', width:75, cellTemplate: '<a class="btn " href="/#!/challenges/{{row.getProperty(col.field)}}/edit"><i class="glyphicon glyphicon-edit"></i></a>' }
             ],
             plugins: [new window.ngGridFlexibleHeightPlugin()],
@@ -67,10 +68,11 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
             headerRowHeight: 50,
             enablePaging: true,
             showFooter: true,
+            showFilter: true,
             //useExternalSorting: true,
             totalServerItems: 'totalServerItems',
             pagingOptions: $scope.pagingOptions,
-            //sortInfo: $scope.sortInfo
+            sortInfo: $scope.sortInfo
         };
 
         $scope.$watch('pagingOptions', function (newVal, oldVal) {

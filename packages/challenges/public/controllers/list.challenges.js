@@ -1,5 +1,5 @@
 /**
- * Copyright (c) 2014 TopCoder, Inc. All rights reserved.
+ * Copyright (c) 2014 TopCoder, Inc. All rights reserved. 
  */
 'use strict';
 

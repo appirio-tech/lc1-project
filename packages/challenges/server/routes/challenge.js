@@ -75,6 +75,7 @@ module.exports = function(Challenges, app, auth, database, config) {
         .post(auth.requiresLogin, launch.launch, routeHelper.renderJson);
     // set the challengeId param
     app.param('challengeId', challenges.challenge);
+    app.param('challengeId', challenges.challengeExpanded);
 
 
     // route for requirement types

@@ -35,13 +35,11 @@ exports.challenge = function (req, res, next, id) {
  * Find a challenge by id with files and account expanded
  */
 exports.challengeExpanded = function (req, res, next, id) {
-  console.log('the id you are looking for is: ', id);
   Challenge.find({where: {id: id}, include: [File,Account]}).success(function (challenge) {
     if (!challenge) {
       routeHelper.addErrorMessage(req, 'EntityNotFound', 'Cannot find the challenge with id '+id, 404);
     } else {
       req.challengeExpanded = challenge;
-      console.log('the id you are looking for is: ', id);
     }
     next();
   })
@@ -175,7 +173,6 @@ exports.destroy = function (req, res, next) {
  */
 exports.show = function (req, res, next) {
   if (req.error) return next();
-  console.log('show called');
 
   req.data = req.challenge;
   next();
@@ -186,7 +183,6 @@ exports.show = function (req, res, next) {
  */
 exports.showx = function (req, res, next) {
   if (req.error) return next();
-  console.log('showx called');
 
   req.data = req.challengeExpanded;
   next();

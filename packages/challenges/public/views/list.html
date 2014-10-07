@@ -1,7 +1,147 @@
+<style>
+    .challenges-grid {
+        width: 100%;
+    }
+    .challenges-grid .ngRow {
+        background-color: #f3f3f3;
+    }
+    .challenges-grid .even {
+        background-color: #ffffff;
+    }
+    .challenges-grid .ngHeaderContainer {
+        background-color: white;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 16px;
+        font-weight: bold;
+        border-bottom: 1px solid rgb(193, 193, 193);
+    }
+    .challenges-grid .ngHeaderContainer .ngHeaderText {
+        padding: 15px;
+    }
+    .challenges-grid .ngHeaderContainer .center .ngHeaderText {
+        text-align: center;
+    }
+    .challenges-grid .ngHeaderContainer .ngHeaderText i{
+        display: inline-block;
+        width: 12px;
+        height: 11px;
+        background: url("/challenges/assets/img/icons.png") 100% 0;
+        margin-left: 12px;
+        position: relative;
+        top: 2px;
+        opacity: .4;
+    }
+    .challenges-grid .ngHeaderContainer .ngHeaderText i.activeDown{
+        opacity: 1;
+    }
+    .challenges-grid .ngHeaderContainer .ngHeaderText i.activeUp{
+        background: url("/challenges/assets/img/icons.png") 100% -11px;
+        opacity: 1;
+    }
+    .challenges-grid .ngHeaderContainer .ngVerticalBarVisible {
+        width: 0;
+    }
+    .challenges-grid .standard-cell {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        color: rgb(69, 85, 96);
+    }
+    .challenges-grid .standard-cell .ngVerticalBarVisible{
+        width: 0;
+    }
+    .challenges-grid .standard-cell .ngCellText {
+        padding: 0 0 0 14px;
+        line-height: 48px;
+        height: 48px;
+        border-bottom: 1px solid rgb(193, 193, 193);
+    }
+    .challenges-grid .standard-cell .title-cell {
+        padding-left: 14px;
+        height: 48px;
+        line-height: 48px;
+        border-bottom: 1px solid rgb(193, 193, 193);
+    }
+    .challenges-grid .standard-cell .action-cell {
+        line-height: 48px;
+        height: 48px;
+        border-bottom: 1px solid rgb(193, 193, 193);
+    }
+    .challenges-grid .standard-cell .action-cell .action-cell-icon {
+        border-left: 1px solid rgb(193, 193, 193);
+        border-right: 1px solid rgb(193, 193, 193);
+        width: 50%;
+        text-align: center;
+        display: inline-block;
+    }
+    .challenges-grid .standard-cell .action-cell .action-delete-icon {
+        width: 50%;
+        text-align: center;
+        display: inline-block;
+    }
+    .challenges-grid .standard-cell a{
+        text-decoration: none;
+        color: rgb(52, 153, 203);
+    }
+    .challenges-grid .ngFooterPanel{
+        background-color: #ffffff;
+        border-color: #ffffff;
+    }
+    .challenges-grid .ngTotalSelectContainer{
+        margin-left: 0;
+        margin-top: 18px;
+    }
+    .challenges-grid .ngPagerContainer{
+        float: right;
+        margin-top: 18px;
+    }
+    .challenges-grid .ngPagerContainer .ngRowCountPicker,
+    .challenges-grid .ngPagerContainer .ngPagerControl {
+        float: left;
+        margin-right: 25px;
+        height: 25px;
+        line-height: 25px;
+    }
+    .challenges-grid .ngPagerContainer .ngPagerControl {
+        margin-right: 0;
+    }
+    .challenges-grid .ngPagerContainer .ngRowCountPicker .ngLabel{
+        float: left;
+    }
+    .challenges-grid .ngPagerContainer a{
+        color: #333;
+        font-size: 14px;
+        cursor: pointer;
+        text-decoration: none;
+    }
+    .challenges-grid .ngPagerContainer a.next {
+        background: url("/challenges/assets/img/icons.png") 100% -308px;
+        padding-right: 19px;
+        padding-left: 8px;
+    }
+    .challenges-grid .ngPagerContainer a.previous {
+        background: url("/challenges/assets/img/icons.png") 0 -308px;
+        padding-left: 19px;
+        padding-right: 8px;
+    }
+    .challenges-grid .ngPagerContainer a.pagesNumber {
+        padding-left: 8px;
+        padding-right: 8px;
+        color: #3499cb;
+    }
+    .challenges-grid .ngPagerContainer a.current {
+        color: #333;
+        cursor: not-allowed;
+    }
+    .challenges-grid .ngPagerContainer a.currentNavi {
+        color: #3499cb;
+        opacity: .4;
+        cursor: not-allowed;
+    }
+</style>
+
 <section data-ng-controller="ListChallengesController" data-ng-init="find()">
+    <div class="challenges-grid" ng-grid="gridOptions"></div>
 
-  <div class="gridStyle" ng-grid="gridOptions"></div>
-
-  <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
-   Why don't you <a href="/#!/challenges/create">Create One</a>?</h1>
+    <h1 data-ng-hide="!challenges || challenges.length">No challenges yet. <br>
+        Why don't you <a href="/#!/challenges/create">Create One</a>?</h1>
 </section>

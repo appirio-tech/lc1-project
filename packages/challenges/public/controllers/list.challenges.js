@@ -119,7 +119,7 @@ angular.module('mean.challenges').controller('ListChallengesController', ['$scop
           field: 'title',
           displayName: 'Name',
           cellClass: 'standard-cell',
-          cellTemplate: '<div class="title-cell"><a data-ng-href="#!/challenges/{{row.getProperty(\'id\')}}">{{row.getProperty(col.field)}}</a></div>',
+          cellTemplate: '<div class="title-cell"><a title="{{row.getProperty(col.field)}}" data-ng-href="#!/challenges/{{row.getProperty(\'id\')}}">{{row.getProperty(col.field)}}</a></div>',
           headerCellTemplate: headerTemplate,
           width: 240
         },

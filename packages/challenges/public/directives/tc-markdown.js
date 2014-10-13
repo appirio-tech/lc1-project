@@ -13,7 +13,7 @@
  */
 angular.module('mean.challenges')
 .directive('tcMarkdown', ['$sanitize', function ($sanitize) {
-  var markdownConverter = new window.Showdown.converter();
+  var markdownConverter = new window.Showdown.converter( {extensions: ['github', 'table'] } );
   return {
       restrict: 'A',
       link: function(scope, element, attrs) {

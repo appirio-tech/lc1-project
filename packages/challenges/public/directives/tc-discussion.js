@@ -30,20 +30,28 @@ angular.module('mean.challenges')
         'http://res.cloudinary.com/peakpado/image/upload/v1383031335/bee_a7su6g.png'
       ];
 
-      // get the discussin URL
+      // get the discussin URL  // will use this later
       $http.get('/discussionUrl').success(function(result) {
         var discussionUrl = result.discussionUrl;
 
         // hardcoded discussionId for now as stated in the challenge requirement
-        var discussionId = 15;
+        //var discussionId = 15;  // not used now.
+
         if (discussionUrl.charAt(discussionUrl.length-1) !== '/') {
           discussionUrl = discussionUrl+ '/';
         }
 
-        var messagesUrl = discussionUrl+discussionId+'/messages';
+        //var messagesUrl = discussionUrl+discussionId+'/messages';
+
+        // ktb hack to get some messages via hardcoded but actual message url in the server controller
+
+
         $scope.messages = [];
-        $http.get(messagesUrl).success(function(result) {
-          $scope.messages = result.messages;
+        //$http.get(messagesUrl).success(function(result) {
+        $http.get('/testmessages').success(function(result) {
+          //$scope.messages = result.messages;   // changed payload
+          $scope.messages = result.content;
+          //console.log(' the result is ' + JSON.stringify(result.content,undefined,2) );
           // sort messages by createdAt
           $scope.messages.sort(function(a, b) {
             return new Date(a.createdAt) - new Date(b.createdAt);

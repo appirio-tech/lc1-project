@@ -124,7 +124,10 @@ module.exports = function(Challenges, app, auth, database, config) {
         .post(auth.requiresLogin, tags.create, routeHelper.renderJson)
         .get(tags.all, routeHelper.renderJson);
 
+    app.route('/testmessages')
+        .get(challenges.getTestMessages, routeHelper.renderJson);
+
     app.route('/discussionUrl')
-        .get(challenges.getDiscussionUrl, routeHelper.renderJson);
-        
+      .get(challenges.getDiscussionUrl, routeHelper.renderJson);
+    
 };

@@ -17,5 +17,5 @@
     "angular-sanitize": "latest",
     "showdown": "latest"
   },
-  "resolutions": { "angular": "1.2.25" }
+  "resolutions": { "angular": "1.3.0" }
 }

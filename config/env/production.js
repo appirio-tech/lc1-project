@@ -49,5 +49,6 @@ module.exports = {
       pass: 'PASSWORD'
     }
   },
-  pgURL: process.env.DATABASE_URL
+  pgURL: process.env.DATABASE_URL,
+  discussionUrl: 'http://lc1-discussion-service.herokuapp.com/discussions/'
 };

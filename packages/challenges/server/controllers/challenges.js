@@ -12,6 +12,20 @@ var File = datasource.File;
 var Account = datasource.Account;
 var _ = require('lodash');
 var routeHelper = require('../lib/routeHelper');
+var config = require('meanio').loadConfig();
+
+
+/**
+ * Return the discussin endpoint url in the configuration.
+ */
+exports.getDiscussionUrl = function(req, res, next) {
+  console.log('discussionUrl: ', config.discussionUrl);
+  req.data = {
+    success: true,
+    discussionUrl: config.discussionUrl
+  };
+  next();
+};
 
 /**
  * Find a challenge by id

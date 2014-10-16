@@ -58,5 +58,6 @@ module.exports = {
     dialect: 'postgres',
     port: 5432,
     native: true
-  }
+  },
+  discussionUrl: 'http://lc1-discussion-service.herokuapp.com/discussions/'
 };

@@ -1,3 +1,5 @@
+# bryce's change
+
 #db migration
 
 the db migration is done via `db-migrate` and `grunt-db-migrate`.

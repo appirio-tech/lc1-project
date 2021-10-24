@@ -49,7 +49,7 @@
     "connect-mongo": "^0.4.1",
     "consolidate": "^0.10.0",
     "cookie-parser": "^1.1.0",
-    "db-migrate": "0.7.1",
+    "db-migrate": "0.11.12",
     "dependable": "~0.2.5",
     "enum": "^0.2.6",
     "errorhandler": "^1.0.0",
